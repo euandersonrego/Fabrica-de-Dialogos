@@ -3,178 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fábrica de Diálogos - Edição Estratégica</title>
+    <title>Fábrica de Shorts - Herói-Interativo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://css.gg/css?=|music" rel="stylesheet">
+    <link href="https://css.gg/css?=|comment" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #121212;
         }
-        textarea::-webkit-scrollbar, .scroll-container::-webkit-scrollbar {
+        .oswald { font-family: 'Oswald', sans-serif; }
+        
+        @keyframes titlePulse {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(255, 0, 0, 0.5);
+            }
+        }
+        .title-animated {
+            animation: titlePulse 4s infinite ease-in-out;
+        }
+
+        .youtube-bg {
+            background-color: #212121;
+        }
+        textarea::-webkit-scrollbar, .scroll-container::-webkit-scrollbar, select::-webkit-scrollbar {
             width: 8px;
         }
-        textarea::-webkit-scrollbar-track, .scroll-container::-webkit-scrollbar-track {
-            background: #1f2937;
+        textarea::-webkit-scrollbar-track, .scroll-container::-webkit-scrollbar-track, select::-webkit-scrollbar-track {
+            background: #282828;
         }
-        textarea::-webkit-scrollbar-thumb, .scroll-container::-webkit-scrollbar-thumb {
-            background-color: #4b5563;
+        textarea::-webkit-scrollbar-thumb, .scroll-container::-webkit-scrollbar-thumb, select::-webkit-scrollbar-thumb {
+            background-color: #FF0000;
             border-radius: 10px;
-            border: 2px solid #1f2937;
+            border: 2px solid #282828;
         }
         .btn-confirm {
             background-color: #10b981 !important;
             color: white !important;
         }
+        .tooltip-trigger {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: #1f2937; /* zinc-800 */
+            color: #fff;
+            text-align: left;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px; /* Half of width */
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            font-size: 0.75rem;
+        }
+        .tooltip-trigger:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+        input:read-only, textarea:read-only {
+            background-color: #3f3f46 !important; /* zinc-700 */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+<body class="text-white flex items-center justify-center min-h-screen p-4">
 
-    <div class="bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-6xl border border-gray-700">
+    <div class="bg-zinc-900/90 backdrop-blur-sm p-6 sm:p-8 rounded-2xl w-full max-w-6xl border border-zinc-700/50 shadow-2xl shadow-red-900/20 youtube-bg">
         
         <div class="text-center mb-6">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-teal-400">Fábrica de Diálogos</h1>
-            <p class="text-gray-400 mt-2 font-medium">Edição Estratégica</p>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-red-600 oswald title-animated tracking-wider">Fábrica de Shorts</h1>
+            <p class="text-gray-400 mt-2 font-medium">Herói-Interativo</p>
         </div>
 
-        <!-- Main Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
-            <!-- Coluna 1: Gerador de Roteiro -->
-            <div class="space-y-6 p-4 border border-gray-700 rounded-lg">
-                <h2 class="text-xl font-bold text-center text-teal-400 mb-4">Passo 1: Gerar Roteiro</h2>
+            <div class="space-y-6 p-4 border border-zinc-800 rounded-lg">
+                <h2 class="text-xl font-bold text-center text-red-500 mb-4 oswald tracking-widest">PASSO 1: GERAR ROTEIRO</h2>
                 
-                <!-- Creation Mode Toggle -->
-                <div class="mb-6 flex justify-center bg-gray-700 p-1 rounded-lg">
-                    <button id="modeRapid" class="w-full py-2 text-sm font-bold rounded-md bg-teal-500 text-gray-900">Modo Rápido</button>
-                    <button id="modeAdvanced" class="w-full py-2 text-sm font-bold rounded-md text-gray-300">Modo Avançado</button>
+                <!-- BLOCO DE BOTÕES DE ABAS -->
+                <div class="mb-6 flex justify-center bg-zinc-800 p-1 rounded-lg">
+                    <button id="modeCreativeBtn" class="w-full py-2 text-sm font-bold rounded-md bg-red-600 text-white">Modo Criativo</button>
+                    <button id="modeTemplateBtn" class="w-full py-2 text-sm font-bold rounded-md text-gray-400">Modelos Prontos</button>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Col 1.1 -->
-                    <div class="space-y-4">
-                        <div>
-                            <label for="charName" class="block text-sm font-medium text-gray-300 mb-2">Herói Principal</label>
-                            <input type="text" id="charName" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex: Goku">
-                        </div>
-                        <div>
-                            <label for="plotType" class="block text-sm font-medium text-gray-300 mb-2">Tipo de Enredo</label>
-                            <select id="plotType" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
-                                <optgroup label="Ação e Fantasia">
-                                    <option value="aventura">Aventura (Resgate)</option>
-                                    <option value="luta">Luta (Superar um poder)</option>
-                                    <option value="desafio">Desafio (Obstáculo físico)</option>
-                                    <option value="competicao">Competição (Contra um rival)</option>
-                                    <option value="misterio">Mistério (Resolver um enigma)</option>
-                                    <option value="sacrificio">Sacrifício (Escolha difícil)</option>
-                                </optgroup>
-                                <optgroup label="Humor e Cotidiano">
-                                    <option value="brincadeira">Brincadeira (Algo dá errado)</option>
-                                    <option value="meme">Meme (Situação engraçada)</option>
-                                    <option value="cotidiano_discussao">Cotidiano (Discussão)</option>
-                                    <option value="cotidiano_trabalho">Cotidiano (Trabalho)</option>
-                                    <option value="cotidiano_amigos">Cotidiano (Amigos)</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="scriptDuration" class="block text-sm font-medium text-gray-300 mb-2">Duração do Roteiro</label>
-                            <select id="scriptDuration" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
-                                <option value="60s">Padrão (~60s)</option>
-                                <option value="30s">Curto (~30s)</option>
-                            </select>
-                        </div>
-                         <!-- Advanced Fields Col 1 -->
-                        <div id="advancedFields1" class="space-y-4 hidden">
-                             <div>
-                                <label for="location" class="block text-sm font-medium text-gray-300 mb-2">Localização da Cena</label>
-                                <input type="text" id="location" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex: Planeta Namekusei">
-                            </div>
-                             <div>
-                                <label for="crossoverElement" class="block text-sm font-medium text-gray-300 mb-2">Elemento Surpresa</label>
-                                <input type="text" id="crossoverElement" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex: Um Power Ranger">
-                            </div>
-                        </div>
+                
+                <!-- CONTAINER DO MODO CRIATIVO (FORMULÁRIO ANTIGO) -->
+                <div id="creativeModeContainer">
+                    <div class="mb-6 flex justify-center bg-zinc-800 p-1 rounded-lg">
+                        <button id="modeRapid" class="w-full py-2 text-sm font-bold rounded-md bg-red-600 text-white">Modo Rápido</button>
+                        <button id="modeAdvanced" class="w-full py-2 text-sm font-bold rounded-md text-gray-400">Modo Avançado</button>
                     </div>
-                    <!-- Col 1.2 -->
-                    <div class="space-y-4">
-                        <div>
-                            <label for="charUniverse" class="block text-sm font-medium text-gray-300 mb-2">Universo do Personagem</label>
-                            <input type="text" id="charUniverse" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex: Dragon Ball">
-                        </div>
-                        <div>
-                            <label for="coStar" class="block text-sm font-medium text-gray-300 mb-2">Personagem Secundário</label>
-                            <input type="text" id="coStar" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex: Vegeta">
-                        </div>
-                        <div>
-                            <label for="emotionalTone" class="block text-sm font-medium text-gray-300 mb-2">Tom Emocional</label>
-                            <select id="emotionalTone" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
-                                <option value="epico">Épico / Sério</option>
-                                <option value="comico">Cômico / Engraçado</option>
-                                <option value="emocionante">Emocionante / Comovente</option>
-                                <option value="suspense">Suspense / Tensão</option>
-                            </select>
-                        </div>
-                         <!-- Advanced Fields Col 2 -->
-                        <div id="advancedFields2" class="space-y-4 hidden">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-4">
                             <div>
-                                <label for="ctaStyle" class="block text-sm font-medium text-gray-300 mb-2">Estilo da CTA</label>
-                                <select id="ctaStyle" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
-                                    <option value="inscricao">Pedido de Inscrição</option>
-                                    <option value="like">Pedido de Like/Emoji</option>
-                                    <option value="comentario">Pedido de Comentário</option>
-                                    <option value="acao_tela">Ação na Tela (Cliques)</option>
-                                    <option value="continuacao">Gancho para Parte 2</option>
+                                <label for="charName" class="block text-sm font-medium text-gray-300 mb-2">Herói Principal</label>
+                                <input type="text" id="charName" list="charName-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: Goku">
+                                <datalist id="charName-list"></datalist>
+                            </div>
+                            <div>
+                                <label for="coStar" class="block text-sm font-medium text-gray-300 mb-2">Personagem Secundário</label>
+                                <input type="text" id="coStar" list="coStar-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: Vegeta">
+                                <datalist id="coStar-list"></datalist>
+                            </div>
+                            <div>
+                                <label for="plotType" class="block text-sm font-medium text-gray-300 mb-2">Tipo de Enredo</label>
+                                <select id="plotType" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                    <optgroup label="Estruturas Clássicas">
+                                        <option value="jornada_heroi">Jornada do Herói</option>
+                                        <option value="superando_monstro">Superando o Monstro</option>
+                                        <option value="de_mendigo_a_rei">De Mendigo a Rei</option>
+                                        <option value="a_busca">A Busca (The Quest)</option>
+                                        <option value="viagem_e_retorno">Viagem e Retorno</option>
+                                        <option value="renascimento">Renascimento</option>
+                                        <option value="azarado_com_coracao_de_ouro">Azarado com Coração de Ouro</option>
+                                        <option value="o_escolhido_relutante">O Escolhido Relutante</option>
+                                        <option value="rival_que_vira_aliado">Rival que vira Aliado</option>
+                                        <option value="treinamento_infernal">Treinamento Infernal</option>
+                                    </optgroup>
+                                    <optgroup label="Comédia">
+                                        <option value="comedia_erros">Comédia de Erros</option>
+                                        <option value="parodia">Paródia / Sátira de Animes</option>
+                                        <option value="comedia_romantica">Comédia Romântica Escolar</option>
+                                        <option value="humor_absurdo">Humor Absurdo (Nichijou)</option>
+                                        <option value="slice_of_life_engracado">Slice of Life Engraçado</option>
+                                    </optgroup>
+                                    <optgroup label="Tragédia e Drama">
+                                        <option value="tragedia">Tragédia (A Queda do Herói)</option>
+                                        <option value="drama_familiar">Drama Familiar</option>
+                                        <option value="sacrificio_heroico">Sacrifício Heroico</option>
+                                        <option value="vinganca">Busca por Vingança</option>
+                                        <option value="dilema_moral">Dilema Moral Impossível</option>
+                                    </optgroup>
                                 </select>
                             </div>
+                            <div id="advancedFields1" class="space-y-4 hidden">
+                                <div>
+                                    <label for="location" class="block text-sm font-medium text-gray-300 mb-2">Localização</label>
+                                    <input type="text" id="location" list="location-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: Planeta Namekusei">
+                                    <datalist id="location-list"></datalist>
+                                </div>
+                                <div>
+                                    <label for="crossoverElement" class="block text-sm font-medium text-gray-300 mb-2">Elemento Surpresa</label>
+                                    <input type="text" id="crossoverElement" list="crossoverElement-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: Um Power Ranger">
+                                    <datalist id="crossoverElement-list"></datalist>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
                             <div>
-                                <label for="keyObject" class="block text-sm font-medium text-gray-300 mb-2">Objeto Chave</label>
-                                <input type="text" id="keyObject" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex: As Esferas do Dragão">
+                                <label for="charUniverse" class="block text-sm font-medium text-gray-300 mb-2">Universo do Personagem</label>
+                                <input type="text" id="charUniverse" list="charUniverse-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: Dragon Ball">
+                                <datalist id="charUniverse-list"></datalist>
+                            </div>
+                            <div>
+                                <label for="villain" class="block text-sm font-medium text-gray-300 mb-2">Vilão</label>
+                                <input type="text" id="villain" list="villain-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: Freeza">
+                                <datalist id="villain-list"></datalist>
+                            </div>
+                            <div>
+                                <label for="emotionalTone" class="block text-sm font-medium text-gray-300 mb-2">Tom Emocional</label>
+                                <select id="emotionalTone" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                    <optgroup label="Positivos / Energéticos">
+                                        <option value="epico_heroico">Épico / Heroico</option>
+                                        <option value="inspirador_motivacional">Inspirador / Motivacional</option>
+                                        <option value="cheio_de_adrenalina">Cheio de Adrenalina</option>
+                                        <option value="comico_engracado">Cômico / Engraçado</option>
+                                        <option value="leve_despreocupado">Leve / Despreocupado</option>
+                                    </optgroup>
+                                    <optgroup label="Negativos / Sombrios">
+                                        <option value="sombrio_ameacador">Sombrio / Ameaçador</option>
+                                        <option value="suspense_tensao">Suspense / Tensão</option>
+                                        <option value="triste_melancolico">Triste / Melancólico</option>
+                                        <option value="caotico_desesperador">Caótico / Desesperador</option>
+                                        <option value="misterioso_intrigante">Misterioso / Intrigante</option>
+                                    </optgroup>
+                                    <optgroup label="Complexos / Neutros">
+                                        <option value="nostalgico_reflexivo">Nostálgico / Reflexivo</option>
+                                        <option value="romantico_apaixonado">Romântico / Apaixonado</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div id="advancedFields2" class="space-y-4 hidden">
+                                <div>
+                                    <label for="scriptDuration" class="block text-sm font-medium text-gray-300 mb-2">Duração do Roteiro</label>
+                                    <select id="scriptDuration" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                        <option value="60s">Padrão (~60s)</option>
+                                        <option value="30s">Curto (~30s)</option>
+                                        <option value="90s">Longo (~90s)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="keyObject" class="block text-sm font-medium text-gray-300 mb-2">Objeto Chave</label>
+                                    <input type="text" id="keyObject" list="keyObject-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" placeholder="Ex: As Esferas do Dragão">
+                                    <datalist id="keyObject-list"></datalist>
+                                </div>
+                                <div>
+                                    <label for="ctaStyle" class="block text-sm font-medium text-gray-300 mb-2">Estilo da CTA</label>
+                                    <select id="ctaStyle" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                        <optgroup label="Gatilhos de Urgência">
+                                            <option value="ajuda_urgente">"Preciso da sua ajuda AGORA!"</option>
+                                            <option value="barra_de_poder">"Minha energia está acabando!"</option>
+                                            <option value="like_para_ataque_final">"O Like de vocês é o meu Ataque Final!"</option>
+                                            <option value="compartilhe_para_salvar">"Compartilhe para salvá-lo(a)!"</option>
+                                        </optgroup>
+                                        <optgroup label="Gatilhos de Comunidade">
+                                            <option value="junte-se_a_luta">"Junte-se à luta se inscrevendo!"</option>
+                                            <option value="decisao_coletiva">"Comentem! Lutar ou Fugir?"</option>
+                                            <option value="vote_no_proximo_capitulo">"Vote no que acontece a seguir!"</option>
+                                            <option value="comente_a_estrategia">"Comente a melhor estratégia!"</option>
+                                            <option value="inscricao_power_up">"Sua inscrição me dá um power-up!"</option>
+                                            <option value="marque_um_amigo_para_ajudar">"Marque um amigo para me ajudar na batalha!"</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="riskLevel" class="block text-sm font-medium text-gray-300 mb-2">
+                                        Nível de Risco da Trama
+                                        <span class="tooltip-trigger text-red-400 font-bold cursor-help">[?]
+                                            <span class="tooltip-text">
+                                                Define o quão alta é a aposta. 'Moderado' é uma luta normal. 'Alto' significa que o herói pode ser gravemente ferido. 'Extremo' coloca o destino do universo em jogo.
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <select id="riskLevel" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                        <option value="moderado">Moderado (Padrão)</option>
+                                        <option value="alto">Alto (Herói em perigo real)</option>
+                                        <option value="extremo">Extremo (O mundo está em jogo)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="psychologicalHook" class="block text-sm font-medium text-gray-300 mb-2">
+                                        Gatilho do Gancho Inicial
+                                        <span class="tooltip-trigger text-red-400 font-bold cursor-help">[?]
+                                            <span class="tooltip-text">
+                                                Define a técnica psicológica para prender a atenção nos primeiros 3 segundos. 'Curiosidade' gera uma pergunta. 'Polêmica' cria um debate. 'Quebra de Padrão' é algo bizarro. 'Medo' cria urgência.
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <select id="psychologicalHook" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                        <option value="curiosidade">Curiosidade (Padrão)</option>
+                                        <option value="polemica">Polêmica / Controvérsia</option>
+                                        <option value="quebra_de_padrao">Quebra de Padrão (Absurdo)</option>
+                                        <option value="medo_urgencia">Medo / Urgência</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="border-t border-zinc-700 pt-4 mt-4">
+                        <h3 class="text-md font-bold text-center text-red-400 mb-3 oswald tracking-widest">BÔNUS: ARSENAL DE FRASES</h3>
+                        <div class="space-y-2">
+                            <label for="catchphraseSelect" class="block text-sm font-medium text-gray-300">Frases de Efeito Disponíveis</label>
+                            <select id="catchphraseSelect" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-purple-500 transition" disabled>
+                                <option>Escolha um herói primeiro</option>
+                            </select>
+                            <label for="catchphraseInput" class="block text-sm font-medium text-gray-300 mt-2">Frase para usar no roteiro (editável)</label>
+                            <input type="text" id="catchphraseInput" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-500 transition" placeholder="Selecione uma frase ou digite a sua...">
+                        </div>
+                    </div>
                 </div>
+
+                <!-- CONTAINER DE MODELOS PRONTOS -->
+                <div id="templateModeContainer" class="hidden space-y-4">
+                    <h2 class="text-xl font-bold text-center text-red-500 mb-4 oswald tracking-widest">USAR MODELO PRONTO</h2>
+                     <div>
+                        <label for="templateSelector" class="block text-sm font-medium text-gray-300 mb-2">Escolha o Modelo de História</label>
+                        <select id="templateSelector" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></select>
+                    </div>
+                    <div id="templateFieldsContainer" class="space-y-4">
+                        <!-- Os campos do modelo selecionado serão inseridos aqui pelo JavaScript -->
+                    </div>
+                    <!-- Area de Resultado para Canção de Ninar -->
+                    <div id="lullabyResultArea" class="hidden space-y-4 mt-4 border-t border-zinc-700 pt-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-sm font-bold text-red-400">TÍTULO:</label>
+                                <button id="copyLullabyTitleBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                            </div>
+                            <textarea id="lullabyTitleResult" rows="2" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" readonly></textarea>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-sm font-bold text-red-400">DESCRIÇÃO E #HASHTAGS:</label>
+                                <button id="copyLullabyDescBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                            </div>
+                            <textarea id="lullabyDescResult" rows="5" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" readonly></textarea>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-sm font-bold text-red-400">CANÇÃO DE NINAR:</label>
+                                <button id="copyLullabySongBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                            </div>
+                            <textarea id="lullabySongResult" rows="5" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" readonly></textarea>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-sm font-bold text-red-400">PROMPT PARA CHATGPT:</label>
+                                <button id="copyLullabyPromptsBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                            </div>
+                            <textarea id="lullabyPromptsResult" rows="15" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="grid grid-cols-2 gap-4 pt-4">
                     <button id="surpriseBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">Me Surpreenda!</button>
-                    <button id="generateBtn" class="w-full bg-teal-500 hover:bg-teal-600 text-gray-900 font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">Gerar Prompt de Roteiro</button>
+                    <button id="generateBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg shadow-red-500/30">Gerar Prompt de Roteiro</button>
                 </div>
                 <div id="scriptPromptResultArea" class="hidden">
                     <div class="flex justify-between items-center mb-2 mt-4">
-                        <label class="block text-sm font-bold text-teal-400">PROMPT PARA ROTEIRO (DIÁLOGO):</label>
-                        <button id="copyScriptPromptBtn" class="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                        <label class="block text-sm font-bold text-red-400">PROMPT PARA ROTEIRO (DIÁLOGO):</label>
+                        <button id="copyScriptPromptBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
                     </div>
-                    <textarea id="scriptPromptResult" rows="10" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" readonly></textarea>
+                    <textarea id="scriptPromptResult" rows="10" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" readonly></textarea>
                 </div>
             </div>
 
-            <!-- Coluna 2: Gerador de Imagens por Cena -->
-            <div class="space-y-6 p-4 border border-gray-700 rounded-lg">
-                <h2 class="text-xl font-bold text-center text-teal-400">Passo 2: Gerar Imagens</h2>
+            <div class="space-y-6 p-4 border border-zinc-800 rounded-lg">
+                <h2 class="text-xl font-bold text-center text-red-500 oswald tracking-widest">PASSO 2: GERAR PROMPTS FINAIS</h2>
                 <div>
                     <label for="pasteScriptArea" class="block text-sm font-medium text-gray-300 mb-2">Cole o roteiro gerado aqui:</label>
-                    <textarea id="pasteScriptArea" rows="10" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" placeholder="Ex:&#10;GOKU: vegeta, você não vai acreditar no que eu encontrei!&#10;VEGETA: não me diga que é outra fruta esquisita, kakaroto."></textarea>
+                    <textarea id="pasteScriptArea" rows="8" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Cole o roteiro aqui..."></textarea>
                 </div>
-                <button id="analyzeScriptBtn" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg transition">Analisar Roteiro e Gerar Prompt Mestre</button>
-                <div id="imagePromptResultArea" class="hidden">
-                     <div class="flex justify-between items-center mb-2 mt-4">
-                        <label class="block text-sm font-bold text-teal-400">PROMPT MESTRE PARA IMAGENS:</label>
-                        <button id="copyImagePromptBtn" class="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                <div>
+                    <label for="imageStyle" class="block text-sm font-medium text-gray-300 mb-2 mt-4">Estilo da Imagem</label>
+                    <div class="flex items-start gap-3">
+                        <select id="imageStyle" class="flex-grow w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                            <option value="vibrant anime art style">Anime Vibrante (Padrão)</option>
+                            <option value="realistic, hyperdetailed, 8k">Realista / Hiper-realista</option>
+                            <option value="chibi style, cute, big eyes">Estilo Chibi / Kawaii</option>
+                            <option value="black and white manga panel style, screentones">Estilo Mangá (Preto e Branco)</option>
+                            <option value="digital painting, fantasy, detailed brushstrokes">Pintura Digital Fantasia</option>
+                            <option value="watercolor illustration, soft colors">Ilustração em Aquarela</option>
+                            <option value="Studio Ghibli art style, painterly background">Estilo Studio Ghibli</option>
+                            <option value="dark fantasy art, gothic, moody lighting">Sombrio / Gótico</option>
+                            <option value="8-bit pixel art style">Pixel Art (8-bit)</option>
+                            <option value="saturday morning cartoon style">Desenho Infantil (Anos 90)</option>
+                        </select>
+                        <img id="imageStylePreview" src="" alt="Pré-visualização do Estilo" class="w-24 h-24 rounded-lg object-cover border-2 border-zinc-600 bg-zinc-800 flex-shrink-0">
                     </div>
-                    <textarea id="imagePromptResult" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition" rows="18" readonly></textarea>
+                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <button id="analyzeScriptBtn" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-4 rounded-lg transition">Analisar e Gerar Prompts</button>
+                </div>
+                
+
+                <div id="soundtrackSection" class="hidden border-t border-zinc-700 pt-4">
+                     <h3 class="text-md font-bold text-center text-red-400 mb-3 oswald tracking-widest">BÔNUS: MAESTRO DE TRILHA SONORA</h3>
+                     <button id="soundtrackBtn" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2">
+                        <i class="gg-music"></i>Sugerir Trilha Sonora
+                    </button>
+                    <div id="soundtrackResultArea" class="hidden mt-3">
+                         <div class="flex justify-between items-center mb-2 mt-4">
+                            <label class="block text-sm font-bold text-teal-400">PROMPT PARA BUSCAR MÚSICA:</label>
+                            <button id="copySoundtrackPromptBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                        </div>
+                        <textarea id="soundtrackResult" rows="4" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-teal-500 transition" readonly></textarea>
+                    </div>
+                </div>
+                
+                <div id="finalPromptsArea" class="hidden space-y-4">
+                    <div id="imagePromptSection" class="hidden">
+                        <div class="flex justify-between items-center mb-2 mt-4">
+                            <label class="block text-sm font-bold text-red-400">PROMPT MESTRE PARA IMAGENS:</label>
+                            <button id="copyImagePromptBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                        </div>
+                        <textarea id="imagePromptResult" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" rows="9" readonly></textarea>
+                    </div>
+                    <div id="metadataPromptSection" class="hidden">
+                         <div class="flex justify-between items-center mb-2 mt-4">
+                            <label class="block text-sm font-bold text-red-400">PROMPT PARA TÍTULO E DESCRIÇÃO:</label>
+                            <button id="copyMetadataPromptBtn" class="bg-zinc-600 hover:bg-zinc-700 text-white text-xs font-bold py-1 px-3 rounded-lg transition">Copiar</button>
+                        </div>
+                        <textarea id="metadataPromptResult" class="w-full bg-zinc-800 border border-zinc-600 text-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-red-500 transition" rows="9" readonly></textarea>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Ferramentas e Limpeza -->
-        <div class="mt-8 border-t border-gray-700 pt-6">
+        <div class="mt-8 border-t border-zinc-700 pt-6">
             <div class="flex justify-center items-center gap-4 flex-wrap mb-4">
-                <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition">
-                    Usar ChatGPT
-                </a>
-                <a href="https://labs.google/fx/pt/tools/image-fx" target="_blank" rel="noopener noreferrer" class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition">
-                    Usar ImageFX
-                </a>
+                <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" class="bg-zinc-700 hover:bg-zinc-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition">Usar ChatGPT</a>
+                <a href="https://labs.google/fx/pt/tools/image-fx" target="_blank" rel="noopener noreferrer" class="bg-zinc-700 hover:bg-zinc-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition">Usar ImageFX</a>
             </div>
             <div class="text-center">
                  <button id="clearBtn" class="bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-lg transition">Limpar Tudo</button>
@@ -183,251 +419,1325 @@
     </div>
 
     <script>
-        // DOM Elements
-        const modeRapid = document.getElementById('modeRapid');
-        const modeAdvanced = document.getElementById('modeAdvanced');
-        const advancedFields1 = document.getElementById('advancedFields1');
-        const advancedFields2 = document.getElementById('advancedFields2');
-        const charNameInput = document.getElementById('charName');
-        const charUniverseInput = document.getElementById('charUniverse');
-        const coStarInput = document.getElementById('coStar');
-        const plotTypeSelect = document.getElementById('plotType');
-        const emotionalToneSelect = document.getElementById('emotionalTone');
-        const scriptDurationSelect = document.getElementById('scriptDuration');
-        const ctaStyleSelect = document.getElementById('ctaStyle');
-        const locationInput = document.getElementById('location');
-        const keyObjectInput = document.getElementById('keyObject');
-        const crossoverElementInput = document.getElementById('crossoverElement');
-        
-        const generateBtn = document.getElementById('generateBtn');
-        const surpriseBtn = document.getElementById('surpriseBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        
-        const scriptPromptResultArea = document.getElementById('scriptPromptResultArea');
-        const scriptPromptResult = document.getElementById('scriptPromptResult');
-        const copyScriptPromptBtn = document.getElementById('copyScriptPromptBtn');
-        
-        const pasteScriptArea = document.getElementById('pasteScriptArea');
-        const analyzeScriptBtn = document.getElementById('analyzeScriptBtn');
-        const imagePromptResultArea = document.getElementById('imagePromptResultArea');
-        const imagePromptResult = document.getElementById('imagePromptResult');
-        const copyImagePromptBtn = document.getElementById('copyImagePromptBtn');
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- INÍCIO DA CONFIGURAÇÃO DE MODELOS PRONTOS ---
+            const storyTemplates = {
+                'concurso': {
+                    name: 'Concurso Escolar',
+                    fields: [
+                        { id: 'protagonista', label: 'Protagonista' },
+                        { id: 'pai', label: 'Pai/Mentor' },
+                        { id: 'professor', label: 'Professor (Adulto do Universo)' },
+                        { id: 'protagonista_desc', label: 'Descrição Visual do Protagonista' },
+                        { id: 'pai_desc', label: 'Descrição Visual do Pai/Mentor' },
+                        { id: 'adjetivo', label: 'Qualidade Incomum (Ex: o mais rico)' },
+                        { id: 'premio', label: 'Prêmio Desejável (Ex: uma Ferrari)' },
+                        { id: 'competidor1', label: 'Nome do Competidor 1' },
+                        { id: 'competidor2', label: 'Nome do Competidor 2' },
+                        { id: 'vitoria', label: 'Fenômeno Extremo da Vitória (Ex: chegar com mais dinheiro)' }
+                    ],
+                    examples: [
+                        { protagonista: "Naruto Uzumaki", pai: "Minato", professor: "Iruka Umino", protagonista_desc: "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.", pai_desc: "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.", adjetivo: "o mais pobre", premio: "um iPhone 15", competidor1: "Sakura Haruno", competidor2: "Sasuke Uchiha", vitoria: "desfere um soco tão forte que quebra a lousa atrás do professor" },
+                        { protagonista: "Goku", pai: "Bardock", professor: "Mestre Kame", protagonista_desc: "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.", pai_desc: "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.", adjetivo: "o mais forte", premio: "um troféu do CR7 de ouro", competidor1: "Kuririn", competidor2: "Vegeta", vitoria: "corre tão rápido em círculos que cria um pequeno tornado na sala" },
+                        { protagonista: "Guts", pai: "Gambino", professor: "Levi Ackerman", protagonista_desc: "[SURPREENDA-ME]", pai_desc: "[SURPREENDA-ME]", adjetivo: "o mais trágico", premio: "a espada Dragonslayer em miniatura", competidor1: "Griffith", competidor2: "Zodd", vitoria: "grita com tanta dor que as janelas da sala de aula estouram" },
+                        { protagonista: "Light Yagami", pai: "Ryuk", professor: "Satoru Gojo", protagonista_desc: "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.", pai_desc: "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.", adjetivo: "o mais inteligente", premio: "um Death Note de capa branca", competidor1: "L", competidor2: "Near", vitoria: "escreve o nome dos competidores em seu caderno e eles adormecem instantaneamente" }
+                    ],
+                    generatePrompt: (V) => {
+                        const createField = (value, instruction) => (value && value.trim().toUpperCase() === '[SURPREENDA-ME]') || !value ? instruction : value;
 
-        // Surprise Data
-        const surpriseOptions = {
-            characters: [
-                { name: 'Goku', universe: 'Dragon Ball', coStar: 'Vegeta' },
-                { name: 'Vegeta', universe: 'Dragon Ball', coStar: 'Freeza' },
-                { name: 'Naruto', universe: 'Naruto', coStar: 'Sasuke' },
-                { name: 'Luffy', universe: 'One Piece', coStar: 'Zoro' },
-                { name: 'Chaves', universe: 'Vila do Chaves', coStar: 'Seu Madruga' },
-                { name: 'Mulher Maravilha', universe: 'DC Comics', coStar: 'Superman' },
-                { name: 'Batman', universe: 'DC Comics', coStar: 'Coringa' },
-                { name: 'Homem-Aranha', universe: 'Marvel', coStar: 'Venom' },
-                { name: 'Pica-Pau', universe: 'Desenhos Clássicos', coStar: 'Leôncio' },
-            ],
-            locations: ['Academia de Polícia', 'Ilha Deserta', 'Casa Assombrada', 'Planeta Namekusei', 'Vila da Folha', 'Gotham City', 'Um avião cheio de zumbis', 'Uma praia paradisíaca'],
-            keyObjects: ['uma pokebola', 'um morfador de Power Ranger', 'a última semente dos deuses', 'um sanduíche de presunto', 'um cupcake mágico', 'um tênis da Nike', 'uma lâmpada do Gênio', 'a Espada na Pedra'],
-            crossovers: ['um zumbi', 'um dinossauro', 'um alienígena', 'um Power Ranger', 'um Pokémon', 'um Minion', 'um vampiro', 'um fantasma']
-        };
+                        const protagonista = createField(V.protagonista, 'CRIE UM PROTAGONISTA DE ANIME CRIATIVO E ADEQUADO PARA ESTA HISTÓRIA, INCLUINDO SEU NOME E UNIVERSO DE ORIGEM');
+                        const pai = createField(V.pai, 'CRIE UM PAI/MENTOR CRIATIVO PARA O PROTAGONISTA');
+                        const professor = createField(V.professor, 'CRIE UM PROFESSOR CRIATIVO E MARCANDO PARA A HISTÓRIA');
+                        const competidor1Nome = createField(V.competidor1, 'CRIE UM COMPETIDOR CRIATIVO E INTERESSANTE');
+                        const competidor2Nome = createField(V.competidor2, 'CRIE UM SEGUNDO COMPETIDOR CRIATIVO QUE SEJA DIFERENTE DO PRIMEIRO');
+                        const protagonista_desc = createField(V.protagonista_desc, 'CRIE UMA DESCRIÇÃO VISUAL DETALHADA E ÚNICA PARA O PROTAGONISTA. ESSA DESCRIÇÃO SERÁ A BASE PARA A IA DE IMAGEM E DEVE SER MANTIDA E ATUALIZADA CONFORME A HISTÓRIA PROGRIDE.');
+                        const pai_desc = createField(V.pai_desc, 'CRIE UMA DESCRIÇÃO VISUAL DETALHADA E ÚNICA PARA O PAI/MENTOR');
 
-        // Event Listeners
-        modeRapid.addEventListener('click', () => toggleMode(true));
-        modeAdvanced.addEventListener('click', () => toggleMode(false));
+                        // Thematic fields
+                        const adjetivoInput = V.adjetivo || '[SURPREENDA-ME]';
+                        const premioInput = V.premio || '[SURPREENDA-ME]';
+                        const vitoriaInput = V.vitoria || '[SURPREENDA-ME]';
 
-        generateBtn.addEventListener('click', () => {
-            if (!charNameInput.value.trim() || !charUniverseInput.value.trim()) {
-                generateBtn.textContent = 'Preencha Herói e Universo!';
-                setTimeout(() => { generateBtn.textContent = 'Gerar Prompt de Roteiro'; }, 2000);
-                return;
-            }
-            scriptPromptResult.value = generateScriptPrompt();
-            scriptPromptResultArea.classList.remove('hidden');
-            showConfirmation(generateBtn, 'Prompt Gerado!');
-        });
-        
-        surpriseBtn.addEventListener('click', () => {
-            const randomCharacter = surpriseOptions.characters[Math.floor(Math.random() * surpriseOptions.characters.length)];
-            
-            charNameInput.value = randomCharacter.name;
-            charUniverseInput.value = randomCharacter.universe;
-            coStarInput.value = randomCharacter.coStar;
-            
-            plotTypeSelect.selectedIndex = Math.floor(Math.random() * plotTypeSelect.options.length);
-            emotionalToneSelect.selectedIndex = Math.floor(Math.random() * emotionalToneSelect.options.length);
-            locationInput.value = surpriseOptions.locations[Math.floor(Math.random() * surpriseOptions.locations.length)];
-            keyObjectInput.value = surpriseOptions.keyObjects[Math.floor(Math.random() * surpriseOptions.keyObjects.length)];
-            crossoverElementInput.value = surpriseOptions.crossovers[Math.floor(Math.random() * surpriseOptions.crossovers.length)];
+                        return `Aja como um roteirista de alta performance e diretor de arte. Sua missão é criar um roteiro de ~60 segundos para um curta de animação que seja visualmente rico e fácil de traduzir em imagens detalhadas.
 
-            toggleMode(false);
-            
-            scriptPromptResult.value = generateScriptPrompt();
-            scriptPromptResultArea.classList.remove('hidden');
-            showConfirmation(surpriseBtn, 'Surpresa Gerada!');
-        });
+**TAREFA PRINCIPAL: LÓGICA TEMÁTICA COERENTE (REGRA OBRIGATÓRIA)**
+Antes de escrever o roteiro, sua primeira tarefa é estabelecer um tema coerente para o concurso. Os três elementos a seguir DEVEM estar perfeitamente conectados de forma lógica, criativa e, se possível, cômica.
+- **Qualidade para o Concurso:** A base é "${adjetivoInput}".
+- **Prêmio do Concurso:** A base é "${premioInput}".
+- **Ação Final da Vitória:** A base é "${vitoriaInput}".
 
-        analyzeScriptBtn.addEventListener('click', () => {
-            if (!pasteScriptArea.value.trim()) {
-                analyzeScriptBtn.textContent = 'Cole um roteiro primeiro!';
-                setTimeout(() => { analyzeScriptBtn.textContent = 'Analisar Roteiro e Gerar Prompt Mestre'; }, 2000);
-                return;
-            }
-            imagePromptResult.value = generateMasterImagePrompt();
-            imagePromptResultArea.classList.remove('hidden');
-        });
-        
-        clearBtn.addEventListener('click', () => {
-            const inputs = [charNameInput, charUniverseInput, coStarInput, locationInput, keyObjectInput, crossoverElementInput, pasteScriptArea];
-            inputs.forEach(i => i.value = '');
-            plotTypeSelect.selectedIndex = 0;
-            emotionalToneSelect.selectedIndex = 0;
-            scriptDurationSelect.selectedIndex = 0;
-            ctaStyleSelect.selectedIndex = 0;
-            scriptPromptResultArea.classList.add('hidden');
-            imagePromptResultArea.classList.add('hidden');
-            toggleMode(true);
-        });
+**Instrução de Geração:** Se qualquer um dos campos acima contiver "[SURPREENDA-ME]", você deve criar um valor para ele que se encaixe PERFEITAMENTE com os outros campos preenchidos. A conexão deve ser óbvia e inteligente. Se todos contiverem "[SURPREENDA-ME]", crie um trio temático completamente novo e coeso.
+**Exemplo de Lógica Coerente:** Se a "Qualidade" for "o mais rico", um "Prêmio" lógico seria "uma Ferrari de brinquedo de ouro" e uma "Ação de Vitória" lógica seria "chegar na escola com a maior pilha de dinheiro falso". Use essa mesma linha de raciocínio.
+Após definir este trio temático internamente, use os conceitos definidos para preencher o roteiro nos locais indicados.
 
-        copyScriptPromptBtn.addEventListener('click', () => copyToClipboard(scriptPromptResult.value, copyScriptPromptBtn));
-        copyImagePromptBtn.addEventListener('click', () => copyToClipboard(imagePromptResult.value, copyImagePromptBtn));
+**PERSONAGENS (com descrições para IA de imagem):**
+- **PROTAGONISTA:** ${protagonista} (Visual: ${protagonista_desc})
+- **PAI/MENTOR:** ${pai} (Visual: ${pai_desc})
+- **PROFESSOR:** ${professor} (Visual: Adulto, roupas de professor)
+- **COMPETIDOR 1:** ${competidor1Nome}
+- **COMPETIDOR 2:** ${competidor2Nome}
 
-        // Functions
-        function toggleMode(isRapid) {
-            if (isRapid) {
-                modeRapid.classList.add('bg-teal-500', 'text-gray-900');
-                modeRapid.classList.remove('text-gray-300');
-                modeAdvanced.classList.remove('bg-teal-500', 'text-gray-900');
-                modeAdvanced.classList.add('text-gray-300');
-                advancedFields1.classList.add('hidden');
-                advancedFields2.classList.add('hidden');
-            } else {
-                modeAdvanced.classList.add('bg-teal-500', 'text-gray-900');
-                modeAdvanced.classList.remove('text-gray-300');
-                modeRapid.classList.remove('bg-teal-500', 'text-gray-900');
-                modeRapid.classList.add('text-gray-300');
-                advancedFields1.classList.remove('hidden');
-                advancedFields2.classList.remove('hidden');
-            }
-        }
+**REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
+1.  **RIQUEZA VISUAL PARA IA DE IMAGEM:** Cada linha de ação (em maiúsculas) deve ser extremamente detalhada. Descreva com precisão cada objeto, vestimenta, expressão facial e a composição da cena. Se um personagem muda de estado (ex: fica molhado, sujo), essa condição DEVE ser mantida nas descrições seguintes até o final da história, garantindo uma continuidade visual clara de início, meio e fim.
+2.  **FORMATO ESTRITO:** O roteiro deve conter apenas falas e descrições de cena.
+    - **Falas:** Use o formato "NOME DO PERSONAGEM (com hints): [Fala]".
+    - **Descrições de Cena/Ação:** Use LETRAS MAIÚSCULAS.
+    - **NÃO GERE METADADOS** (título, descrição, etc.).
+    - **NÃO** escreva o roteiro como um parágrafo único.
+3.  **DIMINUTIVOS OBRIGATÓRIOS:** O professor (${professor}) DEVE SEMPRE se referir a todos os alunos (protagonista e competidores) usando seus nomes no diminutivo (Ex: Narutinho, Gokuzinho, Sakurinha).
+4.  **CENA 1 - EM CASA:**
+    - PROTAGONISTA: Pai, eu quero ser o mais [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA] da escola!
+    - PAI/MENTOR: E por que isso de repente, meu filho?
+    - PROTAGONISTA: É que vai ter um concurso valendo um [PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA]!
+    - CLOSE-UP CINEMATOGRÁFICO DO PRÊMIO: [PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA], BRILHANDO EM UM PEDESTAL IMAGINÁRIO.
+    - PAI/MENTOR: O QUÊ?! Por um [PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA]?! Vamos treinar agora!
+    - APÓS UM CORTE DE CENA, O PAI TEM UMA SOLUÇÃO RÁPIDA E ENGRAÇADA PARA O PROTAGONISTA FICAR MAIS [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA].
+5.  **CENA 2 - O CONCURSO (DENTRO DE UMA SALA DE AULA):**
+    - A CENA OCORRE DENTRO DE UMA SALA DE AULA, COM CARTEIRAS, QUADRO-NEGRO. OS PERSONAGENS ESTÃO ISOLADOS, SEM OUTROS ALUNOS.
+    - PROFESSOR: Silêncio! O concurso para o aluno mais [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA] vai começar!
+    - COMPETIDOR 1: Ha! Sou eu, claro! Ninguém é mais [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA] do que eu!
+    - CRIE UMA CENA ONDE O COMPETIDOR 1 TENTA PROVAR SEU VALOR E FALHA MISERAVELMENTE DE FORMA ENGRAÇADA.
+    - PROFESSOR: Reprovado!
+    - COMPETIDOR 2: Que amador! Agora veja um profissional de verdade!
+    - CRIE UMA CENA ONDE O COMPETIDOR 2 TENTA PROVAR SEU VALOR E TAMBÉM FALHA DE FORMA CÔMICA.
+    - PROFESSOR: Reprovado!
+    - PROTAGONISTA: Amigos, preciso da ajuda de vocês! Se inscrevam no canal agora para me dar a força necessária para vencer!
+    - CRIE O FENÔMENO EXTREMO DA VITÓRIA BASEADO NA AÇÃO: "[AÇÃO DE VITÓRIA DEFINIDA PELA LÓGICA TEMÁTICA]". SEJA CRIATIVO E VISUALMENTE IMPACTANTE, DESCREVENDO UMA AÇÃO FÍSICA CLARA.
+    - PROFESSOR: Inacreditável! O vencedor é o ${protagonista}!
+6.  **CENA FINAL OBRIGATÓRIA:**
+    - O PROTAGONISTA, VITORIOSO, SEGURA O PRÊMIO ([PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA]) COM UM SORRISO RADIANTE, OLHANDO PARA A CÂMERA.
+    - Descreva um close-up dramático nos dois competidores perdedores (${competidor1Nome} e ${competidor2Nome}), lado a lado, olhando diretamente para a câmera com expressões de choque extremo (olhos arregalados, bocas abertas). Mantenha a consistência visual das suas roupas e aparências.`;
+                    }
+                },
+                'cancaodeninar_cuca': {
+                    name: 'Canção de Ninar da Cuca (Modelo Fixo)',
+                    isSpecial: true,
+                    fields: [
+                        { id: 'personagem_bebe', label: 'Personagem Bebê (Ex: GOKU, NARUTO, etc.)', placeholder: 'Ex: BATMAN' }
+                    ],
+                    examples: [
+                        { personagem_bebe: "GOKU" },
+                        { personagem_bebe: "NARUTO" },
+                        { personagem_bebe: "BATMAN" }
+                    ],
+                    songText: "Nana neném!\nQue a Cuca vem pegar!\nPapai foi pra roça!\nMamãe foi trabalhar!\nUé! E quem é que está cantando?!",
+                    fixedPrompt: `Modifique todos esse prompts só mudando o personagem bebe para ser "FREEZA VILÃO DE DBZ", modificando também os pais, para serem os pais dele, eles devem esta nos mesmos cenario e fazendo as mesmas coisa, ajuste os prompts:
 
-        function showConfirmation(buttonElement, message) {
-            const originalText = buttonElement.textContent;
-            buttonElement.textContent = message;
-            buttonElement.classList.add('btn-confirm');
-            setTimeout(() => {
-                buttonElement.textContent = originalText;
-                buttonElement.classList.remove('btn-confirm');
-            }, 2000);
-        }
+close dormindo nos braços da cuca:
+EXTREME CLOSE-UP of baby Frieza in his first form, sleeping peacefully, held securely only by the hands of a green-skinned person with crocodile-like texture, long blonde hair visible but no other part of the person shown, faint crocodile snout (alligator-like muzzle) partially visible near the frame, Frieza's smooth white and purple bio-armor gleaming, face completely hidden, hands with exaggerated long pointed claws gripping gently, warm and comforting lighting, soft focus on the hands and Frieza, realistic-cartoon style, vibrant yet soft colors, shallow depth of field, tender and slightly eerie atmosphere.
 
-        function copyToClipboard(text, buttonElement) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            
-            const originalText = buttonElement.textContent;
-            buttonElement.textContent = 'Copiado!';
-            buttonElement.classList.add('bg-green-500');
-            setTimeout(() => {
-                buttonElement.textContent = originalText;
-                buttonElement.classList.remove('bg-green-500');
-            }, 2000);
-        }
+pai:
+MEDIUM SHOT of King Cold, Frieza's father, in his final form, no royal throne, dressed in simple rugged farm clothes loosely over his natural bio-armor, standing in a rustic countryside field under bright daylight, holding a worn wooden hoe with both hands, dirt on his legs and tail as he works the land, muscular and towering figure contrasted with the humble rural setting, expression focused and slightly weary from labor, rows of crops and a small wooden fence in the background, warm natural lighting, earthy textures of soil, wood, and plants blending with his alien bio-armor, realistic-cartoon style, cinematic yet pastoral atmosphere, depth of field showing green hills fading into the distance, sense of toil and simplicity in contrast to his usual royal power.
 
-        function generateScriptPrompt() {
-            const data = {
-                charName: charNameInput.value.trim(),
-                charUniverse: charUniverseInput.value.trim(),
-                coStar: coStarInput.value.trim(),
-                plotType: plotTypeSelect.options[plotTypeSelect.selectedIndex].text,
-                emotionalTone: emotionalToneSelect.options[emotionalToneSelect.selectedIndex].text,
-                duration: scriptDurationSelect.value,
-                location: locationInput.value.trim(),
-                keyObject: keyObjectInput.value.trim(),
-                crossover: crossoverElementInput.value.trim(),
+mãe:
+MEDIUM SHOT of Frieza’s mother, a regal and imposing figure of his race, wearing simple yet colorful clothing over her natural bio-armor, standing at a bustling outdoor market stall filled with exotic fruits stacked in wooden crates and baskets, her long tail curling behind her, hands arranging vibrant tropical fruits like bananas, pineapples, and strange alien produce, warm sunlight filtering through fabric canopies, lively crowd silhouettes in the background, expression focused but approachable, textures of her bio-armor contrasting with the rough wood and fruit skins, realistic-cartoon style, vibrant colors, natural lighting, slightly cinematic atmosphere, shallow depth of field with a rustic village fair in the background, scene of everyday commerce.
+
+dormindo nos braços da cuca:
+CLOSE-UP of baby Frieza in his first form, sleeping in the arms of Cuca from Sítio do Picapau Amarelo, depicted as a female crocodile with long blonde hair, gently cradling Frieza’s body and arms without showing her face, giving a clearly sinister and evil look, Frieza's smooth white and purple bio-armor visible, cozy yet tense environment, warm and soft lighting with a hint of dramatic shadows, focus on the textures of baby Frieza’s skin-like carapace and armor, realistic-cartoon style, vibrant yet slightly dark colors, depth of field with slightly blurred background, ominous and suspenseful atmosphere.
+
+acordando assustado nos braços da cuca:
+CLOSE-UP of baby Frieza in his first form, waking up suddenly with a terrified expression in the arms of Cuca from Sítio do Picapau Amarelo, depicted as a female crocodile with long blonde hair, cradling Frieza’s body and arms without showing her face, giving a clearly sinister and evil look, cozy yet tense environment, dramatic lighting with sharp shadows highlighting Frieza's wide, fearful red eyes, focus on his shocked expression and the textures of his bio-armor against Cuca's scaly skin, realistic-cartoon style, vibrant yet slightly dark colors, depth of field with slightly blurred background, ominous and suspenseful atmosphere.
+
+cuca com a boca aberta:
+A close-up of Cuca, the evil witch from *Sítio do Picapau Amarelo*, with her mouth wide open, coming toward the camera as if to devour the viewer. Her crocodile-like green face is distorted in a menacing expression, with sharp teeth visible in her open mouth. Her eyes are filled with malice, and her blonde hair falls loosely around her scaly face. The background is dark and macabre, with swirling black shadows that create an eerie, foreboding atmosphere. The lighting focuses on Cuca's terrifying face, emphasizing the sinister intent as she seems to lunge toward the screen.`,
+                    generatePrompt: function(V) {
+                        const babyName = V.personagem_bebe.trim();
+                        const finalPrompt = this.fixedPrompt.replace('"FREEZA VILÃO DE DBZ"', `"${babyName.toUpperCase()}"`);
+                        
+                        const title = `Parece que a Cuca encontrou o "${babyName}"`;
+                        const description = `Parece que a "Cuca" está mesmo por aqui! 😄 E quem está cantando? ... talvez o "${babyName}" nunca saiba ou seja a sua própria imaginação! Quem sabe a Cuca resolveu dar uma passadinha enquanto todo mundo estava ocupado? 😜.\n\n#cuca #sítiodopicapauamarelo #lendasbrasileiras #${babyName.toLowerCase().replace(/ /g, '')} #historias`;
+                        
+                        return { 
+                            song: this.songText, 
+                            prompts: finalPrompt,
+                            title: title,
+                            description: description
+                        };
+                    }
+                },
+                'desafio_viral': {
+                    name: 'Desafio Viral (Protagonista vs Rivais)',
+                    fields: [
+                        { id: 'protagonista', label: 'Protagonista Principal', placeholder: 'Ex: Goku' },
+                        { id: 'rival1', label: 'Rival 1', placeholder: 'Ex: Vegeta' },
+                        { id: 'rival2', label: 'Rival 2', placeholder: 'Ex: Freeza' },
+                        { id: 'desafio', label: 'Nome do Desafio (ou deixe em branco para IA criar)', placeholder: 'do Hambúrguer Gigante' },
+                        { id: 'objetivo_desafio', label: 'Objetivo do Desafio (ou deixe em branco)', placeholder: 'comer o maior hambúrguer do universo' },
+                        { id: 'item_poderoso', label: 'Nome do Item Mágico/Boost (ou deixe em branco)', placeholder: 'Hambúrguer Supremo Saiyajin' },
+                        { id: 'acao_item', label: 'Ação com o Item (ou deixe em branco)', placeholder: 'dando uma mordida enorme no hambúrguer' },
+                        { id: 'efeito_visual', label: 'Efeito Visual nos Rivais (ou deixe em branco)', placeholder: 'ficam com as barrigas enormes e rindo' },
+                        { id: 'protagonista_supera_acao', label: 'Como Protagonista Supera (ou deixe em branco)', placeholder: 'aparece com um hambúrguer do tamanho de um planeta' },
+                        { id: 'frase_protagonista_alerta', label: 'Alerta do Protagonista (ou deixe em branco)', placeholder: 'Uau… quantos hambúrgueres vocês comeram?!' },
+                        { id: 'emoji_final', label: 'Emoji para CTA Final (ou deixe em branco)', placeholder: '🍔' }
+                    ],
+                    examples: [
+                        {
+                            protagonista: 'Goku',
+                            rival1: 'Vegeta',
+                            rival2: 'Freeza',
+                            desafio: 'do Hambúrguer Gigante',
+                            objetivo_desafio: 'comer o maior hambúrguer do universo',
+                            item_poderoso: 'Hambúrguer Supremo Saiyajin',
+                            acao_item: 'dando uma mordida enorme no hambúrguer',
+                            efeito_visual: 'ficam com as barrigas enormes e rindo de satisfação',
+                            protagonista_supera_acao: 'aparece segurando um hambúrguer GIGANTE do tamanho de um planeta e dá uma mordida colossal',
+                            frase_protagonista_alerta: 'Uau… quantos hambúrgueres vocês comeram?! Isso não faz mal, não? Lembrem-se… exagerar pode deixar vocês lentos pra próxima batalha!',
+                            emoji_final: '🍔'
+                        },
+                        {
+                            protagonista: 'Naruto Uzumaki',
+                            rival1: 'Sasuke Uchiha',
+                            rival2: 'Madara Uchiha',
+                            desafio: 'do Jutsu Mais Criativo',
+                            objetivo_desafio: 'criar o jutsu mais inesperado',
+                            item_poderoso: 'Pergaminho do Sábio dos Seis Bigodes',
+                            acao_item: 'desenrolando o pergaminho e canalizando chakra',
+                            efeito_visual: 'se transformam em versões cômicas de gatos gigantes',
+                            protagonista_supera_acao: 'usa o Jutsu Sexy e transforma o Gamabunta em uma versão feminina gigante e rosa',
+                            frase_protagonista_alerta: 'Ei, vocês leram esse pergaminho direito? Isso parece perigoso, tô certo!',
+                            emoji_final: '🦊'
+                        },
+                        {
+                            protagonista: 'Saitama',
+                            rival1: 'Genos',
+                            rival2: 'Garou',
+                            desafio: 'de Chegar a Tempo na Promoção do Supermercado',
+                            objetivo_desafio: 'ser o primeiro a pegar o último repolho em promoção',
+                            item_poderoso: 'Tênis a Jato da Associação de Heróis',
+                            acao_item: 'ativando os propulsores dos tênis',
+                            efeito_visual: 'correm tão rápido que deixam um rastro de fogo e destroem várias prateleiras',
+                            protagonista_supera_acao: 'simplesmente anda em velocidade normal, pega o repolho e passa no caixa enquanto os outros dois colidem',
+                            frase_protagonista_alerta: 'Ah... vocês vão pagar por tudo isso que quebraram, né?',
+                            emoji_final: '🥬'
+                        }
+                    ],
+                    generatePrompt: (V) => {
+                        const protagonista = V.protagonista || 'Goku';
+                        const rival1 = V.rival1 || 'Vegeta';
+                        const rival2 = V.rival2 || 'Freeza';
+
+                        const isAutomatic = !V.desafio && !V.objetivo_desafio && !V.item_poderoso;
+
+                        if (isAutomatic) {
+                            return `Aja como um roteirista de alta performance para YouTube Shorts, especializado em criar conteúdo viral de anime. Sua missão é criar um roteiro curto e engraçado do zero.
+
+**PERSONAGENS:**
+* **Protagonista:** ${protagonista}
+* **Rival 1:** ${rival1}
+* **Rival 2:** ${rival2}
+
+**REGRAS DE CRIAÇÃO AUTOMÁTICA (OBRIGATÓRIAS):**
+1.  **INVENTE UM DESAFIO:** Crie um desafio completamente novo, criativo e cômico para os três personagens. Pode ser qualquer coisa (comida, força, velocidade, arte, etc.).
+2.  **CRIE O "BOOST":** Invente um item, técnica ou objeto de poder que os rivais (${rival1} e ${rival2}) usam para tentar vencer.
+3.  **CRIE O EFEITO VISUAL:** Descreva uma transformação física engraçada ou exagerada que acontece com os rivais após usarem o "boost". Eles NÃO precisam sempre ficar com a barriga grande. Podem mudar de cor, ficar com mãos gigantes, congelados, pegar fogo, etc. Seja criativo e conecte o efeito ao desafio.
+4.  **CRIE A VITÓRIA DO PROTAGONISTA:** O protagonista (${protagonista}) deve vencer de uma forma ainda mais absurda e inesperada, superando a lógica do "boost" dos rivais.
+5.  **SIGA A ESTRUTURA VIRAL:** Use a estrutura de roteiro abaixo como base para a história que você criar.
+
+**ESTRUTURA DE ROTEIRO (OBRIGATÓRIA):**
+
+DESAFIO - "O Desafio [NOME DO DESAFIO CRIADO]" [EMOJI CRIADO]
+
+${rival1} (atlético, determinado):
+${protagonista}!! Vamos fazer um desafio… vamos ver quem consegue [OBJETIVO DO DESAFIO CRIADO]!
+
+${rival1} (confiante, segurando o item):
+Dessa vez você não pode me vencer! Eu trouxe o [ITEM PODEROSO CRIADO]! Hahaha!
+
+${rival1} ([AÇÃO COM O ITEM CRIADO]):
+[FALA DE CONFIANÇA DO RIVAL 1]!
+
+${rival2} (arrogante, cruzando os braços):
+Eu também irei participar desse desafio, ${rival1}! Me dê um desses!
+
+${rival2} ([AÇÃO COM O ITEM CRIADO]):
+Hahaha! Agora sim… o poder cósmico será meu!
+
+${rival1} E ${rival2} [EFEITO VISUAL CRIADO NOS DOIS].
+
+${rival1} (transformado/afetado, orgulhoso):
+Hahaha! Nenhum ser do universo é melhor que eu nisso!
+
+${rival2} (transformado/afetado, rindo alto):
+Concordo! Esse desafio já é nosso!
+
+INSCREVA-SE PARA AJUDAR ${protagonista.toUpperCase()} A VENCER ESSE DESAFIO!
+
+${protagonista} (tranquilo, curioso):
+[ALERTA CRIATIVO DO PROTAGONISTA SOBRE O PERIGO/ABSURDO DA SITUAÇÃO]
+
+${rival1} (transformado/afetado, rindo):
+Besteira, ${protagonista}! Eu ainda conseguiria mais!
+
+${rival2} (transformado/afetado, confiante):
+Hahaha! ${protagonista}, você não tem chance!
+
+${protagonista} (sorrindo, com um ar desafiador):
+Infelizmente… mesmo com todo esse ${V.item_poderoso || '[ITEM PODEROSO CRIADO]'}, não será o suficiente...
+
+${protagonista} ([AÇÃO CRIATIVA DE COMO ELE SUPERA OS RIVAIS]).
+
+${rival1} (chocado, vendo a ação do protagonista):
+O quê?! Isso é um exagero ou um lanche?!
+
+${rival2} (assustado, incrédulo):
+ISSO É IMPOSSÍVEL!!
+
+${protagonista} (rindo, após sua vitória):
+E então? Eu venci esse desafio?
+
+DEIXE ESSE EMOJI SE VOCÊ ACHA QUE EU VENCI ESSE DESAFIO!`;
+                        } else {
+                            const desafio = V.desafio || 'criativo';
+                            const objetivo_desafio = V.objetivo_desafio || 'ser o mais criativo';
+                            const item_poderoso = V.item_poderoso || 'Pincel Mágico';
+                            const acao_item = V.acao_item || 'pintando no ar';
+                            const efeito_visual = V.efeito_visual || 'se tornam personagens 2D de rabiscos';
+                            const protagonista_supera_acao = V.protagonista_supera_acao || 'desenha um buraco negro que suga as criações dos outros';
+                            const frase_protagonista_alerta = V.frase_protagonista_alerta || 'Cuidado, a arte de vocês parece meio... instável.';
+                            const emoji_final = V.emoji_final || '🎨';
+
+                            return `Aja como um roteirista de alta performance para YouTube Shorts, especializado em criar conteúdo viral de anime. Sua missão é criar um roteiro curto e engraçado.
+
+**PERSONAGENS:** ${protagonista}, ${rival1}, ${rival2}.
+**TEMA:** Desafio ${desafio}.
+
+**REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
+1.  **RIQUEZA VISUAL:** Descreva com precisão as ações e os efeitos visuais nos personagens. As transformações devem ser claras para a IA de imagem.
+2.  **FORMATO ESTRITO:** Use o formato "NOME DO PERSONAGEM (descrição visual/emocional): [Fala]". Ações fora do diálogo devem estar em MAIÚSCULAS.
+3.  **ESTRUTURA VIRAL:** Siga esta sequência de eventos sem falhas.
+
+**ROTEIRO:**
+
+DESAFIO - "O Desafio ${desafio}" ${emoji_final}
+
+${rival1} (atlético, determinado):
+${protagonista}!! Vamos fazer um desafio… vamos ver quem consegue ${objetivo_desafio}!
+
+${rival1} (confiante, segurando o item):
+Dessa vez você não pode me vencer! Eu trouxe o ${item_poderoso}! Hahaha!
+
+${rival1} (${acao_item}):
+Hehehe… um verdadeiro guerreiro precisa de combustível!
+
+${rival2} (arrogante, cruzando os braços):
+Eu também irei participar desse desafio, ${rival1}! Me dê um desses!
+
+${rival2} (${acao_item}):
+Hahaha! Agora sim… o poder cósmico será meu!
+
+${rival1} E ${rival2} ${efeito_visual.toUpperCase()}.
+
+${rival1} (transformado/afetado, orgulhoso):
+Hahaha! Nenhum ser do universo é melhor que eu nisso!
+
+${rival2} (transformado/afetado, rindo alto):
+Concordo, príncipe! Esse desafio já é nosso!
+
+INSCREVA-SE PARA AJUDAR ${protagonista.toUpperCase()} A VENCER ESSE DESAFIO!
+
+${protagonista} (tranquilo, curioso):
+${frase_protagonista_alerta}
+
+${rival1} (transformado/afetado, rindo):
+Besteira, ${protagonista}! Eu ainda conseguiria mais!
+
+${rival2} (transformado/afetado, confiante):
+Hahaha! ${protagonista}, você não tem chance!
+
+${protagonista} (sorrindo, com um ar desafiador):
+Infelizmente… mesmo com todo esse ${item_poderoso}, não será o suficiente...
+
+${protagonista} (${protagonista_supera_acao.toUpperCase()}).
+
+${rival1} (chocado, vendo a ação de ${protagonista}):
+O quê?! Isso é um exagero ou um lanche?!
+
+${rival2} (assustado, incrédulo):
+ISSO É IMPOSSÍVEL!!
+
+${protagonista} (rindo, após sua transformação/ação superior):
+E então? Eu venci esse desafio?
+
+DEIXE ESSE EMOJI SE VOCÊ ACHA QUE EU VENCI ESSE DESAFIO!`;
+                        }
+                    }
+                },
+                'dia_a_dia': {
+                    name: 'Situações do Dia a Dia (Crianças & Adulto)',
+                    fields: [
+                        { id: 'crianca1', label: 'Criança 1 (Ingênuo/Medroso)', placeholder: 'Ex: Goku Criança' },
+                        { id: 'crianca2', label: 'Criança 2 (Teimoso/Competitivo)', placeholder: 'Ex: Vegeta Criança' },
+                        { id: 'adulto', label: 'Adulto Responsável (Figura de Autoridade)', placeholder: 'Ex: Bulma' },
+                        { id: 'situacao', label: 'Situação/Conflito (ou deixe em branco para IA criar)', placeholder: 'Não querer tomar banho' }
+                    ],
+                    examples: [
+                        { crianca1: 'Goku criança', crianca2: 'Vegeta criança', adulto: 'Bulma', situacao: 'Não querer tomar banho' },
+                        { crianca1: 'Goku criança', crianca2: 'Vegeta criança', adulto: 'Bulma médica', situacao: 'Não querer tomar vacina' },
+                        { crianca1: 'Goku criança', crianca2: 'Vegeta criança', adulto: 'Bulma', situacao: 'Não querer comer legumes' },
+                        { crianca1: 'Goku criança', crianca2: 'Vegeta criança', adulto: 'Bulma', situacao: 'Não querer dormir' },
+                        { crianca1: 'Goku criança', crianca2: 'Vegeta criança', adulto: 'Bulma', situacao: 'Não querer ir pra escola' },
+                        { crianca1: 'Goku criança', crianca2: 'Vegeta criança', adulto: 'Bulma', situacao: 'Não querer cortar o cabelo' }
+                    ],
+                    generatePrompt: (V) => {
+                        const crianca1 = V.crianca1 || 'Goku Criança';
+                        const crianca2 = V.crianca2 || 'Vegeta Criança';
+                        const adulto = V.adulto || 'Bulma';
+                        const situacao = V.situacao;
+
+                        const automaticInstruction = `
+**TAREFA PRINCIPAL: CRIAÇÃO AUTOMÁTICA**
+Crie um roteiro do zero baseado em um conflito cômico e simples do dia a dia. **Seja criativo e evite usar os exemplos mais comuns como 'tomar banho' ou 'cortar o cabelo', a menos que possa dar um giro muito original.** Pense em situações inesperadas e engraçadas (ex: medo de um inseto, briga por um brinquedo, tentar cozinhar e falhar, etc.). Escolha UMA situação e desenvolva a história.`;
+                        
+                        const specificInstruction = `
+**TAREFA PRINCIPAL: DESENVOLVER ROTEIRO**
+Crie um roteiro baseado no seguinte conflito: **${situacao}**.`;
+
+                        const fixedExample = `
+**EXEMPLO DE ESTRUTURA E TOM (OBRIGATÓRIO SEGUIR):**
+Use este exemplo como referência para o ritmo, humor e formato.
+
+TÍTULO: A BATALHA DA VACINA
+
+Bulma (com uma seringa): Crianças, hora da vacina!
+Goku criança (assustado): Vacina? Isso dói?!
+Vegeta criança (rindo): Hahaha! Medroso! Um príncipe Sayajin não teme agulhas! Eu vou primeiro!
+VEGETA ESTICA O BRAÇO, ORGULHOSO. BULMA APLICA A VACINA.
+Vegeta criança (olhos arregalados, voz fina): ...Ai.
+Goku criança (curioso): E aí, doeu?
+Vegeta criança (tentando ser durão, com uma lágrima): ...Claro que não, inseto!
+Bulma (para a câmera): Vocês acham que o Vegeta chorou? Deixem o Like e comentem "SIM" ou "NÃO"!`;
+
+                        return `Aja como um roteirista de alta performance para YouTube Shorts, especializado em criar conteúdo viral de comédia com personagens de anime em situações cotidianas.
+
+${situacao ? specificInstruction : automaticInstruction}
+
+**PERSONAGENS E SUAS PERSONALIDADES (OBRIGATÓRIO):**
+* **${crianca1}:** Deve agir de forma ingênua e medrosa. Geralmente é o primeiro a reclamar ou a iniciar o conflito.
+* **${crianca2}:** Deve ser teimoso, competitivo e exagerado. Frequentemente tenta copiar ou superar ${crianca1}, mas sempre se dá mal.
+* **${adulto}:** A figura de autoridade. Deve ser firme, mas engraçada, resolvendo o conflito com uma bronca ou "punição" cômica e exagerada.
+
+**REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
+1.  **TÍTULO:** Comece o roteiro com um título chamativo e engraçado no formato: TÍTULO: [Seu Título Criativo Aqui].
+2.  **DIÁLOGOS CURTOS (MÁX. 8 FALAS):** As falas devem ser curtas, diretas e engraçadas. O roteiro total não deve passar de 8 linhas de diálogo para manter o ritmo rápido.
+3.  **AÇÕES VISUAIS:** ENTRE as falas, descreva ações visuais claras e detalhadas em LETRAS MAIÚSCULAS. Ex: (${crianca2} SE SUJA DE LAMA NO QUINTAL). Isso é crucial para a animação.
+4.  **CONSISTÊNCIA VISUAL:** Se um personagem muda de estado (ex: fica sujo, molhado, machucado), as AÇÕES EM MAIÚSCULAS subsequentes DEVEM descrever essa nova condição para manter a continuidade.
+5.  **ESTRUTURA DA HISTÓRIA:**
+    * **Início:** Apresente o conflito simples com ${crianca1}.
+    * **Meio:** ${crianca2} entra na história de forma competitiva e se dá mal.
+    * **Clímax:** ${adulto} intervém ou observa a falha cômica.
+    * **Conclusão:** A história deve terminar com a CTA final.
+6.  **CTA FINAL OBRIGATÓRIO:** O roteiro DEVE terminar com o ${adulto} (ou uma das crianças) olhando para a câmera e fazendo uma pergunta de "SIM" ou "NÃO" para a audiência, pedindo o Like. Ex: 'Vocês acham que [Criança 2] aprendeu a lição? Deixe o Like e comente SIM ou NÃO!'
+
+${fixedExample}
+
+Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
+                    }
+                }
             };
+            // --- FIM DA CONFIGURAÇÃO DE MODELOS PRONTOS ---
+
+            // Variáveis do Modo Criativo
+            const modeRapid = document.getElementById('modeRapid');
+            const modeAdvanced = document.getElementById('modeAdvanced');
+            const advancedFields1 = document.getElementById('advancedFields1');
+            const advancedFields2 = document.getElementById('advancedFields2');
+            const charNameInput = document.getElementById('charName');
+            const charUniverseInput = document.getElementById('charUniverse');
+            const coStarInput = document.getElementById('coStar');
+            const villainInput = document.getElementById('villain');
+            const plotTypeSelect = document.getElementById('plotType');
+            const scriptDurationSelect = document.getElementById('scriptDuration');
+            const emotionalToneSelect = document.getElementById('emotionalTone');
+            const locationInput = document.getElementById('location');
+            const keyObjectInput = document.getElementById('keyObject');
+            const crossoverElementInput = document.getElementById('crossoverElement');
+            const ctaStyleSelect = document.getElementById('ctaStyle');
+            const catchphraseSelect = document.getElementById('catchphraseSelect');
+            const catchphraseInput = document.getElementById('catchphraseInput');
+
+            // Variáveis Gerais e de Abas
+            let currentMode = 'creative';
+            const modeCreativeBtn = document.getElementById('modeCreativeBtn');
+            const modeTemplateBtn = document.getElementById('modeTemplateBtn');
+            const creativeModeContainer = document.getElementById('creativeModeContainer');
+            const templateModeContainer = document.getElementById('templateModeContainer');
+            const templateSelector = document.getElementById('templateSelector');
+            const templateFieldsContainer = document.getElementById('templateFieldsContainer');
+
+            const generateBtn = document.getElementById('generateBtn');
+            const surpriseBtn = document.getElementById('surpriseBtn');
+            const clearBtn = document.getElementById('clearBtn');
             
-            const durationMap = { '60s': '~60 segundos', '30s': '~30 segundos' };
+            // Variáveis de Resultado (Passo 1)
+            const scriptPromptResultArea = document.getElementById('scriptPromptResultArea');
+            const scriptPromptResult = document.getElementById('scriptPromptResult');
+            const copyScriptPromptBtn = document.getElementById('copyScriptPromptBtn');
             
-            const ctaExamples = `
-- **Pedido de Inscrição Direto:** "Rápido, preciso da SUA ajuda! Se inscreva agora para me dar a força que preciso para vencer!"
-- **Pedido de Like/Emoji:** "Você aí! Cada like que você der fortalece o meu poder! Me ajude!"
-- **Pedido de Comentário (Pergunta):** "Eu não sei o que fazer! O que você faria no meu lugar? Comenta aí embaixo, rápido!"
-- **Pedido de Ação na Tela:** "Continue tocando na tela! É a sua energia que está me ajudando a não desistir!"
-- **Gancho para Continuação:** "Não vou conseguir agora... mas com a sua inscrição, eu volto mais forte na parte 2 para acabar com isso!"
-`;
+            // Variáveis do Passo 2
+            const pasteScriptArea = document.getElementById('pasteScriptArea');
+            const analyzeScriptBtn = document.getElementById('analyzeScriptBtn');
+            const finalPromptsArea = document.getElementById('finalPromptsArea');
+            const imagePromptSection = document.getElementById('imagePromptSection');
+            const imagePromptResult = document.getElementById('imagePromptResult');
+            const copyImagePromptBtn = document.getElementById('copyImagePromptBtn');
+            const metadataPromptSection = document.getElementById('metadataPromptSection');
+            const metadataPromptResult = document.getElementById('metadataPromptResult');
+            const copyMetadataPromptBtn = document.getElementById('copyMetadataPromptBtn');
+            const soundtrackSection = document.getElementById('soundtrackSection');
+            const soundtrackBtn = document.getElementById('soundtrackBtn');
+            const soundtrackResultArea = document.getElementById('soundtrackResultArea');
+            const soundtrackResult = document.getElementById('soundtrackResult');
+            const copySoundtrackPromptBtn = document.getElementById('copySoundtrackPromptBtn');
+            const imageStylePreview = document.getElementById('imageStylePreview');
 
-            let context = '';
-            if (data.location) context += `\n**LOCAL:** A história se passa em ${data.location}.`;
-            if (data.keyObject) context += `\n**ELEMENTO-CHAVE:** O diálogo deve girar em torno de ${data.keyObject}.`;
-            if (data.crossover) context += `\n**ELEMENTO SURPRESA:** A história deve envolver de forma inesperada: ${data.crossover}.`;
+            const surpriseOptions = {
+                characters: [
+                    // Base Original
+                    { name: 'Goku', universe: 'Dragon Ball', coStar: 'Vegeta', villain: 'Freeza', father: 'Bardock', catchphrases: ["Oi, eu sou o Goku!", "Isso vai ser emocionante!", "Kamehameha!", "Preciso que me deem a sua energia!", "O poder surge em resposta a uma necessidade, não em resposta a um desejo.", "Eu sou a esperança do universo. Eu sou a resposta para todos os seres vivos que clamam por paz.", "E isto... é para ir ainda mais além!"] },
+                    { name: 'Naruto Uzumaki', universe: 'Naruto', coStar: 'Sasuke Uchiha', villain: 'Madara Uchiha', father: 'Minato Namikaze', catchphrases: ["Tô certo! Dattebayo!", "Eu nunca volto atrás na minha palavra, porque esse é o meu jeito ninja!", "Rasengan!", "Eu serei Hokage!", "Desista de me fazer desistir!"] },
+                    { name: 'Monkey D. Luffy', universe: 'One Piece', coStar: 'Roronoa Zoro', villain: 'Kaido', father: 'Monkey D. Dragon', catchphrases: ["Eu serei o Rei dos Piratas!", "Gomu Gomu no...", "Carne!!!", "Eu não quero conquistar nada, só acho que a pessoa com mais liberdade do mundo é o Rei dos Piratas!"] },
+                    { name: 'Vegeta', universe: 'Dragon Ball', coStar: 'Goku', villain: 'Cell', father: 'King Vegeta', catchphrases: ["Seu verme insolente!", "O meu poder é de mais de 8 mil!", "Eu sou o Príncipe dos Saiyajins!", "Final Flash!", "Podes controlar a minha mente e o meu corpo, mas há uma coisa que um Saiyan guarda sempre... O SEU ORGULHO!", "ESSA É A MINHA BULMA!", "Tu és melhor do que eu, Kakarotto. Tu és o melhor."] },
+                    { name: 'Batman', universe: 'DC Comics', coStar: 'Robin', villain: 'Coringa', father: 'Thomas Wayne', catchphrases: ["Eu sou a vingança. Eu sou a noite. Eu sou o Batman!", "A justiça está chegando.", "O medo é uma ferramenta.", "Você quer ficar maluco? Então vamos ficar malucos!"] },
+                    { name: 'Homem-Aranha', universe: 'Marvel', coStar: 'Mary Jane Watson', villain: 'Duende Verde', father: 'Richard Parker', catchphrases: ["Com grandes poderes, vêm grandes responsabilidades.", "Meu sentido aranha está formigando!", "Hora de lançar teia!", "É só mais um dia na vida do amigão da vizinhança."]},
+                    { name: 'Cebolinha', universe: 'Turma da Mônica', coStar: 'Cascão', villain: 'Mônica', father: 'Seu Cebola', catchphrases: ["Um plano infalível!", "Bolinha, você pol queblando minhas astúlias!", "Peloamoldedeus!", "Eu não sou baixinho, go(r)ducho e dentuço!"]},
+                    { name: 'He-Man/Príncipe Adam', universe: 'He-Man e os Mestres do Universo', coStar: 'Mentor (Duncan)', villain: 'Esqueleto', father: 'Rei Randor', catchphrases: ["Pelos poderes de Grayskull... Eu tenho a força!", "Até a próxima, amigos!", "Pacato, meu fiel companheiro!"]},
+                    { name: 'Lion-O', universe: 'Thundercats', coStar: 'Os outros Thundercats', villain: 'Mumm-Ra', father: 'Claudus', catchphrases: ["Espada Justiceira, dê-me a visão além do alcance!", "Thunder... Thunder... Thundercats... HOOOOO!"]},
+                    { name: 'Saitama', universe: 'One-Punch Man', coStar: 'Genos', villain: 'Vários monstros e vilões', father: 'N/A', catchphrases: ["OK.", "Soco sério.", "Ah, droga, é dia de promoção no mercado.", "Eu só sou um cara que é herói por diversão."]},
+                    { name: 'Light Yagami', universe: 'Death Note', coStar: 'Ryuk', villain: 'L', father: 'Soichiro Yagami', catchphrases: ["Eu sou a justiça!", "Este mundo está podre...", "Exatamente como planejado."] },
+                    { name: 'Ash Ketchum', universe: 'Pokémon', coStar: 'Pikachu', villain: 'Equipe Rocket', father: 'N/A', catchphrases: ["Pikachu, eu escolho você!", "Temos que pegar todos!", "Equipe Rocket decolando de novo!"]},
+                    { name: 'Pernalonga', universe: 'Looney Tunes', coStar: 'Patolino', villain: 'Hortelino Troca-Letras', father: 'N/A', catchphrases: ["O que que há, velhinho?", "Isso é tudo, pessoal!", "Claro, você sabe, isso significa guerra!"]},
+                    { name: 'Eren Yeager', universe: 'Attack on Titan', coStar: 'Mikasa Ackerman', villain: 'Titã Blindado', father: 'Grisha Yeager', catchphrases: ["Se eu não lutar, não posso vencer.", "Lute. Lute. Lute. Lute!!!", "Continuarei avançando. Até que meus inimigos sejam destruídos."] },
+                    { name: 'Sailor Moon', universe: 'Sailor Moon', coStar: 'Tuxedo Mask', villain: 'Rainha Beryl', father: 'N/A', catchphrases: ["Sou uma guerreira com roupa de marinheira. Luto pelo amor e pela justiça. Sou Sailor Moon e punirei você em nome da Lua!", "Pelo poder do Prisma Lunar, transformar!"] },
+                    { name: 'Seiya de Pégaso', universe: 'Cavaleiros do Zodíaco', coStar: 'Shiryu de Dragão', villain: 'Saga de Gêmeos', father: 'N/A', catchphrases: ["Você já sentiu o cosmo percorrer até a última célula do seu corpo?", "Nenhum golpe funciona duas vezes no mesmo Cavaleiro."] },
+                    { name: 'Izuku Midoriya', universe: 'My Hero Academia', coStar: 'Katsuki Bakugo', villain: 'All For One', father: 'Hisashi Midoriya', catchphrases: ["Dar ajuda que não foi pedida... é o que faz um verdadeiro herói!", "Eu não vou ser seu saco de pancadas inútil Deku para sempre..."] },
+                    { name: 'Tanjiro Kamado', universe: 'Demon Slayer', coStar: 'Nezuko Kamado', villain: 'Muzan Kibutsuji', father: 'Tanjuro Kamado', catchphrases: ["Os fortes devem ajudar e proteger os fracos.", "Não importa quantas pessoas possa perder, você não tem escolha a não ser continuar vivendo."] },
+                    { name: 'Satoru Gojo', universe: 'Jujutsu Kaisen', coStar: 'Yuji Itadori', villain: 'Sukuna', father: 'N/A', catchphrases: ["Não se preocupe, eu sou o mais forte.", "Por todo o céu e a terra... só eu sou o honrado."] },
+                    { name: 'Kratos', universe: 'God of War', coStar: 'Atreus', villain: 'Zeus', father: 'Zeus', catchphrases: ["Garoto.", "Zeus! Seu filho retornou! E eu trago a destruição do Olimpo!"] },
+                    { name: 'Mario', universe: 'Super Mario', coStar: 'Luigi', villain: 'Bowser', father: 'N/A', catchphrases: ["It's-a me, Mario!", "Mamma mia!", "Here we go!"] },
+                    { name: 'Mônica', universe: 'Turma da Mônica', coStar: 'Magali', villain: 'Cebolinha', father: 'Seu Sousa', catchphrases: ["Pega o Sansão!", "Ora, pois!", "Cuidado com o que você fala, senão..."] },
+                    { name: 'Chase', universe: 'Patrulha Canina', coStar: 'Marshall', villain: 'Prefeito Humdinger', father: 'N/A', catchphrases: ["O Chase está no caso!", "Essas patas defendem a lei!"] },
+                    { name: 'Skye', universe: 'Patrulha Canina', coStar: 'Everest', villain: 'Gatinhos da Catástrofe', father: 'N/A' },
+                    { name: 'Elsa', universe: 'Frozen', coStar: 'Anna', villain: 'Hans', father: 'Rei Agnarr', catchphrases: ["Livre estou, livre estou!", "O frio não vai mesmo me incomodar."] },
+                    { name: 'Anna', universe: 'Frozen', coStar: 'Olaf', villain: 'Duque de Weselton', father: 'Rei Agnarr' },
+                    { name: 'Masha', universe: 'Masha e o Urso', coStar: 'O Urso', villain: 'As lebres', father: 'N/A' },
+                    { name: 'Nemo', universe: 'Procurando Nemo', coStar: 'Dory', villain: 'Darla', father: 'Marlin' },
+                    { name: 'Marlin', universe: 'Procurando Nemo', coStar: 'Nemo', villain: 'Bruce (tubarão)', father: 'N/A' },
+                    { name: 'Peppa Pig', universe: 'Peppa Pig', coStar: 'George Pig', villain: 'Poça de lama gigante', father: 'Papai Pig' },
+                    { name: 'Galinha Pintadinha', universe: 'Galinha Pintadinha', coStar: 'Pintinho Amarelinho', villain: 'Gavião', father: 'N/A' },
+                    { name: 'Pocoyo', universe: 'Pocoyo', coStar: 'Pato', villain: 'Sonequita', father: 'N/A' },
+                    { name: 'Relâmpago McQueen', universe: 'Carros', coStar: 'Mate', villain: 'Chick Hicks', father: 'N/A' },
+                    { name: 'Woody', universe: 'Toy Story', coStar: 'Buzz Lightyear', villain: 'Sid Phillips', father: 'N/A', catchphrases: ["Tem uma cobra na minha bota!", "Amigo, estou aqui."] },
+                    { name: 'Buzz Lightyear', universe: 'Toy Story', coStar: 'Woody', villain: 'Imperador Zurg', father: 'N/A', catchphrases: ["Ao infinito... e além!", "Comando Estelar, estamos em perigo."] },
+                    { name: 'Sonic', universe: 'Sonic the Hedgehog', coStar: 'Tails', villain: 'Dr. Robotnik', father: 'N/A', catchphrases: ["Gotta go fast!", "You're too slow!"] },
+                    { name: 'Simba', universe: 'O Rei Leão', coStar: 'Timão e Pumba', villain: 'Scar', father: 'Mufasa' },
+                    { name: 'Aang', universe: 'Avatar: A Lenda de Aang', coStar: 'Katara', villain: 'Senhor do Fogo Ozai', father: 'Monge Gyatso (figura paterna)', catchphrases: ["Yip yip!", "Quando estamos no nosso ponto mais baixo, estamos abertos para a maior mudança."] },
+                    { name: 'Dipper Pines', universe: 'Gravity Falls', coStar: 'Mabel Pines', villain: 'Bill Cipher', father: 'N/A' },
+                    { name: 'Mulan', universe: 'Mulan', coStar: 'Mushu', villain: 'Shan Yu', father: 'Fa Zhou' },
+                    { name: 'Shrek', universe: 'Shrek', coStar: 'Burro', villain: 'Lorde Farquaad', father: 'N/A' },
+                    { name: 'Coraline Jones', universe: 'Coraline', coStar: 'Wybie Lovat', villain: 'A Outra Mãe/Beldam', father: 'Charlie Jones' },
+                    { name: 'Hiccup (Soluço)', universe: 'Como Treinar o Seu Dragão', coStar: 'Toothless (Banguela)', villain: 'A Morte Vermelha', father: 'Stoick, o Vasto' },
+                    { name: 'Gumball Watterson', universe: 'O Incrível Mundo de Gumball', coStar: 'Darwin Watterson', villain: 'Rob', father: 'Ricardo Watterson' },
+                    { name: 'Finn, o Humano', universe: 'Hora de Aventura', coStar: 'Jake, o Cão', villain: 'O Rei Gelado', father: 'Martin Mertens' },
+                    { name: 'Steven Universo', universe: 'Steven Universo', coStar: 'As Crystal Gems', villain: 'As Diamantes', father: 'Greg Universo' },
+                    { name: 'Edward Elric', universe: 'Fullmetal Alchemist: Brotherhood', coStar: 'Alphonse Elric', villain: 'Pai (Father)', father: 'Van Hohenheim', catchphrases: ["Uma lição sem dor não tem sentido.", "Levante-se e ande. Continue em frente. Você tem duas pernas boas."] },
+                    { name: 'WALL-E', universe: 'WALL-E', coStar: 'EVE', villain: 'AUTO', father: 'N/A' },
+                    { name: 'Riley Andersen', universe: 'Divertida Mente', coStar: 'Alegria', villain: 'A Depressão/Apatia', father: 'Bill Andersen' },
+                    { name: 'Chihiro Ogino', universe: 'A Viagem de Chihiro', coStar: 'Haku', villain: 'Yubaba', father: 'Akio Ogino' },
+                    { name: 'Superman', universe: 'Universo DC Animado', coStar: 'Lois Lane', villain: 'Lex Luthor', father: 'Jor-El' },
+                    { name: 'As Meninas Superpoderosas', universe: 'As Meninas Superpoderosas', coStar: 'Professor Utônio', villain: 'Macaco Louco', father: 'Professor Utônio' },
+                    { name: 'Scooby-Doo', universe: 'Scooby-Doo, Cadê Você?', coStar: 'Salsicha', villain: 'Vários "fantasmas"', father: 'N/A' },
+                    { name: 'Hank', universe: 'Caverna do Dragão', coStar: 'Os outros jovens', villain: 'Vingador', father: 'N/A' },
+                    { name: 'Judy Hopps', universe: 'Zootopia', coStar: 'Nick Wilde', villain: 'Vice-prefeita Bellwether', father: 'Stu Hopps' },
+                    { name: 'Moana', universe: 'Moana', coStar: 'Maui', villain: 'Te Kā', father: 'Chefe Tui' },
+                    { name: 'Kubo', universe: 'Kubo e as Cordas Mágicas', coStar: 'Macaça', villain: 'O Rei Lua', father: 'Hanzo' },
+                    { name: 'Miles Morales', universe: 'Homem-Aranha: No Aranhaverso', coStar: 'Peter B. Parker', villain: 'Rei do Crime', father: 'Jefferson Davis' },
+                    { name: 'Nimona', universe: 'Nimona', coStar: 'Ballister Boldheart', villain: 'A Diretora', father: 'N/A' },
+                    { name: 'A Bela (Belle)', universe: 'A Bela e a Fera', coStar: 'Os objetos encantados', villain: 'Gaston', father: 'Maurice' },
+                    { name: 'Aladdin', universe: 'Aladdin', coStar: 'Gênio', villain: 'Jafar', father: 'Cassim' },
+                    { name: 'Pinóquio', universe: 'Pinóquio', coStar: 'Grilo Falante', villain: 'O Cocheiro', father: 'Geppetto' },
+                    { name: 'Popeye', universe: 'Popeye, o Marinheiro', coStar: 'Olívia Palito', villain: 'Brutus', father: 'Poopdeck Pappy' },
+                    { name: 'Dexter', universe: 'O Laboratório de Dexter', coStar: 'Dee Dee', villain: 'Mandark', father: 'Pai do Dexter' },
+                    { name: 'Samurai Jack', universe: 'Samurai Jack', coStar: 'O Escocês', villain: 'Aku (Abu)', father: 'O Imperador' },
+                    { name: 'Ben Tennyson', universe: 'Ben 10', coStar: 'Gwen Tennyson', villain: 'Vilgax', father: 'Carl Tennyson', catchphrases: ["Tá na hora de virar herói!", "Eu sou Ben Tennyson. Portador da arma mais poderosa do universo."] },
+                    { name: 'Sakura Kinomoto', universe: 'Cardcaptor Sakura', coStar: 'Kero (Kerberos)', villain: 'As Cartas Clow', father: 'Fujitaka Kinomoto' },
+                    { name: 'Kiki', universe: 'O Serviço de Entregas da Kiki', coStar: 'Jiji', villain: 'A Autodúvida/Bloqueio Criativo', father: 'Okino' },
+                    { name: 'Sophie Hatter', universe: 'O Castelo Animado', coStar: 'Howl', villain: 'A Bruxa das Terras Abandonadas', father: 'N/A' },
+                    { name: 'Ponyo', universe: 'Ponyo: Uma Amizade que Veio do Mar', coStar: 'Sosuke', villain: 'O Desequilíbrio da Natureza', father: 'Fujimoto' },
+                    { name: 'Arrietty', universe: 'O Mundo dos Pequeninos', coStar: 'Spiller', villain: 'Haru', father: 'Pod' },
+                    { name: 'A Princesa Mononoke (San)', universe: 'Princesa Mononoke', coStar: 'Ashitaka', villain: 'Lady Eboshi', father: 'N/A' },
+                    { name: 'Wreck-It Ralph (Detona Ralph)', universe: 'Detona Ralph', coStar: 'Vanellope von Schweetz', villain: 'Rei Doce/Turbo', father: 'N/A' },
+                    { name: 'Kuzco', universe: 'A Nova Onda do Imperador', coStar: 'Pacha', villain: 'Yzma', father: 'N/A' },
+                    { name: 'Remy', universe: 'Ratatouille', coStar: 'Linguini', villain: 'Chef Skinner', father: 'Django' },
+                    { name: 'Carl Fredricksen', universe: 'Up - Altas Aventuras', coStar: 'Russell', villain: 'Charles Muntz', father: 'N/A' },
+                    { name: 'Merida', universe: 'Valente', coStar: 'Rainha Elinor (como ursa)', villain: 'Mor\'du', father: 'Rei Fergus' },
+                    { name: 'Miguel Rivera', universe: 'Viva: A Vida é uma Festa', coStar: 'Héctor', villain: 'Ernesto de la Cruz', father: 'Héctor (bisavô)' },
+                    { name: 'Bob Parr/Sr. Incrível', universe: 'Os Incríveis', coStar: 'Helena Parr/Mulher-Elástica', villain: 'Síndrome', father: 'N/A' },
+                    { name: 'Dory', universe: 'Procurando Dory', coStar: 'Nemo e Marlin', villain: 'A perda de memória de Dory', father: 'Charlie' },
+                    { name: 'Pica-Pau', universe: 'Pica-Pau', coStar: 'Leôncio', villain: 'Zeca Urubu', father: 'N/A' },
+                    { name: 'Tom', universe: 'Tom e Jerry', coStar: 'Jerry', villain: 'Spike, o buldogue', father: 'N/A' },
+                    { name: 'Irmão do Jorel', universe: 'Irmão do Jorel', coStar: 'Lara', villain: 'Shostners & Shostners', father: 'Seu Edson' },
+                    { name: 'Hilda', universe: 'Hilda', coStar: 'Twig (Alce-Raposa)', villain: 'A Burocracia e o Medo do Desconhecido', father: 'N/A' },
+                    { name: 'Ladybug (Marinette)', universe: 'Miraculous: As Aventuras de Ladybug', coStar: 'Cat Noir (Adrien)', villain: 'Hawk Moth', father: 'Tom Dupain' },
+                    { name: 'Shinji Ikari', universe: 'Neon Genesis Evangelion', coStar: 'Rei Ayanami', villain: 'Os Anjos', father: 'Gendo Ikari' },
+                    { name: 'Spike Spiegel', universe: 'Cowboy Bebop', coStar: 'Jet Black', villain: 'Vicious', father: 'N/A' },
+                    { name: 'Astro Boy', universe: 'Astro Boy', coStar: 'Professor Ochanomizu', villain: 'Vários cientistas e robôs malignos', father: 'Dr. Tenma' },
+                    { name: 'Capitão Planeta', universe: 'Capitão Planeta', coStar: 'Os Protetores', villain: 'Os Ecos-Vilões', father: 'N/A' },
+                    { name: 'Goku Criança', universe: 'Dragon Ball', coStar: 'Bulma', villain: 'Pilaf', father: 'Bardock' },
+                    { name: 'Os Jovens Titãs', universe: 'Os Jovens Titãs', coStar: 'Robin', villain: 'Slade', father: 'N/A' },
+                    { name: 'Phineas e Ferb', universe: 'Phineas e Ferb', coStar: 'Candace', villain: 'Dr. Doofenshmirtz', father: 'Lawrence Fletcher' },
+                    { name: 'Korra', universe: 'A Lenda de Korra', coStar: 'Mako e Bolin', villain: 'Amon', father: 'Tonraq' },
+                    { name: 'Rick Sanchez', universe: 'Rick and Morty', coStar: 'Morty Smith', villain: 'O Conselho dos Ricks', father: 'N/A' },
+                    { name: 'Bojack Horseman', universe: 'Bojack Horseman', coStar: 'Todd Chavez', villain: 'A Depressão e o Vício', father: 'Butterscotch Horseman' },
+                    { name: 'Homer Simpson', universe: 'Os Simpsons', coStar: 'Bart Simpson', villain: 'Sr. Burns', father: 'Abraham Simpson', catchphrases: ["D'oh!", "À cerveja! A causa e a solução de todos os problemas da vida."] },
+                    { name: 'Peter Griffin', universe: 'Family Guy', coStar: 'Brian Griffin', villain: 'Ernie, o Frango Gigante', father: 'Francis Griffin' },
+                    { name: 'Stan, Kyle, Cartman, Kenny', universe: 'South Park', coStar: 'Cada um serve como contraponto para os outros.', villain: 'Vários antagonistas', father: 'Vários' },
+                    { name: 'Bob Esponja', universe: 'Bob Esponja Calça Quadrada', coStar: 'Patrick Estrela', villain: 'Plankton', father: 'Harold SquarePants' },
+                    { name: 'Coragem', universe: 'Coragem, o Cão Covarde', coStar: 'Muriel Bagge', villain: 'Vários monstros e entidades sobrenaturais', father: 'N/A' },
+                    { name: 'Os Pinguins de Madagascar', universe: 'Os Pinguins de Madagascar', coStar: 'Capitão', villain: 'Dr. Narina', father: 'N/A' },
+                    { name: 'Pato Donald', universe: 'Desenhos Clássicos da Disney', coStar: 'Huguinho, Zezinho e Luisinho', villain: 'Sua própria má sorte e temperamento explosivo', father: 'N/A' },
+                    { name: 'Mickey Mouse', universe: 'Desenhos Clássicos da Disney', coStar: 'Pluto', villain: 'João Bafo-de-Onça', father: 'N/A' },
+                    { name: 'Piu-Piu', universe: 'Looney Tunes', coStar: 'Vovó', villain: 'Frajola', father: 'N/A' },
+                    { name: 'Papa-Léguas', universe: 'Looney Tunes', coStar: '-', villain: 'Wile E. Coyote', father: 'N/A' },
+                    { name: 'Zé Colmeia', universe: 'Zé Colmeia', coStar: 'Catatau', villain: 'Guarda Smith', father: 'N/A' },
+                    { name: 'Os Flintstones', universe: 'Os Flintstones', coStar: 'Fred e Wilma Flintstone', villain: 'Vários antagonistas episódicos', father: 'N/A' },
+                    { name: 'Os Jetsons', universe: 'Os Jetsons', coStar: 'George, Jane, Judy e Elroy Jetson', villain: 'Sr. Spacely', father: 'N/A' },
+                    { name: 'Johnny Bravo', universe: 'Johnny Bravo', coStar: 'Coelhinha', villain: 'Seu próprio ego e falta de noção', father: 'N/A' },
+                    { name: 'As Tartarugas Ninja', universe: 'As Tartarugas Ninja', coStar: 'Leonardo', villain: 'Destruidor', father: 'Mestre Splinter' },
+                    { name: 'Optimus Prime', universe: 'Transformers', coStar: 'Os Autobots', villain: 'Megatron', father: 'N/A' },
+                    { name: 'She-Ra/Adora', universe: 'She-Ra e as Princesas do Poder', coStar: 'Ventania', villain: 'Hordak', father: 'N/A' },
+                    { name: 'Inuyasha', universe: 'Inuyasha', coStar: 'Kagome Higurashi', villain: 'Naraku', father: 'Inu no Taishō' },
+                    { name: 'Yusuke Urameshi', universe: 'Yu Yu Hakusho', coStar: 'Kuwabara', villain: 'Toguro', father: 'N/A' },
+                    { name: 'Gon Freecss', universe: 'Hunter x Hunter', coStar: 'Killua Zoldyck', villain: 'Hisoka', father: 'Ging Freecss' },
+                    { name: 'Bojji', universe: 'Ranking of Kings', coStar: 'Kage', villain: 'O Espelho Mágico (Miranjo)', father: 'Rei Bosse' },
+                    { name: 'Anya Forger', universe: 'Spy × Family', coStar: 'Loid Forger (Twilight)', villain: 'A ameaça de guerra entre Westalis e Ostania', father: 'Loid Forger (adotivo)' },
+                    { name: 'Mob (Shigeo Kageyama)', universe: 'Mob Psycho 100', coStar: 'Reigen Arataka', villain: 'Garra (Claw)', father: 'N/A' },
+                    { name: 'Guts', universe: 'Berserk', coStar: 'Puck', villain: 'Griffith/Femto', father: 'Gambino (adotivo)' },
+                    { name: 'Alucard', universe: 'Hellsing Ultimate', coStar: 'Seras Victoria', villain: 'O Major e a Millennium', father: 'Drácula' },
+                    { name: 'Vash, o Estouro da Boiada', universe: 'Trigun', coStar: 'Meryl Stryfe e Milly Thompson', villain: 'Knives Millions', father: 'N/A' },
+                    { name: 'Lina Inverse', universe: 'Slayers', coStar: 'Gourry Gabriev', villain: 'Vários demônios e feiticeiros', father: 'N/A' },
+                    { name: 'Doraemon', universe: 'Doraemon', coStar: 'Nobita Nobi', villain: 'Gian e Suneo', father: 'N/A' },
+                    { name: 'Kenshin Himura', universe: 'Rurouni Kenshin (Samurai X)', coStar: 'Kaoru Kamiya', villain: 'Makoto Shishio', father: 'N/A' },
+                    { name: 'Jotaro Kujo', universe: 'JoJo\'s Bizarre Adventure: Stardust Crusaders', coStar: 'Joseph Joestar', villain: 'DIO', father: 'Sadao Kujo' },
+                    { name: 'Oscar François de Jarjayes', universe: 'A Rosa de Versalhes', coStar: 'André Grandier', villain: 'A corrupção e a desigualdade da nobreza francesa', father: 'General de Jarjayes' },
+                    { name: 'D', universe: 'Vampire Hunter D', coStar: 'Sua mão esquerda simbiótica', villain: 'Vários nobres vampiros e monstros', father: 'Drácula' },
+                    { name: 'Akko Kagari', universe: 'Little Witch Academia', coStar: 'Lotte Yanson e Sucy Manbavaran', villain: 'A magia em declínio e o ceticismo do mundo', father: 'N/A' },
+                    { name: 'Violet Evergarden', universe: 'Violet Evergarden', coStar: 'Seus colegas da Companhia Postal CH', villain: 'Seu trauma de guerra', father: 'N/A' },
+                    { name: 'Ginko', universe: 'Mushishi', coStar: '-', villain: 'Os "Mushi"', father: 'N/A' },
+                    { name: 'Tohru Honda', universe: 'Fruits Basket', coStar: 'Yuki e Kyo Sohma', villain: 'Akito Sohma', father: 'Katsuya Honda' },
+                    { name: 'Coringa', universe: 'DC Comics', coStar: 'Arlequina', villain: 'Batman', father: 'N/A', catchphrases: ["Why so serious?", "Tudo o que é preciso é um dia ruim para reduzir o homem mais são à loucura."] },
+                    { name: 'Vingador', universe: 'Caverna do Dragão', coStar: 'Tiamat', villain: 'Mestre dos Magos', father: 'N/A', catchphrases: ["Nunca haverá uma saída para vocês!", "As suas armas serão minhas!"] },
+                    { name: 'Tio Iroh', universe: 'Avatar: A Lenda de Aang', coStar: 'Zuko', villain: 'Nação do Fogo', father: 'N/A', catchphrases: ["Na escuridão, a esperança é algo que você dá a si mesmo. Esse é o significado da força interior.", "A vida acontece onde quer que você esteja, quer você a faça acontecer ou não."] },
+                    { name: 'Ryuk', universe: 'Death Note', coStar: 'Light Yagami', villain: 'L', father: 'N/A', catchphrases: ["Humanos são tão interessantes.", "Não existe céu ou inferno. A morte é igual."] },
+                    { name: 'Kakashi Hatake', universe: 'Naruto', coStar: 'Naruto Uzumaki', villain: 'Vários', father: 'Sakumo Hatake', catchphrases: ["Quem quebra as regras pode ser considerado lixo, mas quem abandona seus amigos é pior que lixo.", "Me desculpem o atraso, me perdi no caminho da vida."] },
+                    { name: 'Roronoa Zoro', universe: 'One Piece', coStar: 'Monkey D. Luffy', villain: 'Vários', father: 'N/A', catchphrases: ["A lâmina mais forte é aquela que pode proteger o que você quer proteger e cortar aquilo que você quer cortar.", "Desculpe, mas eu nunca realmente orei a Deus."] },
+                    { name: 'Mikasa Ackerman', universe: 'Attack on Titan', coStar: 'Eren Yeager', villain: 'Titãs', father: 'Sr. Ackerman', catchphrases: ["Este mundo é cruel. E também é muito belo.", "Se eu vencer, eu vivo. A menos que eu lute, não posso vencer."] },
+                    { name: 'Yuji Itadori', universe: 'Jujutsu Kaisen', coStar: 'Satoru Gojo', villain: 'Sukuna', father: 'Jin Itadori', catchphrases: ["Não sei como vou me sentir quando estiver morto, mas não quero me arrepender da maneira como vivi.", "As pessoas realmente podem morrer, então pelo menos eu quero que aquelas que eu conheço tenham uma morte adequada."] },
+                    { name: 'Katsuki Bakugo', universe: 'My Hero Academia', coStar: 'Izuku Midoriya', villain: 'Liga dos Vilões', father: 'Masaru Bakugo', catchphrases: ["Eu vou vencer... Porque é isso que significa ser um herói!", "MORRA!"] },
+                    { name: 'Shiryu de Dragão', universe: 'Cavaleiros do Zodíaco', coStar: 'Seiya de Pégaso', villain: 'Vários', father: 'Mestre Ancião (figura paterna)', catchphrases: ["No mundo pode não existir nada pelo que valha a pena nos sacrificar, exceto... pela amizade.", "Cólera do Dragão!"] },
+                    { name: 'Roy Mustang', universe: 'Fullmetal Alchemist: Brotherhood', coStar: 'Riza Hawkeye', villain: 'Homúnculos', father: 'Berthold Hawkeye (mentor)', catchphrases: ["É um dia terrível para chover.", "Nada é perfeito, o mundo não é perfeito, mas está aí para nós, tentando o seu melhor."] },
+                    { name: 'Zuko', universe: 'Avatar: A Lenda de Aang', coStar: 'Tio Iroh', villain: 'Senhor do Fogo Ozai', father: 'Senhor do Fogo Ozai', catchphrases: ["Aprendi que ninguém pode devolver a sua honra. É algo que você obtém quando escolhe fazer a coisa certa.", "Eu estou com raiva de mim mesmo!"] },
+                    { name: 'L', universe: 'Death Note', coStar: 'Light Yagami', villain: 'Kira', father: 'Watari (figura paterna)', catchphrases: ["Se eu sentar como as outras pessoas, minha capacidade de raciocínio cai 40%.", "Kira é infantil e odeia perder... Eu também sou infantil e odeio perder."] },
+                    // Novos da Tabela do Documento
+                    { name: 'Mestre Kame', universe: 'Dragon Ball', coStar: 'Goku', villain: 'Exército Red Ribbon', father: 'N/A' },
+                    { name: 'Jiraiya', universe: 'Naruto', coStar: 'Tsunade', villain: 'Pain', father: 'N/A' },
+                    { name: 'Sasuke Uchiha', universe: 'Naruto', coStar: 'Naruto Uzumaki', villain: 'Itachi Uchiha', father: 'Fugaku Uchiha' },
+                    { name: 'Silvers Rayleigh', universe: 'One Piece', coStar: 'Shakky', villain: 'Marinha', father: 'N/A' },
+                    { name: 'Izumi Curtis', universe: 'Fullmetal Alchemist', coStar: 'Sig Curtis', villain: 'Preguiça (Sloth)', father: 'N/A' },
+                    { name: 'Sakonji Urokodaki', universe: 'Demon Slayer', coStar: 'Giyu Tomioka', villain: 'Demônios', father: 'N/A' },
+                    { name: 'Inosuke Hashibira', universe: 'Demon Slayer', coStar: 'Tanjiro Kamado', villain: 'Doma', father: 'N/A' },
+                    { name: 'Muzan Kibutsuji', universe: 'Demon Slayer', coStar: '-', villain: 'Yoriichi Tsugikuni', father: 'N/A' },
+                    { name: 'Gambino', universe: 'Berserk', coStar: '-', villain: 'Sua própria ganância', father: 'N/A' },
+                    { name: 'Griffith', universe: 'Berserk', coStar: 'Guts', villain: 'A Humanidade', father: 'N/A' },
+                    { name: 'Jet Black', universe: 'Cowboy Bebop', coStar: 'Spike Spiegel', villain: 'Sindicatos', father: 'N/A' },
+                    { name: 'Wing', universe: 'Hunter x Hunter', coStar: 'Zushi', villain: 'A Associação Hunter', father: 'N/A' },
+                    { name: 'Biscuit Krueger', universe: 'Hunter x Hunter', coStar: 'Gon e Killua', villain: 'Bomber', father: 'N/A' },
+                    { name: 'Killua Zoldyck', universe: 'Hunter x Hunter', coStar: 'Gon Freecss', villain: 'Sua família', father: 'Silva Zoldyck' },
+                    { name: 'Hisoka', universe: 'Hunter x Hunter', coStar: '-', villain: 'Chrollo Lucilfer', father: 'N/A' },
+                    { name: 'Genos', universe: 'One-Punch Man', coStar: 'Saitama', villain: 'O ciborgue que destruiu sua cidade', father: 'Dr. Kuseno (criador)' },
+                    { name: 'All Might', universe: 'My Hero Academia', coStar: 'Sir Nighteye', villain: 'All For One', father: 'N/A' },
+                    { name: 'All For One', universe: 'My Hero Academia', coStar: '-', villain: 'Todos os portadores do One For All', father: 'N/A' },
+                    { name: 'Levi Ackerman', universe: 'Attack on Titan', coStar: 'Erwin Smith', villain: 'Titã Bestial (Zeke Yeager)', father: 'N/A' },
+                    { name: 'Reiner Braun', universe: 'Attack on Titan', coStar: 'Bertholdt Hoover', villain: 'Seu próprio trauma e culpa', father: 'N/A' },
+                    { name: 'Megumi Fushiguro', universe: 'Jujutsu Kaisen', coStar: 'Yuji Itadori', villain: 'Seu pai, Toji Fushiguro', father: 'Toji Fushiguro' },
+                    { name: 'Sukuna', universe: 'Jujutsu Kaisen', coStar: '-', villain: 'Satoru Gojo', father: 'N/A' },
+                    { name: 'Marin de Águia', universe: 'Cavaleiros do Zodíaco', coStar: 'Aiolia de Leão', villain: 'O Santuário', father: 'N/A' },
+                ],
+                locations: ['Planeta Namekusei em Destruição', 'Vila Oculta da Folha', 'Distrito de Shiganshina', 'Coliseu Corrida', 'Santuário de Athena', 'Academia U.A.', 'Tokyo Moderna e Amaldiçoada', 'Midgard', 'Reino do Cogumelo', 'Gotham City à noite', 'Nova York', 'Torneio de Artes Marciais', 'Dentro de uma Muralha', 'O Limoeiro', 'Baía da Aventura', 'Reino de Arendelle', 'O Grande Oceano', 'Casa da Peppa', 'Pista de Corridas', 'Quarto do Andy', 'As Terras do Reino', 'Cemitério de Elefantes', 'Planeta Namekusei', 'Casa do Sid', 'As Quatro Nações', 'A Cabana do Mistério', 'A floresta de Gravity Falls', 'Cidade Imperial', 'Montanhas nevadas', 'O pântano de Shrek', 'O castelo de Duloc', 'Aldeia da Folha (Konoha)', 'Radiator Springs', 'O Palácio Cor-de-Rosa', 'O Outro Mundo', 'A ilha de Berk', 'O ninho dos dragões', 'A cidade de Elmore', 'A Terra de Ooo', 'Beach City', 'O Templo de Cristal', 'Planeta Natal (Homeworld)', 'Amestris', 'Cidade Central', 'Ruínas de Xerxes', 'Terra desolada e coberta de lixo', 'A nave Axiom', 'A Sala de Comando', 'As Ilhas da Personalidade', 'O Abismo do Esquecimento', 'A Grand Line', 'A casa de banhos dos espíritos', 'Metrópolis', 'Fortaleza da Solidão', 'Asilo Arkham', 'A cidade de Townsville', 'O laboratório do Professor', 'Mansões mal-assombradas', 'Parques de diversão abandonados', 'Castelo de Grayskull', 'Montanha da Serpente', 'A Toca dos Gatos', 'A Pirâmide Negra', 'O Reino', 'Cidades A a Z', 'Tóquio, Japão', 'Zootopia', 'A ilha de Motunui', 'O oceano aberto', 'Lalotai (Reino dos Monstros)', 'O castelo de gelo de Elsa', 'A aldeia provinciana', 'O castelo da Fera', 'Agrabah', 'A Caverna das Maravilhas', 'O palácio do Sultão', 'A oficina de Gepeto', 'A Ilha dos Prazeres', 'O fundo do mar', 'O Laboratório Secreto', 'O futuro distópico', 'A "Lata Velha" (trailer)', 'A cidade de Tomoeda', 'O Reino da Lua', 'A cidade de Koriko', 'O Castelo Animado', 'A cidade costeira', 'O castelo submarino de Fujimoto', 'O assoalho e as paredes da casa', 'A Floresta do Deus Cervo', 'A Cidade de Ferro (Tataraba)', 'O jogo "Conserta Félix Jr."', '"Corrida Doce"', '"Missão de Herói"', 'A selva', 'A aldeia de Pacha', 'A cozinha do Gusteau\'s', 'Os esgotos de Paris', 'O Paraíso das Cachoeiras (Venezuela)', 'O castelo DunBroch', 'As Terras Altas da Escócia', 'Santa Cecilia', 'A Terra dos Mortos', 'A cidade de Metroville', 'A ilha de Nomanisan', 'O Instituto de Vida Marinha', 'O bairro do Limoeiro', 'A casa da família', 'A cidade de Trolberg', 'Paris, França', 'Tóquio-3', 'A nave Bebop', 'Metro City', 'O Parque Jellystone', 'A cidade pré-histórica de Bedrock', 'A cidade futurista de Orbit City', 'Aron City', 'Os esgotos de Nova York', 'O Bosque do Sussurro', 'A Zona do Medo', 'Japão Feudal (Sengoku Jidai)', 'Mundo Espiritual', 'Mundo das Trevas', 'Ilha da Baleia', 'Torre Celestial', 'Yorknew City', 'Dentro das Muralhas (Shiganshina, Trost, etc.)', 'Paradis', 'A escola de heróis U.A.', 'O Reino de Bosse', 'A cidade de Berlint, Ostania', 'A cidade de Temperos', 'O reino de Midland', 'O mundo astral', 'Londres', 'A mansão Hellsing', 'O planeta Gunsmoke', 'A academia Luna Nova', 'A cidade de Leiden', 'A casa de Shigure Sohma'],
+                keyObjects: ['Esferas do Dragão', 'Fruta do Diabo (Gomu Gomu no Mi)', 'Equipamento de Manobra Tridimensional', 'Armadura de Bronze', 'Um All For One', 'Lâmina de Nichirin', 'Death Note', 'Um Sabre de Luz', 'Manopla do Infinito', 'Pokebola', 'Machado Leviatã', 'Cogumelo de Super Poder', 'Sansão (o coelho)', 'Plano Infalível', 'Veículo de Patrulha', 'Poder de Gelo', 'Nadadeira da sorte', 'Brinquedo barulhento', 'Coroa do Rei', 'O Círculo da Vida', 'A "Garra" da máquina de prêmios', 'O Estado Avatar', 'Os Diários 1, 2 e 3', 'O Leque do Pai/A Espada de Shan Yu', 'O Beijo do Amor Verdadeiro', 'A Kyuubi (Raposa de Nove Caudas)', 'A Copa Pistão', 'A Pedra da Visão', 'Os Olhos de Botão', 'A Prótese da Cauda de Banguela', 'O Vazio', 'A Espada de Finn', 'A Gema de Steven', 'A Pedra Filosofal', 'A Plantinha', 'As Memórias Base', 'O Chapéu de Palha', 'O Contrato de Trabalho', 'A Kryptonita', 'O Cinto de Utilidades', 'O Elemento X', 'A Máquina do Mistério', 'A Espada do Poder', 'A Espada Justiceira e o Olho de Thundera', 'As Armas de Poder (Arco de Energia, etc.)', 'O seu próprio punho', 'A caneta-cenoura gravadora', 'O Coração de Te Fiti', 'O "Ato de Amor Verdadeiro"', 'O Shamisen Mágico', 'O "Salto de Fé"', 'A habilidade de metamorfose de Nimona', 'A Rosa Encantada', 'A Lâmpada Mágica', 'Tornar-se um "menino de verdade"', 'A Cenoura', 'A Lata de Espinafre', 'O Laboratório Secreto', 'A Espada Mágica', 'O Omnitrix', 'As Cartas Clow e o Báculo Mágico', 'O Cristal de Prata', 'A Vassoura Voadora', 'O Coração de Howl', 'O balde de Sosuke', 'O Cubo de Açúcar', 'A Cabeça do Deus Cervo', 'A Medalha de Herói', 'A Poção de Transformação', 'O Livro de Receitas de Gusteau', 'A Casa com Balões', 'O Tapete que retrata a lenda de Mor\'du', 'O Violão de Héctor', 'Os Super-Trajes', 'As Conchas', 'A Árvore/Casa do Pica-Pau', 'A Ratoeira', 'A Bota do Jorel', 'O Livro de Criaturas Mágicas', 'Os Miraculous', 'As Unidades Evangelion (EVAs)', 'A nave "Bebop"', 'Seu coração robótico/energia atômica', 'Os Anéis Elementais', 'A Nuvem Voadora e o Bastão Mágico', 'A Torre Titã', 'As invenções do dia', 'A conexão com os Avatares passados', 'A Arma de Portais', 'A fita do episódio de Natal de "Horsin\' Around"', 'A Rosquinha (Donut)', 'A Televisão', 'O capuz de Kenny', 'A Fórmula Secreta do Hambúrguer de Siri', 'O Computador de Coragem', 'As invenções de Kowalski', 'O chapéu de marinheiro', 'Suas luvas brancas e calções vermelhos', 'A Gaiola', 'Os produtos da ACME', 'A Cesta de Piquenique', 'O "Troncomóvel"', 'O Carro Voador', 'Seus óculos de sol e seu penteado', 'O Mutagênico (Ooze)', 'A Matriz da Liderança', 'A Espada da Proteção', 'A Joia de Quatro Almas', 'O Leigan (Rei Gun)', 'A Licença Hunter', 'A Chave do Porão', 'A Espada Nichirin', 'O "One For All"', 'A classificação dos reis (Ranking of Kings)', 'A habilidade de ler mentes de Anya', 'Seus poderes psíquicos', 'A Espada Dragonslayer', 'As pistolas Casull e Jackal', 'Sua arma prateada e o "Angel Arm"', 'A Espada de Luz de Gourry', 'O Bolso da Quarta Dimensão', 'A Espada de Lâmina Invertida (Sakabatou)', 'Seu Stand, Star Platinum', 'Seu uniforme militar', 'Sua espada longa', 'O Shiny Rod (Báculo Brilhante)', 'Suas mãos protéticas de metal', 'Seu cigarro que repele Mushi', 'A Maldição do Zodíaco', 
+                // Novos da Tabela do Documento
+                'A Pedra Filosofal / Restaurar seus corpos', 'A cura para sua irmã, Nezuko', 'Vingança contra Griffith', 'Confrontar seu passado', 'Encontrar seu pai, Ging', 'Criar um novo mundo sem crime', 'Encontrar um oponente digno / Pagar o aluguel', 'Tornar-se o maior herói do mundo', 'Alcançar a liberdade / Exterminar os Titãs', 'Ter uma "morte adequada"', 'Proteger a deusa Atena'
+                ],
+                crossovers: [
+                    // Originais
+                    'um T-Rex faminto', 'um Robô gigante', 'um Alienígena perdido', 'um Detetive noir', 'um Power Ranger', 'um Pokémon Lendário', 'um Vampiro ancestral', 'um Fantasma brincalhão', 'um Mago de outra dimensão', 'um Super-Herói famoso', 'um Personagem de Conto de Fadas', 'uma Inteligência Artificial Rebelde',
+                    // Arquétipos e Papéis
+                    'um Herói Relutante', 'um Herói Caído em Busca de Redenção', 'um Anti-Herói com um Código de Honra', 'um Defensor de uma Causa Perdida', 'um Gladiador em Busca de Liberdade', 'um Soldado Veterano Assombrado pela Guerra', 'um Tirano Benevolente', 'um Jovem Rei Inexperiente', 'um Imperador Exilado', 'um Cartógrafo de Mundos Perdidos', 'um Aventureiro em busca de uma Cidade Lendária', 'um Viajante Dimensional', 'um Mago Fugindo de uma Ordem Corrompida', 'um Assassino Assombrado pelas Almas das suas Vítimas', 'um Androide com Memórias Implantadas de Outra Pessoa', 'um Alquimista em busca da Pedra Filosofal', 'um Boticário com conhecimento de venenos raros', 'um Ferreiro que forja armas mágicas', 'um Astrólogo da corte lendo o destino nas estrelas', 'um Faraó recém-coroado enfrentando uma conspiração', 'um Sumo Sacerdote de um culto esquecido', 'um Escriba que descobriu um segredo nos hieróglifos', 'um Senador Romano tramando a queda de um tirano', 'um Mago Aprendiz', 'um Arquimago do Conselho Real', 'um Capitão da Guarda Real', 'um Mercenário Desonrado', 'um Recruta do Exército', 'um Guarda-costas pessoal de um nobre',
+                    // Mitologia e Folclore
+                    'um Deus Olímpico disfarçado entre os mortais', 'um Titã libertado da sua prisão no Tártaro', 'um seguidor de Dionísio num festival eterno', 'um Minotauro perdido num labirinto moderno', 'uma Górgona cujo olhar petrifica a tecnologia', 'um Sátiro festeiro causando caos numa metrópole', 'uma Valquíria escolhendo um herói improvável', 'um Draugr (zumbi viking) guardando um artefacto antigo', 'um Jötunn (gigante de gelo) despertando na era moderna', 'um Elfo de Luz oferecendo ajuda', 'uma Divindade com cabeça de animal (Anúbis, Hórus, Sekhmet)', 'uma Esfinge que propõe enigmas digitais', 'uma Múmia reanimada com sede de vingança', 'o deus-sol Rá manifestando-se', 'um Oni (ogro japonês) guardando um portal', 'uma Kitsune (raposa mágica) de nove caudas infiltrada na sociedade', 'um Tengu (guerreiro corvo) agindo como um vigilante misterioso', 'um Kappa (espírito aquático) exigindo um pepino como pagamento', 'o Curupira, protetor de um parque urbano', 'o Boitatá (serpente de fogo) assombrando uma refinaria', 'a sereia Iara habitando os sistemas de esgotos da cidade', 'uma Banshee cujo lamento pressagia uma falha de sistema', 'um Druida ancestral emergindo no mundo moderno', 'um Kelpie (cavalo aquático) disfarçado de veículo exótico', 'um Leprechaun protegendo um servidor de criptomoedas', 'o avatar de Quetzalcoatl (Serpente Emplumada)', 'um guerreiro possuído por Huitzilopochtli (deus da guerra asteca)', 'um feiticeiro que serve Tezcatlipoca (deus da noite asteca)',
+                    // História e Lendas
+                    'um Samurai leal ao seu Shogun', 'um Ronin (samurai sem mestre) em busca de um propósito', 'um Espadachim Duelista Imbatível', 'um Cavaleiro de uma Ordem Sagrada (Templário, Hospitalário)', 'um Cavaleiro errante participando de torneios', 'um Rei Cavaleiro liderando a sua hoste', 'o Gladiador campeão do Coliseu', 'o Gladiador que liderou uma rebelião de escravos', 'um Bestiarius (lutador de feras) enfrentando uma criatura mítica', 'um Capitão Pirata Carismático', 'uma Mulher Pirata destemida', 'um Corsário a serviço de um império', 'o fantasma de um pirata guardando o seu tesouro amaldiçoado', 'um Conquistador Implacável', 'um Gênio Renascentista', 'um Filósofo da Grécia Antiga', 'um Líder Revolucionário', 'um Inventor Visionário',
+                    // Gêneros de Ficção
+                    'um Netrunner (hacker de realidade virtual)', 'um Samurai de Rua com implantes de combate', 'um Detetive de Corporações', 'um Capitão de Dirigível Pirata', 'um Autómato de Corda com senciência', 'um Inventor de engenhocas a vapor', 'uma Dama Aventureira com gadgets vitorianos', 'um Humano geneticamente modificado', 'uma Praga senciente que se comunica através de esporos', 'um Enxame de Nanorrobôs de vigilância', 'um Zumbi Nanopunk', 'um Caçador de Recompensas Galáctico', 'um Explorador de Naves Coloniais Perdidas', 'um Diplomata Alienígena', 'o último sobrevivente de uma raça cósmica extinta', 'uma Femme Fatale manipuladora', 'um Informante que sabe demais', 'um Policial Corrupto', 'um Pistoleiro Solitário Sem Nome', 'um Xerife incorruptível', 'um Fora-da-lei Carismático', 'um Caçador de Recompensas do Velho Oeste', 'um Super Espião com gadgets', 'um Agente Duplo da Guerra Fria', "uma Espiã 'Honeypot' (que usa sedução como arma)", 'um Analista de Inteligência que descobre uma conspiração',
+                    // Cultura Pop
+                    'uma Arqueóloga Aventureira e Caçadora de Tesouros', 'um Super-Soldado Espacial', 'um Assassino Furtivo de uma Irmandade Secreta', 'um Caçador de Monstros com poderes sobrenaturais', 'um Herói Silencioso de uma jornada épica', 'um Sobrevivente endurecido de um apocalipse', 'um Protagonista Shonen de grande coração e potencial oculto', 'um Rival Obcecado em superar o protagonista', 'um Shinigami (Deus da Morte) ou Ceifador de Almas', 'um Piloto de Mecha (Robô Gigante)', 'uma Garota Mágica', 'um Agente do Caos Anárquico', 'um Tirano Cósmico em busca de poder absoluto', 'um Intelecto Superior que vê a humanidade como inferior', 'um Deus da Guerra mitológico', 'um Gênio Bilionário com uma armadura tecnológica', 'um Símbolo de esperança e poder sobre-humano', 'um Vigilante urbano movido por uma tragédia pessoal', 'um Mentor Sábio e Idoso', 'uma Máquina de Matar Implacável', 'o Escolhido Relutante',
+                    // Conceitos Avançados e Mashups
+                    'a Personificação da Morte', 'o Avatar do Tempo', 'a Encarnação da Sorte (ou do Azar)', 'um Agente do Caos', 'a Personificação da Guerra', 'o Espírito da Natureza', 'a Voz da Cidade', 'um Gladiador Cibernético', 'um Pirata Espacial Viking', 'um Alquimista do Velho Oeste', 'uma Valquíria que pilota um Mecha', 'um Faraó reencarnado como CEO de uma megacorporação', 'um Detetive Noir que é um Fantasma', 'um Samurai que caça demônios no Texas pós-apocalíptico'
+                ]
+            };
 
-            const basePrompt = `Aja como um roteirista de alta performance e copywriter especialista em narrativas virais, mestre em aplicar a Jornada do Herói em roteiros curtos. Sua missão é criar um roteiro de diálogo impactante de ${durationMap[data.duration]} contendo APENAS FALAS.
+            const imageStylePreviews = {
+                'vibrant anime art style': 'https://placehold.co/128x128/ff4500/ffffff?text=Anime',
+                'realistic, hyperdetailed, 8k': 'https://placehold.co/128x128/2f4f4f/ffffff?text=Realista',
+                'chibi style, cute, big eyes': 'https://placehold.co/128x128/ff69b4/ffffff?text=Chibi',
+                'black and white manga panel style, screentones': 'https://placehold.co/128x128/333333/ffffff?text=Mangá',
+                'digital painting, fantasy, detailed brushstrokes': 'https://placehold.co/128x128/8a2be2/ffffff?text=Pintura',
+                'watercolor illustration, soft colors': 'https://placehold.co/128x128/add8e6/ffffff?text=Aquarela',
+                'Studio Ghibli art style, painterly background': 'https://placehold.co/128x128/228b22/ffffff?text=Ghibli',
+                'dark fantasy art, gothic, moody lighting': 'https://placehold.co/128x128/4b0082/ffffff?text=Gótico',
+                '8-bit pixel art style': 'https://placehold.co/128x128/000000/ffffff?text=Pixel+Art',
+                'saturday morning cartoon style': 'https://placehold.co/128x128/ffd700/000000?text=Cartoon'
+            };
 
-**PERSONAGENS:** ${data.charName} e ${data.coStar} (do universo ${data.charUniverse})
+            function populateDatalist(listId, items) {
+                const datalist = document.getElementById(listId);
+                if(datalist) {
+                    datalist.innerHTML = '';
+                    const uniqueItems = [...new Set(items)];
+                    uniqueItems.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item;
+                        datalist.appendChild(option);
+                    });
+                }
+            }
+
+            function initializeDatalists() {
+                populateDatalist('charName-list', surpriseOptions.characters.map(c => c.name));
+                populateDatalist('charUniverse-list', [...new Set(surpriseOptions.characters.map(c => c.universe))]);
+                populateDatalist('coStar-list', [...new Set(surpriseOptions.characters.map(c => c.coStar))].filter(Boolean));
+                populateDatalist('villain-list', [...new Set(surpriseOptions.characters.map(c => c.villain))].filter(Boolean));
+                populateDatalist('location-list', surpriseOptions.locations);
+                populateDatalist('keyObject-list', surpriseOptions.keyObjects);
+                populateDatalist('crossoverElement-list', surpriseOptions.crossovers);
+            }
+            
+            initializeDatalists();
+
+            function handleAutofill() {
+                const selectedName = charNameInput.value.trim();
+                const characterData = surpriseOptions.characters.find(c => c.name.toLowerCase() === selectedName.toLowerCase());
+
+                if (characterData) {
+                    charUniverseInput.value = characterData.universe || '';
+                    coStarInput.value = characterData.coStar || '';
+                    villainInput.value = characterData.villain || '';
+                }
+                updateCatchphraseDropdown();
+            }
+
+            function updateImagePreview() {
+                const imageStyleSelect = document.getElementById('imageStyle');
+                const selectedStyle = imageStyleSelect.value;
+                const imageUrl = imageStylePreviews[selectedStyle];
+                if (imageUrl) {
+                    imageStylePreview.src = imageUrl;
+                }
+            }
+            
+            charNameInput.addEventListener('change', handleAutofill);
+            document.getElementById('imageStyle').addEventListener('change', updateImagePreview);
+
+            updateImagePreview();
+
+            // --- Funções e Eventos das ABAS ---
+            function switchMainMode(mode) {
+                currentMode = mode;
+                const isCreative = mode === 'creative';
+
+                modeCreativeBtn.classList.toggle('bg-red-600', isCreative);
+                modeCreativeBtn.classList.toggle('text-white', isCreative);
+                modeCreativeBtn.classList.toggle('text-gray-400', !isCreative);
+
+                modeTemplateBtn.classList.toggle('bg-red-600', !isCreative);
+                modeTemplateBtn.classList.toggle('text-white', !isCreative);
+                modeTemplateBtn.classList.toggle('text-gray-400', isCreative);
+
+                creativeModeContainer.classList.toggle('hidden', !isCreative);
+                templateModeContainer.classList.toggle('hidden', isCreative);
+
+                const rightColumn = document.querySelector('.lg\\:grid-cols-2 > div:nth-child(2)');
+                if (rightColumn) {
+                    rightColumn.classList.remove('hidden');
+                }
+            }
+
+            function populateTemplateSelector() {
+                templateSelector.innerHTML = '';
+                for (const key in storyTemplates) {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = storyTemplates[key].name;
+                    templateSelector.appendChild(option);
+                }
+                generateTemplateFields(); 
+            }
+
+            function updateFatherFields() {
+                const protagonistaSelect = document.getElementById('template_protagonista');
+                if (!protagonistaSelect) return;
+
+                const selectedProtagonistaName = protagonistaSelect.value;
+                const characterData = surpriseOptions.characters.find(c => c.name === selectedProtagonistaName);
+                
+                const paiContainer = document.getElementById('pai-mentor-container');
+                const paiDescContainer = document.getElementById('pai-desc-container');
+                const uniqueCharacters = [...new Set(surpriseOptions.characters.map(c => c.name))].sort();
+
+                if (characterData && characterData.father && characterData.father !== 'N/A') {
+                    paiContainer.innerHTML = `
+                        <label for="template_pai" class="block text-sm font-medium text-gray-300 mb-2">Pai/Mentor</label>
+                        <input type="text" id="template_pai" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3" value="${characterData.father}" readonly>
+                    `;
+                    paiDescContainer.innerHTML = `
+                        <label for="template_pai_desc" class="block text-sm font-medium text-gray-300 mb-2">Descrição Visual do Pai/Mentor</label>
+                        <input type="text" id="template_pai_desc" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3" value="Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica." readonly>
+                    `;
+                } else {
+                    let paiSelectHtml = `
+                        <label for="template_pai" class="block text-sm font-medium text-gray-300 mb-2">Pai/Mentor</label>
+                        <select id="template_pai" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">
+                            <option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>`;
+                    uniqueCharacters.forEach(name => {
+                        paiSelectHtml += `<option value="${name}">${name}</option>`;
+                    });
+                    paiSelectHtml += `</select>`;
+                    paiContainer.innerHTML = paiSelectHtml;
+
+                    paiDescContainer.innerHTML = `
+                        <label for="template_pai_desc" class="block text-sm font-medium text-gray-300 mb-2">Descrição Visual do Pai/Mentor</label>
+                        <select id="template_pai_desc" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">
+                            <option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>
+                            <option value="Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.">Usar descrição canônica do personagem</option>
+                        </select>
+                    `;
+                }
+            }
+
+
+            function generateTemplateFields() {
+                const templateKey = templateSelector.value;
+                const template = storyTemplates[templateKey];
+                templateFieldsContainer.innerHTML = '';
+                
+                if (!template) return;
+
+                if (templateKey === 'concurso') {
+                    const surpriseOption = '<option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>';
+                    const uniqueCharacters = [...new Set(surpriseOptions.characters.map(c => c.name))].sort();
+
+                    const fieldsToCreate = template.fields; 
+
+                    let html = '';
+                    fieldsToCreate.forEach(field => {
+                        const fieldId = `template_${field.id}`;
+                        const label = `<label for="${fieldId}" class="block text-sm font-medium text-gray-300 mb-2">${field.label}</label>`;
+                        let fieldHtml = '';
+
+                        switch (field.id) {
+                            case 'protagonista':
+                            case 'professor':
+                            case 'competidor1':
+                            case 'competidor2':
+                                let selectOptions = surpriseOption;
+                                uniqueCharacters.forEach(name => {
+                                    selectOptions += `<option value="${name}">${name}</option>`;
+                                });
+                                fieldHtml = `<select id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">${selectOptions}</select>`;
+                                break;
+                            case 'pai':
+                                html += `<div id="pai-mentor-container" class="mt-4"></div>`;
+                                return; 
+                            case 'pai_desc':
+                                 html += `<div id="pai-desc-container" class="mt-4"></div>`;
+                                 return; 
+                            case 'protagonista_desc':
+                                fieldHtml = `<textarea id="${fieldId}" rows="3" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Use os trajes e descrições originais ou crie uma nova..."></textarea>`;
+                                break;
+                            case 'adjetivo':
+                            case 'premio':
+                            case 'vitoria':
+                                fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou use [SURPREENDA-ME]">`;
+                                break;
+                        }
+                        
+                        html += `<div class="mt-4">${label}${fieldHtml}</div>`;
+                    });
+                    
+                    templateFieldsContainer.innerHTML = html;
+                    
+                    document.getElementById('template_protagonista').addEventListener('change', updateFatherFields);
+                    updateFatherFields();
+
+                } else if (templateKey === 'desafio_viral' || templateKey === 'dia_a_dia') {
+                     template.fields.forEach(field => {
+                        const fieldId = `template_${field.id}`;
+                        const label = `<label for="${fieldId}" class="block text-sm font-medium text-gray-300 mb-2">${field.label}</label>`;
+                        const isCharacterField = ['protagonista', 'rival1', 'rival2', 'crianca1', 'crianca2', 'adulto'].includes(field.id);
+                        const datalistAttr = isCharacterField ? 'list="charName-list"' : '';
+                        const input = `<input type="text" id="${fieldId}" ${datalistAttr} class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="${field.placeholder}">`;
+                        templateFieldsContainer.innerHTML += `<div class="mt-4">${label}${input}</div>`;
+                    });
+                }
+                else { // Logic for other templates (like Cuca)
+                    template.fields.forEach(field => {
+                        const fieldId = `template_${field.id}`;
+                        const label = `<label for="${fieldId}" class="block text-sm font-medium text-gray-300 mb-2">${field.label}</label>`;
+                        const input = `<input type="text" id="${fieldId}" list="charName-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="${field.placeholder}">`;
+                        templateFieldsContainer.innerHTML += `<div class="mt-4">${label}${input}</div>`;
+                    });
+                }
+            }
+            
+            modeCreativeBtn.addEventListener('click', () => switchMainMode('creative'));
+            modeTemplateBtn.addEventListener('click', () => switchMainMode('template'));
+            templateSelector.addEventListener('change', generateTemplateFields);
+            
+            populateTemplateSelector();
+            
+            // --- Fim das Funções de ABAS ---
+
+
+            modeRapid.addEventListener('click', () => toggleCreativeMode(true));
+            modeAdvanced.addEventListener('click', () => toggleCreativeMode(false));
+
+            generateBtn.addEventListener('click', () => {
+                let prompt = '';
+                scriptPromptResultArea.classList.add('hidden');
+                document.getElementById('lullabyResultArea').classList.add('hidden');
+
+                if (currentMode === 'creative') {
+                    if (!document.getElementById('charName').value.trim() || !document.getElementById('charUniverse').value.trim()) {
+                        showError(generateBtn, 'Preencha Herói e Universo!', 'Gerar Prompt de Roteiro');
+                        return;
+                    }
+                    prompt = generateCreativePrompt();
+                    scriptPromptResult.value = prompt;
+                    scriptPromptResultArea.classList.remove('hidden');
+
+                } else { 
+                    const templateKey = templateSelector.value;
+                    const template = storyTemplates[templateKey];
+                    const values = {};
+                    template.fields.forEach(field => {
+                        const inputElement = document.getElementById(`template_${field.id}`);
+                        if(inputElement) {
+                             values[field.id] = inputElement.value;
+                        }
+                    });
+
+                    if (template.isSpecial) {
+                        const result = template.generatePrompt(values);
+                        document.getElementById('lullabySongResult').value = result.song;
+                        document.getElementById('lullabyPromptsResult').value = result.prompts;
+                        document.getElementById('lullabyTitleResult').value = result.title;
+                        document.getElementById('lullabyDescResult').value = result.description;
+                        document.getElementById('lullabyResultArea').classList.remove('hidden');
+                    } else {
+                        prompt = template.generatePrompt(values);
+                        scriptPromptResult.value = prompt;
+                        scriptPromptResultArea.classList.remove('hidden');
+                    }
+                }
+                showConfirmation(generateBtn, 'Prompt Gerado!');
+            });
+            
+            surpriseBtn.addEventListener('click', () => {
+                if (currentMode === 'creative') {
+                    const randomCharacter = surpriseOptions.characters[Math.floor(Math.random() * surpriseOptions.characters.length)];
+                    
+                    charNameInput.value = randomCharacter.name;
+                    charUniverseInput.value = randomCharacter.universe;
+                    coStarInput.value = randomCharacter.coStar;
+                    villainInput.value = randomCharacter.villain;
+                    
+                    plotTypeSelect.selectedIndex = Math.floor(Math.random() * plotTypeSelect.options.length);
+                    scriptDurationSelect.selectedIndex = Math.floor(Math.random() * scriptDurationSelect.options.length);
+                    emotionalToneSelect.selectedIndex = Math.floor(Math.random() * emotionalToneSelect.options.length);
+                    ctaStyleSelect.selectedIndex = Math.floor(Math.random() * ctaStyleSelect.options.length);
+                    document.getElementById('riskLevel').selectedIndex = Math.floor(Math.random() * document.getElementById('riskLevel').options.length);
+                    document.getElementById('psychologicalHook').selectedIndex = Math.floor(Math.random() * document.getElementById('psychologicalHook').options.length);
+                    locationInput.value = surpriseOptions.locations[Math.floor(Math.random() * surpriseOptions.locations.length)];
+                    keyObjectInput.value = surpriseOptions.keyObjects[Math.floor(Math.random() * surpriseOptions.keyObjects.length)];
+                    crossoverElementInput.value = surpriseOptions.crossovers[Math.floor(Math.random() * surpriseOptions.crossovers.length)];
+                    toggleCreativeMode(false);
+                    updateCatchphraseDropdown();
+                    showConfirmation(surpriseBtn, 'Surpresa Criativa Gerada!');
+                } else { 
+                    const templateKey = templateSelector.value;
+                    if(templateKey === 'concurso') {
+                        const template = storyTemplates[templateKey];
+                        if (template && template.examples?.length) {
+                            const randomExample = template.examples[Math.floor(Math.random() * template.examples.length)];
+                            const protagonistaSelect = document.getElementById('template_protagonista');
+
+                            // Set protagonist and trigger change to update father fields
+                            if(protagonistaSelect && randomExample['protagonista']) {
+                                protagonistaSelect.value = randomExample['protagonista'];
+                                protagonistaSelect.dispatchEvent(new Event('change'));
+                            }
+
+                            // Set other fields after a short delay to allow father fields to update
+                            setTimeout(() => {
+                                template.fields.forEach(field => {
+                                    if(field.id === 'protagonista') return; // already set
+                                    const inputElement = document.getElementById(`template_${field.id}`);
+                                    if (inputElement && randomExample[field.id]) {
+                                        inputElement.value = randomExample[field.id];
+                                    } else if (inputElement && !randomExample[field.id]){
+                                        // If example doesn't have a value, set to SURPREENDA-ME
+                                        inputElement.value = '[SURPREENDA-ME]';
+                                    }
+                                });
+                                showConfirmation(surpriseBtn, 'Exemplo Carregado!');
+                            }, 50); // 50ms delay
+                        }
+                    } else { // for other templates
+                         const template = storyTemplates[templateKey];
+                         if (template && template.examples?.length) {
+                            const randomExample = template.examples[Math.floor(Math.random() * template.examples.length)];
+                            template.fields.forEach(field => {
+                                const inputElement = document.getElementById(`template_${field.id}`);
+                                if (inputElement && randomExample[field.id]) {
+                                    inputElement.value = randomExample[field.id];
+                                }
+                            });
+                         }
+                        showConfirmation(surpriseBtn, 'Exemplo Carregado!');
+                    }
+                }
+            });
+
+            function handleScriptAnalysis() {
+                const scriptText = pasteScriptArea.value.trim();
+                if (!scriptText) {
+                    showError(analyzeScriptBtn, 'Cole um roteiro primeiro!', 'Analisar e Gerar Prompts');
+                    return;
+                }
+
+                let mainChar = '';
+                let mainUniverse = '';
+
+                if (currentMode === 'creative') {
+                    mainChar = charNameInput.value.trim();
+                    mainUniverse = charUniverseInput.value.trim();
+                } else { 
+                    const protagonistaInput = document.getElementById('template_protagonista');
+                    if (protagonistaInput && protagonistaInput.value !== '[SURPREENDA-ME]') {
+                        mainChar = protagonistaInput.value.trim();
+                        const charData = surpriseOptions.characters.find(c => c.name === mainChar);
+                        if(charData) mainUniverse = charData.universe;
+                    }
+                }
+
+
+                imagePromptResult.value = generateMasterImagePrompt(scriptText);
+                metadataPromptResult.value = generateMetadataPrompt(scriptText, mainChar, mainUniverse);
+                
+                finalPromptsArea.classList.remove('hidden');
+                imagePromptSection.classList.remove('hidden');
+                metadataPromptSection.classList.remove('hidden');
+
+                soundtrackSection.classList.remove('hidden');
+            }
+
+            analyzeScriptBtn.addEventListener('click', handleScriptAnalysis);
+
+            catchphraseSelect.addEventListener('change', () => {
+                catchphraseInput.value = catchphraseSelect.value;
+            });
+            
+            soundtrackBtn.addEventListener('click', () => {
+                const scriptText = pasteScriptArea.value.trim();
+                if (!scriptText) {
+                    soundtrackResult.value = 'Cole e analise um roteiro para obter uma sugestão de trilha sonora.';
+                } else {
+                    soundtrackResult.value = generateSoundtrackPrompt();
+                }
+                soundtrackResultArea.classList.remove('hidden');
+            });
+
+            clearBtn.addEventListener('click', () => {
+                const inputs = [charNameInput, charUniverseInput, coStarInput, villainInput, locationInput, keyObjectInput, crossoverElementInput, pasteScriptArea, scriptPromptResult, imagePromptResult, metadataPromptResult, catchphraseInput, soundtrackResult];
+                inputs.forEach(i => i.value = '');
+                const selects = [plotTypeSelect, scriptDurationSelect, emotionalToneSelect, ctaStyleSelect, document.getElementById('riskLevel'), document.getElementById('psychologicalHook')];
+                selects.forEach(s => s.selectedIndex = 0);
+                scriptPromptResultArea.classList.add('hidden');
+                document.getElementById('lullabyResultArea').classList.add('hidden');
+                finalPromptsArea.classList.add('hidden');
+                catchphraseSelect.innerHTML = '<option>Escolha um herói primeiro</option>';
+                catchphraseSelect.disabled = true;
+                soundtrackSection.classList.add('hidden');
+                soundtrackResultArea.classList.add('hidden');
+                toggleCreativeMode(true);
+                switchMainMode('creative');
+                generateTemplateFields(); 
+            });
+
+            copyScriptPromptBtn.addEventListener('click', () => copyToClipboard(scriptPromptResult.value, copyScriptPromptBtn));
+            copyImagePromptBtn.addEventListener('click', () => copyToClipboard(imagePromptResult.value, copyImagePromptBtn));
+            copyMetadataPromptBtn.addEventListener('click', () => copyToClipboard(metadataPromptResult.value, copyMetadataPromptBtn));
+            copySoundtrackPromptBtn.addEventListener('click', () => copyToClipboard(soundtrackResult.value, copySoundtrackPromptBtn));
+            document.getElementById('copyLullabySongBtn').addEventListener('click', () => copyToClipboard(document.getElementById('lullabySongResult').value, document.getElementById('copyLullabySongBtn')));
+            document.getElementById('copyLullabyPromptsBtn').addEventListener('click', () => copyToClipboard(document.getElementById('lullabyPromptsResult').value, document.getElementById('copyLullabyPromptsBtn')));
+            document.getElementById('copyLullabyTitleBtn').addEventListener('click', () => copyToClipboard(document.getElementById('lullabyTitleResult').value, document.getElementById('copyLullabyTitleBtn')));
+            document.getElementById('copyLullabyDescBtn').addEventListener('click', () => copyToClipboard(document.getElementById('lullabyDescResult').value, document.getElementById('copyLullabyDescBtn')));
+
+
+            function toggleCreativeMode(isRapid) {
+                if (isRapid) {
+                    modeRapid.classList.add('bg-red-600', 'text-white');
+                    modeRapid.classList.remove('text-gray-400');
+                    modeAdvanced.classList.remove('bg-red-600', 'text-white');
+                    modeAdvanced.classList.add('text-gray-400');
+                    advancedFields1.classList.add('hidden');
+                    advancedFields2.classList.add('hidden');
+                } else {
+                    modeAdvanced.classList.add('bg-red-600', 'text-white');
+                    modeAdvanced.classList.remove('text-gray-400');
+                    modeRapid.classList.remove('bg-red-600', 'text-white');
+                    modeRapid.classList.add('text-gray-400');
+                    advancedFields1.classList.remove('hidden');
+                    advancedFields2.classList.remove('hidden');
+                }
+            }
+            
+            function showError(buttonElement, message, originalText) {
+                const originalBg = buttonElement.className;
+                buttonElement.textContent = message;
+                buttonElement.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+                 setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                    buttonElement.className = originalBg;
+                }, 2000);
+            }
+
+            function showConfirmation(buttonElement, message) {
+                const originalText = buttonElement.textContent;
+                buttonElement.textContent = message;
+                buttonElement.classList.add('btn-confirm');
+                setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                    buttonElement.classList.remove('btn-confirm');
+                }, 2000);
+            }
+
+            function copyToClipboard(text, buttonElement) {
+                if (!text) return;
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                const originalText = buttonElement.textContent;
+                buttonElement.textContent = 'Copiado!';
+                setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                }, 2000);
+            }
+
+            function updateCatchphraseDropdown() {
+                const selectedName = charNameInput.value.trim();
+                const characterData = surpriseOptions.characters.find(c => c.name.toLowerCase() === selectedName.toLowerCase());
+                
+                catchphraseSelect.innerHTML = ''; 
+                catchphraseInput.value = '';
+
+                if (characterData && characterData.catchphrases && characterData.catchphrases.length > 0) {
+                    catchphraseSelect.disabled = false;
+                    
+                    const defaultOption = document.createElement('option');
+                    defaultOption.textContent = 'Selecione uma frase de efeito...';
+                    defaultOption.value = '';
+                    catchphraseSelect.appendChild(defaultOption);
+
+                    characterData.catchphrases.forEach(phrase => {
+                        const option = document.createElement('option');
+                        option.value = phrase;
+                        option.textContent = `"${phrase}"`;
+                        catchphraseSelect.appendChild(option);
+                    });
+                } else {
+                    catchphraseSelect.disabled = true;
+                    const option = document.createElement('option');
+                    option.textContent = 'Nenhuma frase encontrada para este herói';
+                    catchphraseSelect.appendChild(option);
+                }
+            }
+
+            function generateCreativePrompt() {
+                const riskLevelSelect = document.getElementById('riskLevel');
+                const psychologicalHookSelect = document.getElementById('psychologicalHook');
+                const catchphraseValue = document.getElementById('catchphraseInput').value.trim();
+
+                const data = {
+                    charName: document.getElementById('charName').value.trim(),
+                    charUniverse: document.getElementById('charUniverse').value.trim(),
+                    coStar: document.getElementById('coStar').value.trim(),
+                    villain: document.getElementById('villain').value.trim(),
+                    plotType: document.getElementById('plotType').options[document.getElementById('plotType').selectedIndex].text,
+                    duration: document.getElementById('scriptDuration').value,
+                    emotionalTone: document.getElementById('emotionalTone').options[document.getElementById('emotionalTone').selectedIndex].text,
+                    location: document.getElementById('location').value.trim(),
+                    keyObject: document.getElementById('keyObject').value.trim(),
+                    crossover: document.getElementById('crossoverElement').value.trim(),
+                    ctaStyle: document.getElementById('ctaStyle').options[document.getElementById('ctaStyle').selectedIndex].text,
+                    riskLevel: riskLevelSelect.options[riskLevelSelect.selectedIndex].text, 
+                    psychologicalHook: psychologicalHookSelect.options[psychologicalHookSelect.selectedIndex].text,
+                    catchphrase: catchphraseValue
+                };
+
+                const durationMap = {
+                    '30s': 'extremamente curto e impactante de ~30 segundos',
+                    '60s': 'de aproximadamente 60 segundos',
+                    '90s': 'mais elaborado de ~90 segundos'
+                };
+
+                let characters = [data.charName, data.coStar, data.villain].filter(Boolean).join(', ');
+
+                let context = '';
+                if (data.location) context += `\n**LOCAL:** A história se passa em ${data.location}.`;
+                if (data.keyObject) context += `\n**ELEMENTO-CHAVE:** O diálogo deve girar em torno de ${data.keyObject}.`;
+                if (data.crossover) context += `\n**ELEMENTO SURPRESA:** A história deve envolver de forma inesperada: ${data.crossover}.`;
+
+                const rules = [];
+                rules.push(`**GANCHO VIRAL PSICOLÓGICO IMPACTANTE:** A PRIMEIRA FALA deve ser um gancho irresistível e extremamente detalhado, usando o gatilho de "${data.psychologicalHook}" para chocar e prender a atenção nos primeiros 3 segundos. Deve ser uma frase que gere uma pergunta imediata na mente do espectador.`);
+                
+                if (data.catchphrase) {
+                    const cleanCatchphrase = data.catchphrase.replace(/"/g, '');
+                    rules.push(`**FRASE DE EFEITO (OPCIONAL E CONTEXTUAL):** Integre a frase "${cleanCatchphrase}" no momento de maior impacto do roteiro, onde ela faça sentido e eleve a emoção. A frase deve ser precedida por um contexto que justifique seu uso. Se não houver um encaixe natural e poderoso, NÃO a utilize.`);
+                }
+
+                rules.push(`**ESTRUTURA (INÍCIO, MEIO E FIM):** A história DEVE ter um ritmo crescente com uma estrutura clara:\n    * **Ato 1 - O Problema:** Apresente o herói enfrentando um desafio impossível (o início).\n    * **Ato 2 - O Desespero:** A tensão aumenta. O herói chega a um momento de **falsa derrota**, onde tudo parece perdido (o meio).\n    * **Ato 3 - A Virada e Reação do Vilão:** A vitória do herói acontece através da CTA. IMEDIATAMENTE APÓS, o vilão DEVE ter uma fala de derrota clara (Ex: "Não pode ser!", "Eu perdi de novo...", "Preciso fugir!") para criar um momento de satisfação para o espectador.\n    * **Ato 4 - O Fim:** O herói vence e faz o gancho final para a audiência.`);
+                rules.push(`**CTA INTERATIVA E A QUEBRA DA 4ª PAREDE:** No clímax (final do Ato 2), o herói (${data.charName}) deve olhar para a câmera e pedir ajuda ao espectador (usando "Amigo" ou "Vocês"). A ação do espectador é o poder que salva o dia. Use a estratégia de CTA: "${data.ctaStyle}".`);
+                rules.push(`**FORMATO ESTRITO:**\n    * **Falas:** Use o formato "NOME DO PERSONAGEM EM MAIÚSCULAS: [Fala com pontuação e capitalização corretas, começando com letra maiúscula.]". **NÃO inclua ações ou descrições entre parênteses na linha da fala.**\n    * **Descrições de Cena:** Use no máximo 3 descrições de cena (linhas com apenas TEXTO EM MAIÚSCULAS): uma perto do início (mas NUNCA como a primeira linha), uma no meio e uma perto do fim. Elas devem ser cruciais para a narrativa.`);
+                rules.push(`**FINAL INTERATIVO VARIADO (SEM NARRADOR):** O roteiro DEVE terminar com o herói (${data.charName}) falando diretamente para a câmera. A fala final deve ser uma pergunta rápida e criativa para forçar a interação. Varie a pergunta a cada roteiro. Exemplos: "Qual emoji descreve essa batalha? Comente!", "Qual nome deveríamos dar para este ataque? Me diga nos comentários!", "Conseguimos! Quem vocês querem que eu enfrente na próxima vez?".`);
+
+                const formattedRules = rules.map((rule, index) => `${index + 1}.  ${rule}`).join('\n');
+
+
+                return `Aja como um roteirista de alta performance e copywriter especialista em narrativas virais para YouTube Shorts. Sua missão é criar um roteiro ${durationMap[data.duration]} que intercala diálogos e descrições de cena.
+
+**UNIVERSO:** ${data.charUniverse}.
+**PERSONAGENS:** ${characters} (use no máximo 3 personagens no total).
 **ENREDO:** ${data.plotType}.
-**TOM:** ${data.emotionalTone}.${context}
+**TOM:** ${data.emotionalTone}.
+**NÍVEL DE RISCO:** ${data.riskLevel}.${context}
 
-**REGRAS ESTRATÉGICAS OBRIGATÓRIAS:**
-
-1.  **ESTRUTURA (JORNADA DO HERÓI):** A história DEVE seguir uma jornada clara do início ao fim:
-    * **Ato 1 - O Problema:** Comece apresentando o herói enfrentando uma dificuldade clara, uma dor ou um desafio que gere empatia imediata.
-    * **Ato 2 - A Luta:** Mostre a tensão aumentando. O herói tenta resolver o problema, mas a situação piora, levando-o ao seu limite.
-    * **Ato 3 - A Superação:** A vitória do herói DEVE ser uma consequência direta da ajuda do espectador (através da CTA).
-
-2.  **GANCHO VIRAL (PRIMEIRA FALA):** A PRIMEIRA FALA deve ser um gancho extremamente curioso, polêmico ou chocante para prender a atenção do público instantaneamente.
-
-3.  **CTA INTERATIVA (PONTO DE VIRADA):** No clímax da luta (final do Ato 2), o herói ou um aliado DEVE olhar para a câmera e falar diretamente com o espectador (usando "você"). O seu pedido de ajuda não é um simples pedido, é a CHAVE que destrava a vitória. A ação do espectador É o poder que salva o dia. Inspire-se nestes estilos:
-${ctaExamples}
-4.  **FORMATO ESTRITO:** Use APENAS o formato "NOME EM MAIÚSCULAS: [fala em minúsculas]". Não adicione descrições de cena.
-
-5.  **LINGUAGEM ACESSÍVEL:** O diálogo deve ser impactante, mas livre de palavras de baixo calão.
+**REGRAS ESTRATÉGICAS DE RETENÇÃO OBRIGATÓRIAS:**
+${formattedRules}
 
 Comece o roteiro imediatamente.`;
+            }
 
-            return basePrompt;
-        }
+            function generateMasterImagePrompt(scriptText) {
+                const imageStyle = document.getElementById('imageStyle').value;
 
-        function generateMasterImagePrompt() {
-            const scriptText = pasteScriptArea.value.trim();
-            const charName = charNameInput.value.trim();
-            const coStar = coStarInput.value.trim();
-            const charUniverse = charUniverseInput.value.trim();
-            const location = locationInput.value.trim();
+                const ctaKeywords = ['você', 'amigo', 'ajuda', 'ajudem', 'like', 'likes', 'compartilhe', 'inscreva', 'inscrevam', 'comentem', 'vote', 'preciso da sua', 'meu ataque final', 'minha energia', 'salvá-lo', 'salvá-la', 'força de vocês'];
 
-            const masterPrompt = `Aja como um especialista em engenharia de prompts para IAs de geração de imagem (Midjourney, DALL-E). Sua tarefa é criar um prompt de imagem em INGLÊS para CADA FALA de um roteiro, com foco em imersão e interação.
+                return `Aja como um diretor de arte e engenheiro de prompts para IAs de imagem (Midjourney, ImageFX). Sua tarefa é criar um prompt em INGLÊS para CADA LINHA do roteiro em português abaixo. O prompt final que você gerar deve ser apenas em INGLÊS.
 
-**INSTRUÇÕES GERAIS:**
-1.  **Analise o Roteiro:** Leia o roteiro fornecido abaixo.
-2.  **Crie um Prompt por Fala:** Para cada linha de diálogo, crie um prompt de imagem correspondente que visualize a cena.
-3.  **Idioma:** Todos os prompts de imagem devem ser em INGLÊS.
-4.  **Estilo de Arte:** Mantenha um estilo de arte consistente de "modern shonen anime style, vibrant colors, dynamic action lines, detailed characters".
-5.  **Cenário:** Se um local for especificado (${location || 'não especificado'}), use-o como pano de fundo para todas as imagens.
-6.  **Foco no Orador:** O prompt deve focar no personagem que está falando e em sua expressão/ação, incluindo o outro personagem reagindo em segundo plano.
-7.  **INTERAÇÃO COM A CÂMERA (CRÍTICO):** Em momentos de alta emoção, especialmente durante a Chamada para Ação (CTA) ou em falas de desespero/determinação, crie prompts onde o personagem quebra a quarta parede. Ele deve estar olhando diretamente para a câmera, apontando para o espectador, pedindo ajuda com as mãos estendidas em direção à câmera, ou correndo em direção à tela. Torne a cena pessoal para quem assiste.
-8.  **Formato de Saída:** Apresente a saída numerada, com a fala original seguida do prompt de imagem.
-
-**PERSONAGENS PRINCIPAIS:** ${charName} e ${coStar} (do universo ${charUniverse}).
+**REGRAS DE OURO (IMPRESCINDÍVEIS):**
+1.  **CONSISTÊNCIA E EVOLUÇÃO VISUAL (REGRA MAIS IMPORTANTE):** Para CADA personagem, você deve definir uma APARÊNCIA BASE DETALHADA na sua primeira aparição (roupa, cabelo, etc.) e USÁ-LA como ponto de partida em TODOS os prompts seguintes para esse personagem. CRUCIALMENTE, você deve ATUALIZAR essa descrição com base nos eventos do roteiro. Se um personagem se suja, se machuca, rasga a roupa, se transforma, ou muda de estado (ex: fica gordo depois de comer), essa nova condição DEVE ser descrita e MANTIDA em todos os prompts subsequentes até o fim da história. Analise o roteiro até a linha atual para garantir a continuidade. (Exemplo: "Goku wearing his iconic orange gi" -> "Goku wearing his iconic orange gi, now torn at the chest and covered in dirt" -> "Super Saiyan Goku wearing his tattered orange gi, covered in dirt, with glowing golden hair and aura").
+2.  **ESPECIFICIDADE DO ANIME:** Para CADA personagem, especifique claramente seu anime de origem. (Exemplo em INGLÊS: "Goku from the anime Dragon Ball Z", "Naruto Uzumaki from the anime Naruto Shippuden"). Isso é crucial para a fidelidade visual.
+3.  **IDADE DO PERSONAGEM (CONCURSO ESCOLAR):** Se a linha do personagem contiver o marcador '[CRIANÇA]', o prompt em INGLÊS DEVE descrevê-lo como uma criança pequena, em idade escolar. (Ex: "child version of Goku", "a young Naruto Uzumaki as a kid"). Se contiver '[ADULTO]', descreva-o como adulto.
+4.  **FOCO E ISOLAMENTO:** A cena deve focar EXCLUSIVAMENTE no personagem ou objeto especificado na linha. O fundo deve ser simples, cinematográfico e desfocado, a menos que uma cena detalhada seja explicitamente descrita (linhas em maiúsculas). NÃO inclua outros personagens no fundo, a menos que a descrição da cena exija.
+5.  **Estilo Geral Consistente:** Para todas as imagens, use o estilo de arte: "${imageStyle}". Combine-o com termos em INGLÊS como "cinematic lighting, epic composition, ultra detailed, 8k".
+6.  **Direção de Câmera (Psicologia Visual):** Para o prompt em INGLÊS, use os seguintes termos:
+    * **Gancho (1ª Fala):** Use "extreme close-up on the character's mouth or eyes" para criar impacto e mistério.
+    * **CTA / Desespero (falas com: ${ctaKeywords.join(', ')}):** Use OBRIGATORIAMENTE "dramatic close-up shot of the character, breaking the 4th wall, looking directly at the camera with pleading eyes, extending one hand towards the camera as if asking for help".
+    * **Ação / Tensão:** Varie entre "dynamic low-angle action shot", "over-the-shoulder shot" e "point-of-view (POV) shot".
+    * **Diálogo Padrão:** Use "medium shot".
+7.  **Emoção, Ação e Mínimos Detalhes:** O prompt em INGLÊS deve focar 100% no personagem que está falando. Descreva nos MÍNIMOS DETALHES:
+    * **Expressão Facial:** Baseada na emoção da fala (Exemplo de descrição em INGLÊS: "frustrated expression, furrowed brow, gritting teeth, a single tear rolling down his cheek").
+    * **Linguagem Corporal/Movimento:** Descreva o que o personagem está fazendo (Exemplo de descrição em INGLÊS: "clenching his fists tightly until knuckles turn white", "pointing accusatorially", "running forward with determination").
+    * **Vestimenta (Consistente e Evolutiva):** Reitere a descrição visual ATUALIZADA do personagem conforme a Regra 1, adicionando detalhes do momento. (Exemplo de descrição em INGLÊS: "his orange gi, now with more tears and dirt stains, flowing in the wind").
+8.  **PROMPTS ESPECIAIS (CONCURSO ESCOLAR):**
+    * Se a linha for "CLOSE-UP CINEMATOGRÁFICO DO PRÊMIO: ...", crie um prompt detalhado mostrando apenas o prêmio descrito, com iluminação dramática e em um pedestal.
+    * Se a linha for "O PROTAGONISTA, VITORIOSO, SEGURA O PRÊMIO...", crie um prompt detalhado do personagem vencedor segurando o prêmio. Foque na expressão de alegria e orgulho, na roupa consistente e no brilho do prêmio.
+9.  **Formato de Saída:** Sua resposta final deve ser numerada, contendo a linha original do roteiro, seguida do prompt em INGLÊS. Formato: [Linha Original do Roteiro] seguido de [PROMPT:].
 
 **ROTEIRO PARA ANÁLISE:**
 ${scriptText}
-
-**EXEMPLO DE SAÍDA ESPERADA:**
-1.  GOKU: vegeta, você está vendo isso? não vou conseguir sozinho!
-    PROMPT: Medium shot of Goku from Dragon Ball, looking worried, turning his head to look directly into the camera as if asking the viewer for help. Background is ${location || 'a battlefield'}. Modern shonen anime style, dramatic shadows.
-
-2.  VEGETA: rápido, preciso da SUA ajuda! se inscreva para me dar forças!
-    PROMPT: Extreme close-up on Vegeta's determined face, pointing directly at the camera with a demanding expression, sweat on his brow. "I need YOUR help!". Modern shonen anime style, intense lighting, vibrant colors.
-
 ---
-Comece a gerar os prompts para o roteiro fornecido AGORA.`;
+Comece a gerar os prompts em INGLÊS, aplicando TODAS as regras.`;
+            }
             
-            return masterPrompt;
-        }
+            function generateMetadataPrompt(scriptText, charName, charUniverse) {
+                return `Aja como um especialista em Copywriting e SEO para YouTube, focado em canais de cultura pop/anime. Com base no roteiro, crie: Título, Descrição e Tags.
 
+**ROTEIRO:**
+---
+${scriptText}
+---
+
+**REGRAS E FORMATO:**
+1.  **Título (Gatilho da Curiosidade):** Crie um título magnético que gere uma pergunta na mente do espectador. Use curiosidade, mistério ou uma declaração chocante. O objetivo é fazer a pessoa clicar para entender o contexto. Use Emojis para aumentar o impacto. (Ex: "😱 O SEGREDO que o Vegeta NUNCA contou ao Goku...", "🤯 E se o Naruto tivesse um FILHO com a Sakura?", "🔥 A Batalha que MUDOU o Goku PARA SEMPRE...").
+2.  **Descrição (Narrativa Breve):** Crie uma descrição curta (1-2 frases) que narre o evento principal do shorts de forma direta e intrigante, sem entregar o final. NÃO repita o título e NÃO inclua nenhum Call-to-Action (CTA) como "inscreva-se" ou "deixe o like". Apenas contextualize a cena.
+3.  **Tags:** Uma única linha, minúsculas, separadas por vírgula, sem '#'. Inclua nomes dos personagens, nome do universo, e termos estratégicos como "anime", "shorts", "edit", "cena", "o que aconteceria se", "teoria", "${charName.toLowerCase()} vs".
+
+**SAÍDA EXATA:**
+TÍTULO: [título]
+DESCRIÇÃO: [descrição]
+TAGS: [tags]`;
+            }
+
+            function generateSoundtrackPrompt() {
+                const tone = document.getElementById('emotionalTone').value;
+                const scriptText = pasteScriptArea.value.toLowerCase();
+                let prompt = 'Para este roteiro, busque por: ';
+
+                // Keywords para momentos de alta tensão ou clímax
+                const climaxKeywords = ['desespero', 'impossível', 'final flash', 'kamehameha', 'rasengan', 'ataque final', 'última esperança', 'agora!', 'preciso da sua ajuda'];
+                
+                let hasClimax = climaxKeywords.some(kw => scriptText.includes(kw));
+
+                if (hasClimax) {
+                    prompt += '"epic intense battle music", "anime action soundtrack no copyright", com bateria rápida e guitarras elétricas. ';
+                }
+
+                switch(tone) {
+                    case 'epico_heroico':
+                        prompt += 'Adicione "heroic orchestral theme" e "inspirational choir".';
+                        break;
+                    case 'inspirador_motivacional':
+                        prompt += '"uplifting and motivational cinematic music", com piano e cordas crescentes.';
+                        break;
+                    case 'cheio_de_adrenalina':
+                        prompt += '"fast paced electronic rock", "high energy combat music".';
+                        break;
+                    case 'comico_engracado':
+                        prompt += '"funny cartoon music", "quirky comedy background track", com pizzicato e sons de sopro.';
+                        break;
+                    case 'sombrio_ameacador':
+                        prompt += '"dark atmospheric horror music", "ominous boss battle theme", com coros graves e drones.';
+                        break;
+                    case 'suspense_tensao':
+                        prompt += '"tension building soundtrack", "suspenseful cinematic strings", com batidas de coração e som crescente.';
+                        break;
+                    case 'triste_melancolico':
+                        prompt += '"sad emotional piano music", "melancholic violin solo".';
+                        break;
+                    default:
+                        if (!hasClimax) prompt += '"cinematic background music for videos no copyright".';
+                        break;
+                }
+
+                return prompt;
+            }
+
+        });
     </script>
 </body>
 </html>
