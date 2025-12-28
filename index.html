@@ -365,6 +365,9 @@
                             <option value="dark fantasy art, gothic, moody lighting">Sombrio / Gótico</option>
                             <option value="8-bit pixel art style">Pixel Art (8-bit)</option>
                             <option value="saturday morning cartoon style">Desenho Infantil (Anos 90)</option>
+                            <option value="experimental sakuga anime style, raw sketch lines, frenetic scribbles, extreme high contrast lighting, heavy solid black shadows, visceral chaotic energy, anatomical distortion for movement, limited color palette">Sakuga Experimental (Rascunho Cru - Inglês)</option>
+                            <option value="3d animation style, pixar style, disney style, 8k render, cinematic lighting, vibrant">Animação 3D (Estilo Pixar/Disney)</option>
+                            <option value="estilo anime sakuga experimental, traço de rascunho cru, linhas rabiscadas frenéticas, iluminação de alto contraste extremo, sombras pretas sólidas pesadas, energia caótica visceral, distorção anatômica para movimento, paleta de cores limitada">Sakuga Experimental (Rascunho Cru - Português)</option>
                         </select>
                         <img id="imageStylePreview" src="" alt="Pré-visualização do Estilo" class="w-24 h-24 rounded-lg object-cover border-2 border-zinc-600 bg-zinc-800 flex-shrink-0">
                     </div>
@@ -423,9 +426,9 @@
             // --- INÍCIO DA CONFIGURAÇÃO DE MODELOS PRONTOS ---
             const storyTemplates = {
                 'concurso': {
-                    name: 'Concurso Escolar',
+                    name: 'Concurso Escolar (Crianças)',
                     fields: [
-                        { id: 'protagonista', label: 'Protagonista' },
+                        { id: 'protagonista', label: 'Protagonista (Ex: Goku)' },
                         { id: 'pai', label: 'Pai/Mentor' },
                         { id: 'professor', label: 'Professor (Adulto do Universo)' },
                         { id: 'protagonista_desc', label: 'Descrição Visual do Protagonista' },
@@ -470,12 +473,15 @@ Antes de escrever o roteiro, sua primeira tarefa é estabelecer um tema coerente
 **Exemplo de Lógica Coerente:** Se a "Qualidade" for "o mais rico", um "Prêmio" lógico seria "uma Ferrari de brinquedo de ouro" e uma "Ação de Vitória" lógica seria "chegar na escola com a maior pilha de dinheiro falso". Use essa mesma linha de raciocínio.
 Após definir este trio temático internamente, use os conceitos definidos para preencher o roteiro nos locais indicados.
 
-**PERSONAGENS (com descrições para IA de imagem):**
-- **PROTAGONISTA:** ${protagonista} (Visual: ${protagonista_desc})
+**REGRA OBRIGATÓRIA DE IDADE:**
+Todos os participantes (PROTAGONISTA, COMPETIDOR 1 e COMPETIDOR 2) DEVEM ser retratados como **CRIANÇAS** (versões infantis, "chibi", ou pequenos) para se adequar ao cenário escolar. Isso deve se refletir nas suas falas (mais inocentes ou exageradas) e na descrição visual para a IA. O Professor/Mentor devem ser os únicos adultos.
+
+**PERSONAGENS (com marcadores de [CRIANÇA] para IA de imagem):**
+- **PROTAGONISTA:** ${protagonista} [CRIANÇA] (Visual: ${protagonista_desc})
 - **PAI/MENTOR:** ${pai} (Visual: ${pai_desc})
 - **PROFESSOR:** ${professor} (Visual: Adulto, roupas de professor)
-- **COMPETIDOR 1:** ${competidor1Nome}
-- **COMPETIDOR 2:** ${competidor2Nome}
+- **COMPETIDOR 1:** ${competidor1Nome} [CRIANÇA]
+- **COMPETIDOR 2:** ${competidor2Nome} [CRIANÇA]
 
 **REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
 1.  **RIQUEZA VISUAL PARA IA DE IMAGEM:** Cada linha de ação (em maiúsculas) deve ser extremamente detalhada. Descreva com precisão cada objeto, vestimenta, expressão facial e a composição da cena. Se um personagem muda de estado (ex: fica molhado, sujo), essa condição DEVE ser mantida nas descrições seguintes até o final da história, garantindo uma continuidade visual clara de início, meio e fim.
@@ -1095,7 +1101,10 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                 'Studio Ghibli art style, painterly background': 'https://placehold.co/128x128/228b22/ffffff?text=Ghibli',
                 'dark fantasy art, gothic, moody lighting': 'https://placehold.co/128x128/4b0082/ffffff?text=Gótico',
                 '8-bit pixel art style': 'https://placehold.co/128x128/000000/ffffff?text=Pixel+Art',
-                'saturday morning cartoon style': 'https://placehold.co/128x128/ffd700/000000?text=Cartoon'
+                'saturday morning cartoon style': 'https://placehold.co/128x128/ffd700/000000?text=Cartoon',
+                'experimental sakuga anime style, raw sketch lines, frenetic scribbles, extreme high contrast lighting, heavy solid black shadows, visceral chaotic energy, anatomical distortion for movement, limited color palette': 'https://placehold.co/128x128/000000/ffffff?text=Sakuga',
+                '3d animation style, pixar style, disney style, 8k render, cinematic lighting, vibrant': 'https://placehold.co/128x128/3b82f6/ffffff?text=3D+Pixar',
+                'estilo anime sakuga experimental, traço de rascunho cru, linhas rabiscadas frenéticas, iluminação de alto contraste extremo, sombras pretas sólidas pesadas, energia caótica visceral, distorção anatômica para movimento, paleta de cores limitada': 'https://placehold.co/128x128/000000/ffffff?text=Sakuga+PT'
             };
 
             function populateDatalist(listId, items) {
@@ -1183,43 +1192,21 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
             }
 
             function updateFatherFields() {
-                const protagonistaSelect = document.getElementById('template_protagonista');
-                if (!protagonistaSelect) return;
+                const protagonistaInput = document.getElementById('template_protagonista');
+                if (!protagonistaInput) return;
 
-                const selectedProtagonistaName = protagonistaSelect.value;
-                const characterData = surpriseOptions.characters.find(c => c.name === selectedProtagonistaName);
+                const selectedProtagonistaName = protagonistaInput.value.trim();
+                const characterData = surpriseOptions.characters.find(c => c.name.toLowerCase() === selectedProtagonistaName.toLowerCase());
                 
-                const paiContainer = document.getElementById('pai-mentor-container');
-                const paiDescContainer = document.getElementById('pai-desc-container');
-                const uniqueCharacters = [...new Set(surpriseOptions.characters.map(c => c.name))].sort();
+                const paiInput = document.getElementById('template_pai');
+                const paiDescInput = document.getElementById('template_pai_desc');
 
                 if (characterData && characterData.father && characterData.father !== 'N/A') {
-                    paiContainer.innerHTML = `
-                        <label for="template_pai" class="block text-sm font-medium text-gray-300 mb-2">Pai/Mentor</label>
-                        <input type="text" id="template_pai" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3" value="${characterData.father}" readonly>
-                    `;
-                    paiDescContainer.innerHTML = `
-                        <label for="template_pai_desc" class="block text-sm font-medium text-gray-300 mb-2">Descrição Visual do Pai/Mentor</label>
-                        <input type="text" id="template_pai_desc" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3" value="Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica." readonly>
-                    `;
+                    if (paiInput) paiInput.value = characterData.father;
+                    if (paiDescInput) paiDescInput.value = "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.";
                 } else {
-                    let paiSelectHtml = `
-                        <label for="template_pai" class="block text-sm font-medium text-gray-300 mb-2">Pai/Mentor</label>
-                        <select id="template_pai" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">
-                            <option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>`;
-                    uniqueCharacters.forEach(name => {
-                        paiSelectHtml += `<option value="${name}">${name}</option>`;
-                    });
-                    paiSelectHtml += `</select>`;
-                    paiContainer.innerHTML = paiSelectHtml;
-
-                    paiDescContainer.innerHTML = `
-                        <label for="template_pai_desc" class="block text-sm font-medium text-gray-300 mb-2">Descrição Visual do Pai/Mentor</label>
-                        <select id="template_pai_desc" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">
-                            <option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>
-                            <option value="Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.">Usar descrição canônica do personagem</option>
-                        </select>
-                    `;
+                     // If no data found, we don't clear the user input, unless it was a placeholder
+                     if (paiInput && paiInput.value === '') paiInput.value = '';
                 }
             }
 
@@ -1232,9 +1219,7 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                 if (!template) return;
 
                 if (templateKey === 'concurso') {
-                    const surpriseOption = '<option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>';
                     const uniqueCharacters = [...new Set(surpriseOptions.characters.map(c => c.name))].sort();
-
                     const fieldsToCreate = template.fields; 
 
                     let html = '';
@@ -1243,31 +1228,15 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                         const label = `<label for="${fieldId}" class="block text-sm font-medium text-gray-300 mb-2">${field.label}</label>`;
                         let fieldHtml = '';
 
-                        switch (field.id) {
-                            case 'protagonista':
-                            case 'professor':
-                            case 'competidor1':
-                            case 'competidor2':
-                                let selectOptions = surpriseOption;
-                                uniqueCharacters.forEach(name => {
-                                    selectOptions += `<option value="${name}">${name}</option>`;
-                                });
-                                fieldHtml = `<select id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">${selectOptions}</select>`;
-                                break;
-                            case 'pai':
-                                html += `<div id="pai-mentor-container" class="mt-4"></div>`;
-                                return; 
-                            case 'pai_desc':
-                                 html += `<div id="pai-desc-container" class="mt-4"></div>`;
-                                 return; 
-                            case 'protagonista_desc':
-                                fieldHtml = `<textarea id="${fieldId}" rows="3" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Use os trajes e descrições originais ou crie uma nova..."></textarea>`;
-                                break;
-                            case 'adjetivo':
-                            case 'premio':
-                            case 'vitoria':
-                                fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou use [SURPREENDA-ME]">`;
-                                break;
+                        // Use inputs for everything to allow editing
+                        if (['protagonista', 'professor', 'competidor1', 'competidor2', 'pai'].includes(field.id)) {
+                             fieldHtml = `<input type="text" id="${fieldId}" list="charName-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou selecione...">`;
+                        } else if (field.id === 'protagonista_desc') {
+                             fieldHtml = `<textarea id="${fieldId}" rows="3" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Use os trajes e descrições originais ou crie uma nova..."></textarea>`;
+                        } else if (field.id === 'pai_desc') {
+                             fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Descrição visual do pai...">`;
+                        } else {
+                             fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou use [SURPREENDA-ME]">`;
                         }
                         
                         html += `<div class="mt-4">${label}${fieldHtml}</div>`;
@@ -1275,7 +1244,13 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                     
                     templateFieldsContainer.innerHTML = html;
                     
-                    document.getElementById('template_protagonista').addEventListener('change', updateFatherFields);
+                    // Add listener to suggest father, but keep it editable
+                    const protaInput = document.getElementById('template_protagonista');
+                    if(protaInput) {
+                        protaInput.addEventListener('change', updateFatherFields);
+                        protaInput.addEventListener('input', updateFatherFields); // Update as they type or select
+                    }
+                    
                     updateFatherFields();
 
                 } else if (templateKey === 'desafio_viral' || templateKey === 'dia_a_dia') {
@@ -1620,7 +1595,7 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                 }
 
                 rules.push(`**ESTRUTURA (INÍCIO, MEIO E FIM):** A história DEVE ter um ritmo crescente com uma estrutura clara:\n    * **Ato 1 - O Problema:** Apresente o herói enfrentando um desafio impossível (o início).\n    * **Ato 2 - O Desespero:** A tensão aumenta. O herói chega a um momento de **falsa derrota**, onde tudo parece perdido (o meio).\n    * **Ato 3 - A Virada e Reação do Vilão:** A vitória do herói acontece através da CTA. IMEDIATAMENTE APÓS, o vilão DEVE ter uma fala de derrota clara (Ex: "Não pode ser!", "Eu perdi de novo...", "Preciso fugir!") para criar um momento de satisfação para o espectador.\n    * **Ato 4 - O Fim:** O herói vence e faz o gancho final para a audiência.`);
-                rules.push(`**CTA INTERATIVA E A QUEBRA DA 4ª PAREDE:** No clímax (final do Ato 2), o herói (${data.charName}) deve olhar para a câmera e pedir ajuda ao espectador (usando "Amigo" ou "Vocês"). A ação do espectador é o poder que salva o dia. Use a estratégia de CTA: "${data.ctaStyle}".`);
+                rules.push(`**SEQUÊNCIA DE CTA DRAMÁTICA (OBRIGATÓRIO):** No momento de maior tensão (Clímax), execute esta sequência exata de 3 passos:\n    1. **O Pedido:** O herói (${data.charName}) quebra a 4ª parede e implora pela ajuda do espectador usando a estratégia "${data.ctaStyle}".\n    2. **A Zombaria (Fundo do Poço):** O Vilão (${data.villain}) deve INTERROMPER e rir, zombando que "ninguém vai dar o like" ou que o herói é "patético e está sozinho".\n    3. **O Reforço Desesperado:** O herói (ou o parceiro ${data.coStar}) reage chocado à zombaria e grita com urgência máxima: "Como assim?! Me ajude com o seu like AGORA para calar a boca dele!".`);
                 rules.push(`**FORMATO ESTRITO:**\n    * **Falas:** Use o formato "NOME DO PERSONAGEM EM MAIÚSCULAS: [Fala com pontuação e capitalização corretas, começando com letra maiúscula.]". **NÃO inclua ações ou descrições entre parênteses na linha da fala.**\n    * **Descrições de Cena:** Use no máximo 3 descrições de cena (linhas com apenas TEXTO EM MAIÚSCULAS): uma perto do início (mas NUNCA como a primeira linha), uma no meio e uma perto do fim. Elas devem ser cruciais para a narrativa.`);
                 rules.push(`**FINAL INTERATIVO VARIADO (SEM NARRADOR):** O roteiro DEVE terminar com o herói (${data.charName}) falando diretamente para a câmera. A fala final deve ser uma pergunta rápida e criativa para forçar a interação. Varie a pergunta a cada roteiro. Exemplos: "Qual emoji descreve essa batalha? Comente!", "Qual nome deveríamos dar para este ataque? Me diga nos comentários!", "Conseguimos! Quem vocês querem que eu enfrente na próxima vez?".`);
 
