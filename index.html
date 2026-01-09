@@ -356,6 +356,7 @@
                     <div class="flex items-start gap-3">
                         <select id="imageStyle" class="flex-grow w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
                             <option value="vibrant anime art style">Anime Vibrante (Padrão)</option>
+                            <option value="cinematic live action footage, real human actors with natural proportions, ultra-realistic skin texture with pores and natural imperfections, physical cinematic lighting with natural shadows, real depth of field, organic bokeh, real material light behavior, professional movie atmosphere, 8k, shot on ARRI ALEXA, photorealistic, no anime, no cartoon, no cgi">Live-Action (Ultra-Realista)</option>
                             <option value="realistic, hyperdetailed, 8k">Realista / Hiper-realista</option>
                             <option value="chibi style, cute, big eyes">Estilo Chibi / Kawaii</option>
                             <option value="black and white manga panel style, screentones">Estilo Mangá (Preto e Branco)</option>
@@ -426,9 +427,9 @@
             // --- INÍCIO DA CONFIGURAÇÃO DE MODELOS PRONTOS ---
             const storyTemplates = {
                 'concurso': {
-                    name: 'Concurso Escolar (Crianças)',
+                    name: 'Concurso Escolar',
                     fields: [
-                        { id: 'protagonista', label: 'Protagonista (Ex: Goku)' },
+                        { id: 'protagonista', label: 'Protagonista' },
                         { id: 'pai', label: 'Pai/Mentor' },
                         { id: 'professor', label: 'Professor (Adulto do Universo)' },
                         { id: 'protagonista_desc', label: 'Descrição Visual do Protagonista' },
@@ -461,7 +462,7 @@
                         const premioInput = V.premio || '[SURPREENDA-ME]';
                         const vitoriaInput = V.vitoria || '[SURPREENDA-ME]';
 
-                        return `Aja como um roteirista de alta performance e diretor de arte. Sua missão é criar um roteiro de ~60 segundos para um curta de animação que seja visualmente rico e fácil de traduzir em imagens detalhadas.
+                        return `Aja como um roteirista de alta performance e diretor de arte no estilo de Akira Toriyama. Sua missão é criar um roteiro de ~60 segundos para um curta de animação que seja visualmente rico e emocionalmente envolvente para jovens.
 
 **TAREFA PRINCIPAL: LÓGICA TEMÁTICA COERENTE (REGRA OBRIGATÓRIA)**
 Antes de escrever o roteiro, sua primeira tarefa é estabelecer um tema coerente para o concurso. Os três elementos a seguir DEVEM estar perfeitamente conectados de forma lógica, criativa e, se possível, cômica.
@@ -469,50 +470,54 @@ Antes de escrever o roteiro, sua primeira tarefa é estabelecer um tema coerente
 - **Prêmio do Concurso:** A base é "${premioInput}".
 - **Ação Final da Vitória:** A base é "${vitoriaInput}".
 
-**Instrução de Geração:** Se qualquer um dos campos acima contiver "[SURPREENDA-ME]", você deve criar um valor para ele que se encaixe PERFEITAMENTE com os outros campos preenchidos. A conexão deve ser óbvia e inteligente. Se todos contiverem "[SURPREENDA-ME]", crie um trio temático completamente novo e coeso.
-**Exemplo de Lógica Coerente:** Se a "Qualidade" for "o mais rico", um "Prêmio" lógico seria "uma Ferrari de brinquedo de ouro" e uma "Ação de Vitória" lógica seria "chegar na escola com a maior pilha de dinheiro falso". Use essa mesma linha de raciocínio.
-Após definir este trio temático internamente, use os conceitos definidos para preencher o roteiro nos locais indicados.
+**Instrução de Geração:** Se qualquer um dos campos acima contiver "[SURPREENDA-ME]", você deve criar um valor para ele que se encaixe PERFEITAMENTE com os outros campos preenchidos.
+**Exemplo de Lógica Coerente:** Se a "Qualidade" for "o mais rico", um "Prêmio" lógico seria "uma Ferrari de brinquedo de ouro" e uma "Ação de Vitória" lógica seria "chegar na escola com a maior pilha de dinheiro falso".
 
-**REGRA OBRIGATÓRIA DE IDADE:**
-Todos os participantes (PROTAGONISTA, COMPETIDOR 1 e COMPETIDOR 2) DEVEM ser retratados como **CRIANÇAS** (versões infantis, "chibi", ou pequenos) para se adequar ao cenário escolar. Isso deve se refletir nas suas falas (mais inocentes ou exageradas) e na descrição visual para a IA. O Professor/Mentor devem ser os únicos adultos.
-
-**PERSONAGENS (com marcadores de [CRIANÇA] para IA de imagem):**
-- **PROTAGONISTA:** ${protagonista} [CRIANÇA] (Visual: ${protagonista_desc})
+**PERSONAGENS (com descrições para IA de imagem):**
+- **PROTAGONISTA:** ${protagonista} (Visual: ${protagonista_desc})
 - **PAI/MENTOR:** ${pai} (Visual: ${pai_desc})
 - **PROFESSOR:** ${professor} (Visual: Adulto, roupas de professor)
-- **COMPETIDOR 1:** ${competidor1Nome} [CRIANÇA]
-- **COMPETIDOR 2:** ${competidor2Nome} [CRIANÇA]
+- **COMPETIDOR 1:** ${competidor1Nome}
+- **COMPETIDOR 2:** ${competidor2Nome}
 
 **REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
-1.  **RIQUEZA VISUAL PARA IA DE IMAGEM:** Cada linha de ação (em maiúsculas) deve ser extremamente detalhada. Descreva com precisão cada objeto, vestimenta, expressão facial e a composição da cena. Se um personagem muda de estado (ex: fica molhado, sujo), essa condição DEVE ser mantida nas descrições seguintes até o final da história, garantindo uma continuidade visual clara de início, meio e fim.
-2.  **FORMATO ESTRITO:** O roteiro deve conter apenas falas e descrições de cena.
-    - **Falas:** Use o formato "NOME DO PERSONAGEM (com hints): [Fala]".
-    - **Descrições de Cena/Ação:** Use LETRAS MAIÚSCULAS.
-    - **NÃO GERE METADADOS** (título, descrição, etc.).
-    - **NÃO** escreva o roteiro como um parágrafo único.
-3.  **DIMINUTIVOS OBRIGATÓRIOS:** O professor (${professor}) DEVE SEMPRE se referir a todos os alunos (protagonista e competidores) usando seus nomes no diminutivo (Ex: Narutinho, Gokuzinho, Sakurinha).
-4.  **CENA 1 - EM CASA:**
+1.  **RIQUEZA VISUAL PARA IA DE IMAGEM:** Cada linha de ação (em maiúsculas) deve ser extremamente detalhada.
+2.  **CONEXÃO EMOCIONAL (PÚBLICO JOVEM):** Estabeleça uma conexão emocional. O herói deve lutar por algo maior (amizade, promessa, proteção), criando identificação imediata.
+3.  **FORMATO ESTRITO (PLANO DE SEQUÊNCIA PERFEITO):** OBRIGATORIAMENTE, APÓS CADA FALA, você DEVE inserir uma DESCRIÇÃO DE CENA EM CAIXA ALTA. Nesta descrição, detalhe ao máximo o que está acontecendo: expressões faciais, movimentos corporais, iluminação e cenário. Se necessário, adicione cenas extras de transição antes da próxima fala para garantir que o vídeo tenha um fluxo visual contínuo e cinematográfico.
+4.  **DIMINUTIVOS OBRIGATÓRIOS:** O professor (${professor}) DEVE SEMPRE se referir a todos os alunos usando diminutivos (Ex: Narutinho).
+5.  **CENA 1 - EM CASA:**
+    - [CENA DE ABERTURA DETALHADA: MOSTRANDO O PROTAGONISTA EM CASA E SUA ATIVIDADE ATUAL]
     - PROTAGONISTA: Pai, eu quero ser o mais [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA] da escola!
+    - [DESCRIÇÃO DETALHADA DA REAÇÃO DO PROTAGONISTA, MOVIMENTO E DO CENÁRIO AO REDOR]
     - PAI/MENTOR: E por que isso de repente, meu filho?
+    - [DESCRIÇÃO DETALHADA DA EXPRESSÃO DO PAI E SUA AÇÃO FÍSICA]
     - PROTAGONISTA: É que vai ter um concurso valendo um [PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA]!
-    - CLOSE-UP CINEMATOGRÁFICO DO PRÊMIO: [PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA], BRILHANDO EM UM PEDESTAL IMAGINÁRIO.
+    - [CENA: CLOSE-UP CINEMATOGRÁFICO DO PRÊMIO BRILHANDO EM UM PEDESTAL IMAGINÁRIO NA MENTE DELES]
     - PAI/MENTOR: O QUÊ?! Por um [PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA]?! Vamos treinar agora!
-    - APÓS UM CORTE DE CENA, O PAI TEM UMA SOLUÇÃO RÁPIDA E ENGRAÇADA PARA O PROTAGONISTA FICAR MAIS [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA].
-5.  **CENA 2 - O CONCURSO (DENTRO DE UMA SALA DE AULA):**
-    - A CENA OCORRE DENTRO DE UMA SALA DE AULA, COM CARTEIRAS, QUADRO-NEGRO. OS PERSONAGENS ESTÃO ISOLADOS, SEM OUTROS ALUNOS.
+    - [CENA DE TRANSIÇÃO RÁPIDA: O PAI PREPARANDO UMA SOLUÇÃO ENGRAÇADA PARA O TREINAMENTO]
+    - [CENA: O PROTAGONISTA REAGINDO AO TREINAMENTO/SOLUÇÃO DO PAI]
+6.  **CENA 2 - O CONCURSO (DENTRO DE UMA SALA DE AULA):**
+    - [CENA DETALHADA: DENTRO DE UMA SALA DE AULA, MOSTRANDO O PROFESSOR E OS ALUNOS]
     - PROFESSOR: Silêncio! O concurso para o aluno mais [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA] vai começar!
+    - [DESCRIÇÃO DA REAÇÃO DOS ALUNOS E FOCO NO PROFESSOR]
     - COMPETIDOR 1: Ha! Sou eu, claro! Ninguém é mais [QUALIDADE DEFINIDA PELA LÓGICA TEMÁTICA] do que eu!
-    - CRIE UMA CENA ONDE O COMPETIDOR 1 TENTA PROVAR SEU VALOR E FALHA MISERAVELMENTE DE FORMA ENGRAÇADA.
+    - [CENA DETALHADA: O COMPETIDOR 1 TENTANDO PROVAR SEU VALOR DE FORMA CÔMICA]
+    - [CENA: A FALHA DO COMPETIDOR 1 SENDO EVIDENTE]
     - PROFESSOR: Reprovado!
+    - [REAÇÃO DECEPCIONADA DO COMPETIDOR 1 E RISO DOS OUTROS]
     - COMPETIDOR 2: Que amador! Agora veja um profissional de verdade!
-    - CRIE UMA CENA ONDE O COMPETIDOR 2 TENTA PROVAR SEU VALOR E TAMBÉM FALHA DE FORMA CÔMICA.
+    - [CENA DETALHADA: O COMPETIDOR 2 REALIZANDO UMA AÇÃO EXAGERADA]
+    - [CENA: A FALHA ESPETACULAR DO COMPETIDOR 2]
     - PROFESSOR: Reprovado!
-    - PROTAGONISTA: Amigos, preciso da ajuda de vocês! Se inscrevam no canal agora para me dar a força necessária para vencer!
-    - CRIE O FENÔMENO EXTREMO DA VITÓRIA BASEADO NA AÇÃO: "[AÇÃO DE VITÓRIA DEFINIDA PELA LÓGICA TEMÁTICA]". SEJA CRIATIVO E VISUALMENTE IMPACTANTE, DESCREVENDO UMA AÇÃO FÍSICA CLARA.
+    - [REAÇÃO DE CHOQUE DO COMPETIDOR 2 E FOCO NO PROTAGONISTA]
+    - PROTAGONISTA (Quebrando a 4ª Parede, desesperado): Amigos, eu preciso vencer! Se inscrevam no canal agora para me dar a força necessária para superar os outros!
+    - [CENA DRAMÁTICA: O PROTAGONISTA OLHANDO PARA A CÂMERA, ESTENDENDO A MÃO PEDINDO AJUDA, EFEITOS VISUAIS DE ENERGIA]
+    - [CENA: O FENÔMENO EXTREMO DA VITÓRIA ACONTECENDO, BASEADO NA AÇÃO: "[AÇÃO DE VITÓRIA DEFINIDA PELA LÓGICA TEMÁTICA]"]
     - PROFESSOR: Inacreditável! O vencedor é o ${protagonista}!
-6.  **CENA FINAL OBRIGATÓRIA:**
-    - O PROTAGONISTA, VITORIOSO, SEGURA O PRÊMIO ([PRÊMIO DEFINIDO PELA LÓGICA TEMÁTICA]) COM UM SORRISO RADIANTE, OLHANDO PARA A CÂMERA.
-    - Descreva um close-up dramático nos dois competidores perdedores (${competidor1Nome} e ${competidor2Nome}), lado a lado, olhando diretamente para a câmera com expressões de choque extremo (olhos arregalados, bocas abertas). Mantenha a consistência visual das suas roupas e aparências.`;
+    - [CENA: REAÇÃO DE CHOQUE E ADMIRAÇÃO DE TODOS NA SALA]
+7.  **CENA FINAL OBRIGATÓRIA (SEM "SIM OU NÃO"):**
+    - [CENA FINAL DETALHADA: O PROTAGONISTA SEGURANDO O PRÊMIO COM UM SORRISO RADIANTE, OLHANDO PARA A CÂMERA]
+    - PROTAGONISTA: Deixe o Like se você ama o ${protagonista}! (Varie esta frase baseada no tema, ex: 'Like se você quer esse prêmio', 'Like se você é time ${protagonista}'). **NUNCA peça para comentar "Sim ou Não" nem peça likes "se você acha que ele chorou".**`;
                     }
                 },
                 'cancaodeninar_cuca': {
@@ -625,7 +630,7 @@ A close-up of Cuca, the evil witch from *Sítio do Picapau Amarelo*, with her mo
                         const isAutomatic = !V.desafio && !V.objetivo_desafio && !V.item_poderoso;
 
                         if (isAutomatic) {
-                            return `Aja como um roteirista de alta performance para YouTube Shorts, especializado em criar conteúdo viral de anime. Sua missão é criar um roteiro curto e engraçado do zero.
+                            return `Aja como um roteirista de alta performance no estilo de Akira Toriyama. Sua missão é criar um roteiro curto e engraçado do zero.
 
 **PERSONAGENS:**
 * **Protagonista:** ${protagonista}
@@ -633,65 +638,96 @@ A close-up of Cuca, the evil witch from *Sítio do Picapau Amarelo*, with her mo
 * **Rival 2:** ${rival2}
 
 **REGRAS DE CRIAÇÃO AUTOMÁTICA (OBRIGATÓRIAS):**
-1.  **INVENTE UM DESAFIO:** Crie um desafio completamente novo, criativo e cômico para os três personagens. Pode ser qualquer coisa (comida, força, velocidade, arte, etc.).
-2.  **CRIE O "BOOST":** Invente um item, técnica ou objeto de poder que os rivais (${rival1} e ${rival2}) usam para tentar vencer.
-3.  **CRIE O EFEITO VISUAL:** Descreva uma transformação física engraçada ou exagerada que acontece com os rivais após usarem o "boost". Eles NÃO precisam sempre ficar com a barriga grande. Podem mudar de cor, ficar com mãos gigantes, congelados, pegar fogo, etc. Seja criativo e conecte o efeito ao desafio.
-4.  **CRIE A VITÓRIA DO PROTAGONISTA:** O protagonista (${protagonista}) deve vencer de uma forma ainda mais absurda e inesperada, superando a lógica do "boost" dos rivais.
-5.  **SIGA A ESTRUTURA VIRAL:** Use a estrutura de roteiro abaixo como base para a história que você criar.
+1.  **INVENTE UM DESAFIO:** Crie um desafio completamente novo, criativo e cômico.
+2.  **CRIE O "BOOST":** Invente um item de poder que os rivais usam.
+3.  **CRIE O EFEITO VISUAL:** Descreva uma transformação física engraçada.
+4.  **CRIE A VITÓRIA DO PROTAGONISTA:** O protagonista (${protagonista}) deve vencer de uma forma ainda mais absurda.
+5.  **CTA DE MEIO (INSCRIÇÃO):** No meio do conflito, o narrador ou personagem deve pedir: "INSCREVA-SE PARA AJUDAR ${protagonista.toUpperCase()} A VENCER ESSE DESAFIO!".
+6.  **CONEXÃO EMOCIONAL (PÚBLICO JOVEM):** Estabeleça uma conexão emocional simples. O herói deve lutar por algo maior (amizade, promessa, proteção), criando identificação imediata.
+7.  **REGRA DE OURO (PLANO DE SEQUÊNCIA):** OBRIGATORIAMENTE, após CADA linha de diálogo, insira uma descrição de cena detalhada em [CAIXA ALTA] descrevendo a ação, reação, cenário e detalhes visuais. Nunca deixe duas falas juntas. Adicione cenas extras de transição para criar um filme perfeito.
 
-**ESTRUTURA DE ROTEIRO (OBRIGATÓRIA):**
+**ESTRUTURA DE ROTEIRO (OBRIGATÓRIA - SIGA A ALTERNÂNCIA FALA/CENA DETALHADA):**
 
 DESAFIO - "O Desafio [NOME DO DESAFIO CRIADO]" [EMOJI CRIADO]
+
+[CENA DE ABERTURA DETALHADA MOSTRANDO O AMBIENTE, O CLIMA E OS RIVAIS PREPARADOS]
 
 ${rival1} (atlético, determinado):
 ${protagonista}!! Vamos fazer um desafio… vamos ver quem consegue [OBJETIVO DO DESAFIO CRIADO]!
 
+[DESCRIÇÃO DETALHADA DA REAÇÃO DE ${protagonista.toUpperCase()} E DO CENÁRIO]
+
 ${rival1} (confiante, segurando o item):
 Dessa vez você não pode me vencer! Eu trouxe o [ITEM PODEROSO CRIADO]! Hahaha!
+
+[CENA: CLOSE-UP DO ITEM PODEROSO BRILHANDO E REAÇÃO DE SURPRESA DOS OUTROS]
 
 ${rival1} ([AÇÃO COM O ITEM CRIADO]):
 [FALA DE CONFIANÇA DO RIVAL 1]!
 
+[DESCRIÇÃO DETALHADA DA AÇÃO DO RIVAL 1 E O EFEITO VISUAL INICIAL]
+
 ${rival2} (arrogante, cruzando os braços):
 Eu também irei participar desse desafio, ${rival1}! Me dê um desses!
+
+[CENA DE ${rival2.toUpperCase()} PEGANDO O ITEM DE FORMA AGRESSIVA]
 
 ${rival2} ([AÇÃO COM O ITEM CRIADO]):
 Hahaha! Agora sim… o poder cósmico será meu!
 
-${rival1} E ${rival2} [EFEITO VISUAL CRIADO NOS DOIS].
+[CENA: ${rival1} E ${rival2} SOFRENDO O EFEITO VISUAL. DETALHE A TRANSFORMAÇÃO FÍSICA]
 
 ${rival1} (transformado/afetado, orgulhoso):
 Hahaha! Nenhum ser do universo é melhor que eu nisso!
+
+[CENA: REAÇÃO DO ${rival1.toUpperCase()} EXIBINDO O EFEITO PARA A CÂMERA]
 
 ${rival2} (transformado/afetado, rindo alto):
 Concordo! Esse desafio já é nosso!
 
 INSCREVA-SE PARA AJUDAR ${protagonista.toUpperCase()} A VENCER ESSE DESAFIO!
 
+[CENA DRAMÁTICA: ZOOM NO ROSTO DO PROTAGONISTA OU TEXTO NA TELA PEDINDO A INSCRIÇÃO]
+
 ${protagonista} (tranquilo, curioso):
 [ALERTA CRIATIVO DO PROTAGONISTA SOBRE O PERIGO/ABSURDO DA SITUAÇÃO]
+
+[CENA: REAÇÃO DE DESDÉM DOS RIVAIS, ELES IGNORAM O ALERTA]
 
 ${rival1} (transformado/afetado, rindo):
 Besteira, ${protagonista}! Eu ainda conseguiria mais!
 
+[DESCRIÇÃO DE UMA AÇÃO EXAGERADA E CÔMICA DO RIVAL 1]
+
 ${rival2} (transformado/afetado, confiante):
 Hahaha! ${protagonista}, você não tem chance!
+
+[CENA: CLOSE-UP NO ROSTO DO PROTAGONISTA SORRINDO COM CONFIANÇA]
 
 ${protagonista} (sorrindo, com um ar desafiador):
 Infelizmente… mesmo com todo esse ${V.item_poderoso || '[ITEM PODEROSO CRIADO]'}, não será o suficiente...
 
+[CENA: O PROTAGONISTA COMEÇA SUA AÇÃO. EFEITOS VISUAIS E ENERGIA AUMENTANDO]
+
 ${protagonista} ([AÇÃO CRIATIVA DE COMO ELE SUPERA OS RIVAIS]).
+
+[DESCRIÇÃO DETALHADA DA AÇÃO ÉPICA E CÔMICA DO PROTAGONISTA FINALIZANDO O DESAFIO]
 
 ${rival1} (chocado, vendo a ação do protagonista):
 O quê?! Isso é um exagero ou um lanche?!
 
+[CENA: REAÇÃO DE CHOQUE TOTAL DOS RIVAIS, QUEIXOS CAÍDOS]
+
 ${rival2} (assustado, incrédulo):
 ISSO É IMPOSSÍVEL!!
+
+[CENA DO PROTAGONISTA RELAXADO APÓS VENCER, COM O AMBIENTE ALTERADO PELA SUA AÇÃO]
 
 ${protagonista} (rindo, após sua vitória):
 E então? Eu venci esse desafio?
 
-DEIXE ESSE EMOJI SE VOCÊ ACHA QUE EU VENCI ESSE DESAFIO!`;
+[CENA FINAL: O PROTAGONISTA OLHA PARA A CÂMERA E FAZ O PEDIDO FINAL]
+DEIXE O LIKE SE VOCÊ AMA O ${protagonista.toUpperCase()}! (Varie o final pedindo o like de forma temática, ex: "Like se você prefere o método do Goku"). **NUNCA peça para comentar "Sim ou Não".**`;
                         } else {
                             const desafio = V.desafio || 'criativo';
                             const objetivo_desafio = V.objetivo_desafio || 'ser o mais criativo';
@@ -702,69 +738,99 @@ DEIXE ESSE EMOJI SE VOCÊ ACHA QUE EU VENCI ESSE DESAFIO!`;
                             const frase_protagonista_alerta = V.frase_protagonista_alerta || 'Cuidado, a arte de vocês parece meio... instável.';
                             const emoji_final = V.emoji_final || '🎨';
 
-                            return `Aja como um roteirista de alta performance para YouTube Shorts, especializado em criar conteúdo viral de anime. Sua missão é criar um roteiro curto e engraçado.
+                            return `Aja como um roteirista de alta performance no estilo Akira Toriyama. Sua missão é criar um roteiro curto e engraçado.
 
 **PERSONAGENS:** ${protagonista}, ${rival1}, ${rival2}.
 **TEMA:** Desafio ${desafio}.
 
 **REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
-1.  **RIQUEZA VISUAL:** Descreva com precisão as ações e os efeitos visuais nos personagens. As transformações devem ser claras para a IA de imagem.
-2.  **FORMATO ESTRITO:** Use o formato "NOME DO PERSONAGEM (descrição visual/emocional): [Fala]". Ações fora do diálogo devem estar em MAIÚSCULAS.
-3.  **ESTRUTURA VIRAL:** Siga esta sequência de eventos sem falhas.
+1.  **RIQUEZA VISUAL:** Descreva com precisão as ações.
+2.  **CONEXÃO EMOCIONAL (PÚBLICO JOVEM):** Estabeleça uma conexão emocional simples. O herói deve lutar por algo maior (amizade, promessa, proteção), criando identificação imediata.
+3.  **FORMATO ESTRITO (PLANO DE SEQUÊNCIA):** Use o formato "NOME DO PERSONAGEM (descrição visual/emocional): [Fala]". OBRIGATORIAMENTE, APÓS CADA FALA, INSIRA UMA DESCRIÇÃO DE CENA EM CAIXA ALTA DETALHANDO AÇÃO, AMBIENTE E REAÇÃO. NUNCA coloque duas falas seguidas.
+4.  **CTA DE MEIO (INSCRIÇÃO):** Insira no meio do script uma linha em CAIXA ALTA: "INSCREVA-SE PARA AJUDAR ${protagonista.toUpperCase()} A VENCER ESSE DESAFIO!".
 
 **ROTEIRO:**
 
 DESAFIO - "O Desafio ${desafio}" ${emoji_final}
 
+[CENA DE ABERTURA DETALHADA: AMBIENTE E PREPARAÇÃO]
+
 ${rival1} (atlético, determinado):
 ${protagonista}!! Vamos fazer um desafio… vamos ver quem consegue ${objetivo_desafio}!
+
+[DESCRIÇÃO DETALHADA DA REAÇÃO DE ${protagonista}]
 
 ${rival1} (confiante, segurando o item):
 Dessa vez você não pode me vencer! Eu trouxe o ${item_poderoso}! Hahaha!
 
+[CENA: CLOSE-UP DO ITEM SENDO EXIBIDO]
+
 ${rival1} (${acao_item}):
 Hehehe… um verdadeiro guerreiro precisa de combustível!
+
+[DESCRIÇÃO DA AÇÃO DE ${rival1}]
 
 ${rival2} (arrogante, cruzando os braços):
 Eu também irei participar desse desafio, ${rival1}! Me dê um desses!
 
+[CENA DO RIVAL 2 PEGANDO O ITEM IMPACIENTEMENTE]
+
 ${rival2} (${acao_item}):
 Hahaha! Agora sim… o poder cósmico será meu!
 
-${rival1} E ${rival2} ${efeito_visual.toUpperCase()}.
+[CENA: ${rival1} E ${rival2} SOFRENDO O EFEITO VISUAL: ${efeito_visual.toUpperCase()}]
 
 ${rival1} (transformado/afetado, orgulhoso):
 Hahaha! Nenhum ser do universo é melhor que eu nisso!
+
+[CENA: REAÇÃO DE ORGULHO DE ${rival1}]
 
 ${rival2} (transformado/afetado, rindo alto):
 Concordo, príncipe! Esse desafio já é nosso!
 
 INSCREVA-SE PARA AJUDAR ${protagonista.toUpperCase()} A VENCER ESSE DESAFIO!
 
+[CENA DRAMÁTICA DE CTA]
+
 ${protagonista} (tranquilo, curioso):
 ${frase_protagonista_alerta}
+
+[CENA: REAÇÃO DOS RIVAIS IGNORANDO]
 
 ${rival1} (transformado/afetado, rindo):
 Besteira, ${protagonista}! Eu ainda conseguiria mais!
 
+[CENA: AÇÃO EXAGERADA DO RIVAL 1]
+
 ${rival2} (transformado/afetado, confiante):
 Hahaha! ${protagonista}, você não tem chance!
+
+[CENA: CLOSE-UP NO PROTAGONISTA SORRINDO]
 
 ${protagonista} (sorrindo, com um ar desafiador):
 Infelizmente… mesmo com todo esse ${item_poderoso}, não será o suficiente...
 
+[CENA: INÍCIO DA SUPER AÇÃO DO PROTAGONISTA]
+
 ${protagonista} (${protagonista_supera_acao.toUpperCase()}).
+
+[DESCRIÇÃO DETALHADA DA SUPER AÇÃO E SEU IMPACTO NO AMBIENTE]
 
 ${rival1} (chocado, vendo a ação de ${protagonista}):
 O quê?! Isso é um exagero ou um lanche?!
 
+[CENA: REAÇÃO DE CHOQUE E MEDO DOS RIVAIS]
+
 ${rival2} (assustado, incrédulo):
 ISSO É IMPOSSÍVEL!!
+
+[CENA FINAL VITORIOSA: O PROTAGONISTA PLENO]
 
 ${protagonista} (rindo, após sua transformação/ação superior):
 E então? Eu venci esse desafio?
 
-DEIXE ESSE EMOJI SE VOCÊ ACHA QUE EU VENCI ESSE DESAFIO!`;
+[CENA FINAL: OLHAR PARA A CÂMERA]
+DEIXE O LIKE SE VOCÊ AMA O ${protagonista.toUpperCase()}! (Varie o final pedindo like de forma temática. Ex: "Like se você ama arte", "Like se você torce pro Goku"). **NUNCA peça para comentar "Sim ou Não".**`;
                         }
                     }
                 },
@@ -792,47 +858,49 @@ DEIXE ESSE EMOJI SE VOCÊ ACHA QUE EU VENCI ESSE DESAFIO!`;
 
                         const automaticInstruction = `
 **TAREFA PRINCIPAL: CRIAÇÃO AUTOMÁTICA**
-Crie um roteiro do zero baseado em um conflito cômico e simples do dia a dia. **Seja criativo e evite usar os exemplos mais comuns como 'tomar banho' ou 'cortar o cabelo', a menos que possa dar um giro muito original.** Pense em situações inesperadas e engraçadas (ex: medo de um inseto, briga por um brinquedo, tentar cozinhar e falhar, etc.). Escolha UMA situação e desenvolva a história.`;
+Crie um roteiro do zero baseado em um conflito cômico e simples do dia a dia. **Seja criativo e evite usar os exemplos mais comuns como 'tomar banho' ou 'cortar o cabelo', a menos que possa dar um giro muito original.** Pense em situações inesperadas e engraçadas.`;
                         
                         const specificInstruction = `
 **TAREFA PRINCIPAL: DESENVOLVER ROTEIRO**
 Crie um roteiro baseado no seguinte conflito: **${situacao}**.`;
 
                         const fixedExample = `
-**EXEMPLO DE ESTRUTURA E TOM (OBRIGATÓRIO SEGUIR):**
-Use este exemplo como referência para o ritmo, humor e formato.
+**EXEMPLO DE ESTRUTURA E TOM (OBRIGATÓRIO SEGUIR A ALTERNÂNCIA):**
 
 TÍTULO: A BATALHA DA VACINA
 
+[CENA: CONSULTÓRIO MÉDICO, BULMA SEGURA UMA SERINGA GIGANTE E SORRI DE FORMA AMEAÇADORA]
 Bulma (com uma seringa): Crianças, hora da vacina!
+[CENA: GOKU CRIANÇA TREME VISIVELMENTE E SE ESCONDE ATRÁS DA CADEIRA COM MEDO]
 Goku criança (assustado): Vacina? Isso dói?!
+[CENA: VEGETA CRIANÇA CRUZA OS BRAÇOS, EMPINA O NARIZ E DÁ UMA RISADA ARROGANTE]
 Vegeta criança (rindo): Hahaha! Medroso! Um príncipe Sayajin não teme agulhas! Eu vou primeiro!
-VEGETA ESTICA O BRAÇO, ORGULHOSO. BULMA APLICA A VACINA.
+[CENA: VEGETA ESTICA O BRAÇO ORGULHOSO. BULMA APLICA A VACINA RAPIDAMENTE]
 Vegeta criança (olhos arregalados, voz fina): ...Ai.
+INSCREVA-SE PARA AJUDAR O VEGETA A AGUENTAR A DOR!
+[CENA: GOKU SAI DE TRÁS DA CADEIRA E OLHA CURIOSO PARA O BRAÇO DO VEGETA]
 Goku criança (curioso): E aí, doeu?
+[CENA: VEGETA TENTA SEGURAR O CHORO, TREMENDO, MAS UMA LÁGRIMA SOLITÁRIA ESCORRE]
 Vegeta criança (tentando ser durão, com uma lágrima): ...Claro que não, inseto!
-Bulma (para a câmera): Vocês acham que o Vegeta chorou? Deixem o Like e comentem "SIM" ou "NÃO"!`;
+[CENA: CLOSE-UP EM BULMA SORRINDO PARA A CÂMERA E FAZENDO UM SINAL DE JOINHA]
+Bulma (para a câmera): Deixe o Like se você ama o Vegeta e acha que ele foi corajoso!`;
 
-                        return `Aja como um roteirista de alta performance para YouTube Shorts, especializado em criar conteúdo viral de comédia com personagens de anime em situações cotidianas.
+                        return `Aja como um roteirista de alta performance no estilo Akira Toriyama para YouTube Shorts, especializado em criar conteúdo viral de comédia com personagens de anime em situações cotidianas.
 
 ${situacao ? specificInstruction : automaticInstruction}
 
 **PERSONAGENS E SUAS PERSONALIDADES (OBRIGATÓRIO):**
-* **${crianca1}:** Deve agir de forma ingênua e medrosa. Geralmente é o primeiro a reclamar ou a iniciar o conflito.
-* **${crianca2}:** Deve ser teimoso, competitivo e exagerado. Frequentemente tenta copiar ou superar ${crianca1}, mas sempre se dá mal.
-* **${adulto}:** A figura de autoridade. Deve ser firme, mas engraçada, resolvendo o conflito com uma bronca ou "punição" cômica e exagerada.
+* **${crianca1}:** Deve agir de forma ingênua e medrosa.
+* **${crianca2}:** Deve ser teimoso, competitivo e exagerado.
+* **${adulto}:** A figura de autoridade.
 
 **REGRAS ESTRUTURAIS OBRIGATÓRIAS:**
-1.  **TÍTULO:** Comece o roteiro com um título chamativo e engraçado no formato: TÍTULO: [Seu Título Criativo Aqui].
-2.  **DIÁLOGOS CURTOS (MÁX. 8 FALAS):** As falas devem ser curtas, diretas e engraçadas. O roteiro total não deve passar de 8 linhas de diálogo para manter o ritmo rápido.
-3.  **AÇÕES VISUAIS:** ENTRE as falas, descreva ações visuais claras e detalhadas em LETRAS MAIÚSCULAS. Ex: (${crianca2} SE SUJA DE LAMA NO QUINTAL). Isso é crucial para a animação.
-4.  **CONSISTÊNCIA VISUAL:** Se um personagem muda de estado (ex: fica sujo, molhado, machucado), as AÇÕES EM MAIÚSCULAS subsequentes DEVEM descrever essa nova condição para manter a continuidade.
-5.  **ESTRUTURA DA HISTÓRIA:**
-    * **Início:** Apresente o conflito simples com ${crianca1}.
-    * **Meio:** ${crianca2} entra na história de forma competitiva e se dá mal.
-    * **Clímax:** ${adulto} intervém ou observa a falha cômica.
-    * **Conclusão:** A história deve terminar com a CTA final.
-6.  **CTA FINAL OBRIGATÓRIO:** O roteiro DEVE terminar com o ${adulto} (ou uma das crianças) olhando para a câmera e fazendo uma pergunta de "SIM" ou "NÃO" para a audiência, pedindo o Like. Ex: 'Vocês acham que [Criança 2] aprendeu a lição? Deixe o Like e comente SIM ou NÃO!'
+1.  **TÍTULO:** Comece o roteiro com um título chamativo.
+2.  **CONEXÃO EMOCIONAL (PÚBLICO JOVEM):** Estabeleça uma conexão emocional simples. O herói deve lutar por algo maior, criando identificação imediata.
+3.  **DIÁLOGOS CURTOS (MÁX. 8 FALAS):** As falas devem ser curtas, diretas e engraçadas.
+4.  **AÇÕES VISUAIS OBRIGATÓRIAS (ALTERNÂNCIA PERFEITA):** APÓS CADA FALA, você OBRIGATORIAMENTE deve inserir uma descrição de cena detalhada em [CAIXA ALTA], descrevendo a ação, a expressão facial e o ambiente. Nunca coloque duas falas seguidas. Adicione cenas de transição para criar um plano de sequência fluida.
+5.  **CTA DE MEIO (INSCRIÇÃO):** No momento de dificuldade ou clímax cômico, insira uma linha em CAIXA ALTA pedindo inscrição para ajudar o personagem a superar aquilo. Ex: "INSCREVA-SE PARA AJUDAR ${crianca2.toUpperCase()} A AGUENTAR A DOR!" ou "INSCREVA-SE PARA O ${crianca1.toUpperCase()} TER CORAGEM!".
+6.  **CTA FINAL OBRIGATÓRIO (Like Temático):** O roteiro DEVE terminar com o ${adulto} (ou uma das crianças) olhando para a câmera e pedindo o like de forma relacionada ao tema ou amor ao personagem. Ex: "Deixe o like se você ama o ${crianca1}!", "Deixe o like se você também odeia brócolis!". **Varie sempre o pedido final e NUNCA peça para comentar "Sim ou Não".**
 
 ${fixedExample}
 
@@ -1093,6 +1161,7 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
 
             const imageStylePreviews = {
                 'vibrant anime art style': 'https://placehold.co/128x128/ff4500/ffffff?text=Anime',
+                'cinematic live action footage, real human actors with natural proportions, ultra-realistic skin texture with pores and natural imperfections, physical cinematic lighting with natural shadows, real depth of field, organic bokeh, real material light behavior, professional movie atmosphere, 8k, shot on ARRI ALEXA, photorealistic, no anime, no cartoon, no cgi': 'https://placehold.co/128x128/000000/ffffff?text=Live+Action',
                 'realistic, hyperdetailed, 8k': 'https://placehold.co/128x128/2f4f4f/ffffff?text=Realista',
                 'chibi style, cute, big eyes': 'https://placehold.co/128x128/ff69b4/ffffff?text=Chibi',
                 'black and white manga panel style, screentones': 'https://placehold.co/128x128/333333/ffffff?text=Mangá',
@@ -1192,21 +1261,43 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
             }
 
             function updateFatherFields() {
-                const protagonistaInput = document.getElementById('template_protagonista');
-                if (!protagonistaInput) return;
+                const protagonistaSelect = document.getElementById('template_protagonista');
+                if (!protagonistaSelect) return;
 
-                const selectedProtagonistaName = protagonistaInput.value.trim();
-                const characterData = surpriseOptions.characters.find(c => c.name.toLowerCase() === selectedProtagonistaName.toLowerCase());
+                const selectedProtagonistaName = protagonistaSelect.value;
+                const characterData = surpriseOptions.characters.find(c => c.name === selectedProtagonistaName);
                 
-                const paiInput = document.getElementById('template_pai');
-                const paiDescInput = document.getElementById('template_pai_desc');
+                const paiContainer = document.getElementById('pai-mentor-container');
+                const paiDescContainer = document.getElementById('pai-desc-container');
+                const uniqueCharacters = [...new Set(surpriseOptions.characters.map(c => c.name))].sort();
 
                 if (characterData && characterData.father && characterData.father !== 'N/A') {
-                    if (paiInput) paiInput.value = characterData.father;
-                    if (paiDescInput) paiDescInput.value = "Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.";
+                    paiContainer.innerHTML = `
+                        <label for="template_pai" class="block text-sm font-medium text-gray-300 mb-2">Pai/Mentor</label>
+                        <input type="text" id="template_pai" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3" value="${characterData.father}" readonly>
+                    `;
+                    paiDescContainer.innerHTML = `
+                        <label for="template_pai_desc" class="block text-sm font-medium text-gray-300 mb-2">Descrição Visual do Pai/Mentor</label>
+                        <input type="text" id="template_pai_desc" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3" value="Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica." readonly>
+                    `;
                 } else {
-                     // If no data found, we don't clear the user input, unless it was a placeholder
-                     if (paiInput && paiInput.value === '') paiInput.value = '';
+                    let paiSelectHtml = `
+                        <label for="template_pai" class="block text-sm font-medium text-gray-300 mb-2">Pai/Mentor</label>
+                        <select id="template_pai" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">
+                            <option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>`;
+                    uniqueCharacters.forEach(name => {
+                        paiSelectHtml += `<option value="${name}">${name}</option>`;
+                    });
+                    paiSelectHtml += `</select>`;
+                    paiContainer.innerHTML = paiSelectHtml;
+
+                    paiDescContainer.innerHTML = `
+                        <label for="template_pai_desc" class="block text-sm font-medium text-gray-300 mb-2">Descrição Visual do Pai/Mentor</label>
+                        <select id="template_pai_desc" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">
+                            <option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>
+                            <option value="Use os trajes e descrições originais do personagem do anime, sendo o mais fiel possível à sua aparência canônica.">Usar descrição canônica do personagem</option>
+                        </select>
+                    `;
                 }
             }
 
@@ -1219,7 +1310,9 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                 if (!template) return;
 
                 if (templateKey === 'concurso') {
+                    const surpriseOption = '<option value="[SURPREENDA-ME]">[SURPREENDA-ME]</option>';
                     const uniqueCharacters = [...new Set(surpriseOptions.characters.map(c => c.name))].sort();
+
                     const fieldsToCreate = template.fields; 
 
                     let html = '';
@@ -1228,15 +1321,31 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                         const label = `<label for="${fieldId}" class="block text-sm font-medium text-gray-300 mb-2">${field.label}</label>`;
                         let fieldHtml = '';
 
-                        // Use inputs for everything to allow editing
-                        if (['protagonista', 'professor', 'competidor1', 'competidor2', 'pai'].includes(field.id)) {
-                             fieldHtml = `<input type="text" id="${fieldId}" list="charName-list" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou selecione...">`;
-                        } else if (field.id === 'protagonista_desc') {
-                             fieldHtml = `<textarea id="${fieldId}" rows="3" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Use os trajes e descrições originais ou crie uma nova..."></textarea>`;
-                        } else if (field.id === 'pai_desc') {
-                             fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Descrição visual do pai...">`;
-                        } else {
-                             fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou use [SURPREENDA-ME]">`;
+                        switch (field.id) {
+                            case 'protagonista':
+                            case 'professor':
+                            case 'competidor1':
+                            case 'competidor2':
+                                let selectOptions = surpriseOption;
+                                uniqueCharacters.forEach(name => {
+                                    selectOptions += `<option value="${name}">${name}</option>`;
+                                });
+                                fieldHtml = `<select id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition">${selectOptions}</select>`;
+                                break;
+                            case 'pai':
+                                html += `<div id="pai-mentor-container" class="mt-4"></div>`;
+                                return; 
+                            case 'pai_desc':
+                                 html += `<div id="pai-desc-container" class="mt-4"></div>`;
+                                 return; 
+                            case 'protagonista_desc':
+                                fieldHtml = `<textarea id="${fieldId}" rows="3" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Use os trajes e descrições originais ou crie uma nova..."></textarea>`;
+                                break;
+                            case 'adjetivo':
+                            case 'premio':
+                            case 'vitoria':
+                                fieldHtml = `<input type="text" id="${fieldId}" class="w-full bg-zinc-700 border border-zinc-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-red-500 transition" placeholder="Digite ou use [SURPREENDA-ME]">`;
+                                break;
                         }
                         
                         html += `<div class="mt-4">${label}${fieldHtml}</div>`;
@@ -1244,13 +1353,7 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                     
                     templateFieldsContainer.innerHTML = html;
                     
-                    // Add listener to suggest father, but keep it editable
-                    const protaInput = document.getElementById('template_protagonista');
-                    if(protaInput) {
-                        protaInput.addEventListener('change', updateFatherFields);
-                        protaInput.addEventListener('input', updateFatherFields); // Update as they type or select
-                    }
-                    
+                    document.getElementById('template_protagonista').addEventListener('change', updateFatherFields);
                     updateFatherFields();
 
                 } else if (templateKey === 'desafio_viral' || templateKey === 'dia_a_dia') {
@@ -1589,20 +1692,23 @@ Gere apenas o roteiro, começando imediatamente com o TÍTULO.`;
                 const rules = [];
                 rules.push(`**GANCHO VIRAL PSICOLÓGICO IMPACTANTE:** A PRIMEIRA FALA deve ser um gancho irresistível e extremamente detalhado, usando o gatilho de "${data.psychologicalHook}" para chocar e prender a atenção nos primeiros 3 segundos. Deve ser uma frase que gere uma pergunta imediata na mente do espectador.`);
                 
+                // NOVA REGRA DE CONEXÃO EMOCIONAL
+                rules.push(`**CONEXÃO EMOCIONAL (PÚBLICO JOVEM):** Antes de qualquer ação frenética, estabeleça uma conexão emocional. O herói deve lutar por algo maior (amizade, promessa, proteção), criando identificação imediata com crianças e jovens. A história deve ter 'coração', não apenas luta.`);
+
                 if (data.catchphrase) {
                     const cleanCatchphrase = data.catchphrase.replace(/"/g, '');
                     rules.push(`**FRASE DE EFEITO (OPCIONAL E CONTEXTUAL):** Integre a frase "${cleanCatchphrase}" no momento de maior impacto do roteiro, onde ela faça sentido e eleve a emoção. A frase deve ser precedida por um contexto que justifique seu uso. Se não houver um encaixe natural e poderoso, NÃO a utilize.`);
                 }
 
                 rules.push(`**ESTRUTURA (INÍCIO, MEIO E FIM):** A história DEVE ter um ritmo crescente com uma estrutura clara:\n    * **Ato 1 - O Problema:** Apresente o herói enfrentando um desafio impossível (o início).\n    * **Ato 2 - O Desespero:** A tensão aumenta. O herói chega a um momento de **falsa derrota**, onde tudo parece perdido (o meio).\n    * **Ato 3 - A Virada e Reação do Vilão:** A vitória do herói acontece através da CTA. IMEDIATAMENTE APÓS, o vilão DEVE ter uma fala de derrota clara (Ex: "Não pode ser!", "Eu perdi de novo...", "Preciso fugir!") para criar um momento de satisfação para o espectador.\n    * **Ato 4 - O Fim:** O herói vence e faz o gancho final para a audiência.`);
-                rules.push(`**SEQUÊNCIA DE CTA DRAMÁTICA (OBRIGATÓRIO):** No momento de maior tensão (Clímax), execute esta sequência exata de 3 passos:\n    1. **O Pedido:** O herói (${data.charName}) quebra a 4ª parede e implora pela ajuda do espectador usando a estratégia "${data.ctaStyle}".\n    2. **A Zombaria (Fundo do Poço):** O Vilão (${data.villain}) deve INTERROMPER e rir, zombando que "ninguém vai dar o like" ou que o herói é "patético e está sozinho".\n    3. **O Reforço Desesperado:** O herói (ou o parceiro ${data.coStar}) reage chocado à zombaria e grita com urgência máxima: "Como assim?! Me ajude com o seu like AGORA para calar a boca dele!".`);
-                rules.push(`**FORMATO ESTRITO:**\n    * **Falas:** Use o formato "NOME DO PERSONAGEM EM MAIÚSCULAS: [Fala com pontuação e capitalização corretas, começando com letra maiúscula.]". **NÃO inclua ações ou descrições entre parênteses na linha da fala.**\n    * **Descrições de Cena:** Use no máximo 3 descrições de cena (linhas com apenas TEXTO EM MAIÚSCULAS): uma perto do início (mas NUNCA como a primeira linha), uma no meio e uma perto do fim. Elas devem ser cruciais para a narrativa.`);
-                rules.push(`**FINAL INTERATIVO VARIADO (SEM NARRADOR):** O roteiro DEVE terminar com o herói (${data.charName}) falando diretamente para a câmera. A fala final deve ser uma pergunta rápida e criativa para forçar a interação. Varie a pergunta a cada roteiro. Exemplos: "Qual emoji descreve essa batalha? Comente!", "Qual nome deveríamos dar para este ataque? Me diga nos comentários!", "Conseguimos! Quem vocês querem que eu enfrente na próxima vez?".`);
+                rules.push(`**SEQUÊNCIA DE CTA DRAMÁTICA (OBRIGATÓRIO):** No momento de maior tensão (Clímax), execute esta sequência exata de 3 passos:\n    1. **O Pedido:** O herói (${data.charName}) quebra a 4ª parede e implora pela ajuda do espectador usando a estratégia "${data.ctaStyle}".\n    2. **A Zombaria (Fundo do Poço):** O Vilão (${data.villain}) deve INTERROMPER e rir, zombando que "ninguém vai se inscrever" ou que o herói é "patético e está sozinho".\n    3. **O Reforço Desesperado:** O herói (ou o parceiro ${data.coStar}) reage chocado à zombaria e grita com urgência máxima: "Como assim?! Se inscrevam no canal AGORA para me dar energia e calar a boca dele! (Adapte o pedido de inscrição para a dificuldade atual)".`);
+                rules.push(`**FORMATO ESTRITO (PLANO DE SEQUÊNCIA PERFEITO):**\n    * **Falas:** Use o formato "NOME DO PERSONAGEM EM MAIÚSCULAS: [Fala com pontuação e capitalização corretas, começando com letra maiúscula.]". **NÃO inclua ações ou descrições entre parênteses na linha da fala.**\n    * **ESTRUTURA VISUAL (ALTERNÂNCIA OBRIGATÓRIA):** O roteiro deve ser um FLUXO PERFEITO de Short. Para isso, APÓS CADA FALA, você DEVE OBRIGATORIAMENTE inserir uma descrição de cena detalhada (TEXTO EM MAIÚSCULAS). Detalhe expressões, movimentos, fundos e reações. Se necessário, adicione cenas extras de transição para conectar os momentos. NUNCA coloque duas falas seguidas sem uma cena detalhada entre elas.`);
+                rules.push(`**FINAL INTERATIVO VARIADO (SEM NARRADOR):** O roteiro DEVE terminar com o herói (${data.charName}) falando diretamente para a câmera. Peça o LIKE relacionando ao tema (Ex: 'Deixe o like se você também ama o [Heroi]!', 'Deixe o like se você odeia injustiça!'). **Nunca peça para comentar Sim ou Não.**`);
 
                 const formattedRules = rules.map((rule, index) => `${index + 1}.  ${rule}`).join('\n');
 
 
-                return `Aja como um roteirista de alta performance e copywriter especialista em narrativas virais para YouTube Shorts. Sua missão é criar um roteiro ${durationMap[data.duration]} que intercala diálogos e descrições de cena.
+                return `Aja como um especialista em criações de histórias no estilo de Akira Toriyama (Dragon Ball Z) e roteirista de alta performance para YouTube Shorts. Sua missão é criar um roteiro ${durationMap[data.duration]} que intercala diálogos e descrições de cena.
 
 **UNIVERSO:** ${data.charUniverse}.
 **PERSONAGENS:** ${characters} (use no máximo 3 personagens no total).
